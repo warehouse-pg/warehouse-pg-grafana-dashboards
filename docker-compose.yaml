@@ -1,0 +1,92 @@
+networks:
+  whpg:
+    name: whpg
+    driver: bridge
+
+services:
+  
+  whpg-exporter-01:
+    image: whpg_exporter:latest
+    container_name: whpg_exporter-01
+    ports:
+      - "9187:9187"
+    environment:
+      WHPG_OBS_DSN: "host=host.docker.internal port=6432 dbname=whpgtest user=gpadmin password=postgres sslmode=disable"
+      WHPG_OBS_LOG_LEVEL: "${WHPG_OBS_LOG_LEVEL}"
+    restart: unless-stopped
+    networks:
+      - whpg
+  
+  whpg-exporter-02:
+    image: whpg_exporter:latest
+    container_name: whpg_exporter-02
+    ports:
+      - "9188:9187"
+    environment:
+      WHPG_OBS_DSN: "host=host.docker.internal port=6431 dbname=whpgtest user=gpadmin password=postgres sslmode=disable"
+      WHPG_OBS_LOG_LEVEL: "${WHPG_OBS_LOG_LEVEL}"
+    restart: unless-stopped
+    networks:
+      - whpg
+  
+
+  
+  prometheus-01:
+    container_name: prometheus-01
+    image: prom/prometheus:v3.5.0
+    ports:
+      - "9090:9090"
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yaml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.external-url=http://prometheus-01:9090'
+      - '--web.route-prefix=/'
+      - '--storage.tsdb.retention.time=90d'
+      - '--storage.tsdb.retention.size=50GB'
+    volumes:
+      - ./prometheus/prometheus-01.yaml:/etc/prometheus/prometheus.yaml
+      - prometheus-01_data:/prometheus
+    networks:
+      - whpg
+  
+  prometheus-02:
+    container_name: prometheus-02
+    image: prom/prometheus:v3.5.0
+    ports:
+      - "9091:9090"
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yaml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.external-url=http://prometheus-02:9091'
+      - '--web.route-prefix=/'
+      - '--storage.tsdb.retention.time=90d'
+      - '--storage.tsdb.retention.size=50GB'
+    volumes:
+      - ./prometheus/prometheus-02.yaml:/etc/prometheus/prometheus.yaml
+      - prometheus-02_data:/prometheus
+    networks:
+      - whpg
+  
+
+  grafana:
+    image: grafana/grafana:12.1.1
+    container_name: grafana
+    ports:
+      - "${GRAFANA_PORT:-3000}:3000"
+    environment:
+      GF_SECURITY_ADMIN_USER: "${GRAFANA_ADMIN_USER:-admin}"
+      GF_SECURITY_ADMIN_PASSWORD: "${GRAFANA_PASSWORD:-secret}"
+      GF_USERS_ALLOW_SIGN_UP: false
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./grafana/provisioning:/etc/grafana/provisioning
+    networks:
+      - whpg
+
+volumes:
+  
+  prometheus-01_data:
+  
+  prometheus-02_data:
+  
+  grafana-data:
