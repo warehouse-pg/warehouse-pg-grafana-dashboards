@@ -473,7 +473,7 @@
       },
       "id": 30,
       "panels": [],
-      "title": "Disk Info",
+      "title": "Disk Usage by Mount Points",
       "type": "row"
     },
     {
@@ -723,7 +723,7 @@
           "refId": "B"
         }
       ],
-      "title": "Cordinator Disk Usage",
+      "title": "Cordinator",
       "type": "piechart"
     },
     {
@@ -1616,6 +1616,7 @@
           ]
         },
         "definition": "label_values(warehousepg_observability_du_used_pct_segments, mountpoint)",
+        "hide": 2,
         "includeAll": true,
         "label": "Mountpoint",
         "multi": true,
@@ -1640,5 +1641,5 @@
   "timezone": "browser",
   "title": "Warehouse PG Dashboard Demo",
   "uid": "warehousepg_dashboard_demo_edb",
-  "version": 2
+  "version": 4
 }
