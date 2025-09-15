@@ -38,8 +38,7 @@ Thumbs.db
 # Binary output directory
 bin/
 dist/
-
-.env
+config_local.py
 
 grafana/provisioning/datasources/
 prometheus/

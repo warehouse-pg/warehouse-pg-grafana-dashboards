@@ -1,12 +1,12 @@
 apiVersion: 1
 
 datasources:
-{% for i in range(1, config.number_of_whpg_cluster + 1) %}
-  - name: DS_Cluster{{ i }}
+{% for cluster, cluster_dsn in config.WHPG_OBS_DSN_DICT.items() %}
+  - name: {{ cluster }}_DS
     type: prometheus
     access: proxy
-    url: http://prometheus-{{ '%02d' % i }}:9090
-    isDefault: {{ 'true' if i == 1 else 'false' }}
+    url: http://prometheus-{{ '%02s' % cluster }}:9090
+    isDefault: {{ 'true' if loop.index == 1 else 'false' }}
     editable: false
-    uid: DS_PROMETHEUS_{{ i }}
+    uid: DS_PROMETHEUS_{{ cluster }}
 {% endfor %}

@@ -2,11 +2,11 @@ global:
   scrape_interval: 15s
   evaluation_interval: 15s
   external_labels:
-    replica: "prometheus-{{ '%02d' % instance_index }}"
-    cluster: "cluster{{ instance_index }}"
+    replica: "prometheus-{{ '%02s' % cluster }}"
+    cluster: "cluster{{ cluster }}"
 
 scrape_configs:
   - job_name: whpg
     static_configs:
       - targets:
-          - "whpg-exporter-{{ '%02d' % instance_index }}:9187"
+          - "whpg-exporter-{{ '%02s' % cluster }}:9187"

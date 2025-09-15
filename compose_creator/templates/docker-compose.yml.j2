@@ -4,36 +4,36 @@ networks:
     driver: bridge
 
 services:
-  {% for i in range(1, config.exporter_count + 1) %}
-  whpg-exporter-{{ '%02d' % i }}:
+  {% for cluster, cluster_dsn in config.WHPG_OBS_DSN_DICT.items() %}
+  whpg-exporter-{{ '%02s' % cluster }}:
     image: whpg_exporter:latest
-    container_name: whpg_exporter-{{ '%02d' % i }}
+    container_name: whpg_exporter-{{ '%02s' % cluster }}
     ports:
-      - "{{ 9186 + i }}:9187"
+      - "{{ 9186 + loop.index }}:9187"
     environment:
-      WHPG_OBS_DSN: {{ config.whpg_obs_dsn_list[i-1] | tojson }}
-      WHPG_OBS_LOG_LEVEL: "${WHPG_OBS_LOG_LEVEL}"
+      WHPG_OBS_DSN: {{ cluster_dsn }}
+      WHPG_OBS_LOG_LEVEL: {{config.WHPG_OBS_LOG_LEVEL}}
     restart: unless-stopped
     networks:
       - whpg
   {% endfor %}
 
-  {% for i in range(1, config.prometheus_count + 1) %}
-  prometheus-{{ '%02d' % i }}:
-    container_name: prometheus-{{ '%02d' % i }}
+  {% for cluster, cluster_dsn in config.WHPG_OBS_DSN_DICT.items() %}
+  prometheus-{{ '%02s' % cluster }}:
+    container_name: prometheus-{{ '%02s' % cluster }}
     image: prom/prometheus:v3.5.0
     ports:
-      - "{{ 9089 + i }}:9090"
+      - "{{ 9089 + loop.index }}:9090"
     command:
       - '--config.file=/etc/prometheus/prometheus.yaml'
       - '--storage.tsdb.path=/prometheus'
-      - '--web.external-url=http://prometheus-{{ '%02d' % i }}:{{ 9089 + i }}'
+      - '--web.external-url=http://prometheus-{{ '%02d' % loop.index }}:{{ 9089 + loop.index }}'
       - '--web.route-prefix=/'
-      - '--storage.tsdb.retention.time={{ '%02s' % config.prometheus_retention_time }}'
-      - '--storage.tsdb.retention.size={{ '%02s' % config.prometheus_retention_size }}'
+      - '--storage.tsdb.retention.time={{ '%02s' % config.PROMETHEUS_RETENTION_TIME }}'
+      - '--storage.tsdb.retention.size={{ '%02s' % config.PROMETHEUS_RETENTION_SIZE }}'
     volumes:
-      - ./prometheus/prometheus-{{ '%02d' % i }}.yaml:/etc/prometheus/prometheus.yaml
-      - prometheus-{{ '%02d' % i }}_data:/prometheus
+      - ./prometheus/prometheus-{{ '%02s' % cluster }}.yaml:/etc/prometheus/prometheus.yaml
+      - prometheus-{{ '%02s' % cluster }}_data:/prometheus
     networks:
       - whpg
   {% endfor %}
@@ -42,10 +42,10 @@ services:
     image: grafana/grafana:12.1.1
     container_name: grafana
     ports:
-      - "${GRAFANA_PORT:-3000}:3000"
+      - 3000:{{config.GRAFANA_PORT}}
     environment:
-      GF_SECURITY_ADMIN_USER: "${GRAFANA_ADMIN_USER:-admin}"
-      GF_SECURITY_ADMIN_PASSWORD: "${GRAFANA_PASSWORD:-secret}"
+      GF_SECURITY_ADMIN_USER: {{config.GRAFANA_ADMIN_USER}}
+      GF_SECURITY_ADMIN_PASSWORD: {{config.GRAFANA_PASSWORD}}
       GF_USERS_ALLOW_SIGN_UP: false
     volumes:
       - grafana-data:/var/lib/grafana
@@ -54,7 +54,7 @@ services:
       - whpg
 
 volumes:
-  {% for i in range(1, config.prometheus_count + 1) %}
-  prometheus-{{ '%02d' % i }}_data:
+  {% for cluster, cluster_dsn in config.WHPG_OBS_DSN_DICT.items() %}
+  prometheus-{{ '%02s' % cluster }}_data:
   {% endfor %}
   grafana-data:
