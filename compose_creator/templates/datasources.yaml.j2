@@ -7,6 +7,6 @@ datasources:
     access: proxy
     url: http://prometheus-{{ '%02s' % cluster }}:9090
     isDefault: {{ 'true' if loop.index == 1 else 'false' }}
-    editable: false
+    editable: true
     uid: DS_PROMETHEUS_{{ cluster }}
 {% endfor %}
