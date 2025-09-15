@@ -24,7 +24,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 2,
-  "id": 4,
+  "id": 9,
   "links": [],
   "panels": [
     {
@@ -477,49 +477,254 @@
       "type": "row"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${Cluster}"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "fieldMinMax": true,
+          "mappings": [],
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "semi-dark-yellow",
+                "value": 70
+              },
+              {
+                "color": "red",
+                "value": 85
+              },
+              {
+                "color": "dark-red",
+                "value": 95
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
       "gridPos": {
-        "h": 6,
-        "w": 8,
+        "h": 5,
+        "w": 24,
         "x": 0,
         "y": 9
       },
-      "id": 31,
-      "libraryPanel": {
-        "name": "Cordinator Disk Usage",
-        "uid": "bexqrir2ny5mob"
-      },
-      "title": "Cordinator Disk Usage",
-      "type": "library-panel-ref"
-    },
-    {
-      "gridPos": {
-        "h": 6,
-        "w": 8,
-        "x": 8,
-        "y": 9
-      },
       "id": 32,
-      "libraryPanel": {
-        "name": "Disk Average Usage for Segments",
-        "uid": "dexqrj749yw3kc"
+      "links": [
+        {
+          "title": "Detailed Analysis Dashboard",
+          "url": "/d/warehousepg_detailed_view_edb/BQoYawrHg?orgId=1&cluster=${Cluster:queryparam}&hostname=${hostname:queryparam}"
+        }
+      ],
+      "maxPerRow": 4,
+      "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 89,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "sizing": "auto",
+        "text": {
+          "percentSize": 100,
+          "titleSize": 10
+        }
       },
-      "title": "Disk Average Usage for Segments",
-      "type": "library-panel-ref"
+      "pluginVersion": "12.1.1",
+      "repeat": "mountpoint",
+      "repeatDirection": "h",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Cluster}"
+          },
+          "disableTextWrap": false,
+          "editorMode": "builder",
+          "exemplar": false,
+          "expr": "avg by(mountpoint) (warehousepg_observability_du_used_pct_segments{mountpoint=\"$mountpoint\"})",
+          "format": "time_series",
+          "fullMetaSearch": false,
+          "hide": false,
+          "includeNullMetadata": true,
+          "instant": false,
+          "legendFormat": "Avg ",
+          "range": true,
+          "refId": "A",
+          "useBackend": false
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Cluster}"
+          },
+          "disableTextWrap": false,
+          "editorMode": "builder",
+          "expr": "max by(mountpoint) (warehousepg_observability_du_used_pct_segments{mountpoint=\"$mountpoint\"})",
+          "fullMetaSearch": false,
+          "hide": false,
+          "includeNullMetadata": true,
+          "instant": false,
+          "legendFormat": "Max",
+          "range": true,
+          "refId": "B",
+          "useBackend": false
+        }
+      ],
+      "title": "$mountpoint",
+      "type": "gauge"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${Cluster}"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "fieldMinMax": true,
+          "mappings": [],
+          "unit": "percent"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Available"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "semi-dark-green",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "/etc/ssh"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "semi-dark-yellow",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "/"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "semi-dark-purple",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
       "gridPos": {
-        "h": 6,
+        "h": 5,
         "w": 8,
-        "x": 16,
-        "y": 9
+        "x": 0,
+        "y": 14
       },
-      "id": 33,
-      "libraryPanel": {
-        "name": "Disk Max Usage for Segments",
-        "uid": "cexqrjjfbgjy8a"
+      "id": 31,
+      "options": {
+        "displayLabels": [
+          "percent"
+        ],
+        "legend": {
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true,
+          "values": []
+        },
+        "pieType": "donut",
+        "reduceOptions": {
+          "calcs": [],
+          "fields": "",
+          "values": false
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
       },
-      "title": "Disk Max Usage for Segments",
-      "type": "library-panel-ref"
+      "pluginVersion": "12.1.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Cluster}"
+          },
+          "disableTextWrap": false,
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "avg by(hostname, mountpoint)(warehousepg_observability_du_used_pct_coordinator)",
+          "format": "time_series",
+          "fullMetaSearch": false,
+          "hide": false,
+          "includeNullMetadata": true,
+          "instant": true,
+          "legendFormat": "{{mountpoint}}",
+          "range": false,
+          "refId": "A",
+          "useBackend": false
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Cluster}"
+          },
+          "editorMode": "code",
+          "expr": "100 - sum(avg by(hostname, mountpoint)(warehousepg_observability_du_used_pct_coordinator))",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Available",
+          "range": true,
+          "refId": "B"
+        }
+      ],
+      "title": "Cordinator Disk Usage",
+      "type": "piechart"
     },
     {
       "collapsed": false,
@@ -527,7 +732,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 15
+        "y": 19
       },
       "id": 23,
       "panels": [],
@@ -539,6 +744,7 @@
         "type": "prometheus",
         "uid": "${Cluster}"
       },
+      "description": "",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -566,9 +772,15 @@
         "h": 4,
         "w": 24,
         "x": 0,
-        "y": 16
+        "y": 20
       },
       "id": 19,
+      "links": [
+        {
+          "title": "Detailed Analysis Dashboard",
+          "url": "/d/warehousepg_detailed_view_edb/BQoYawrHg?orgId=1&cluster=${Cluster:queryparam}&hostname=${hostname:queryparam}"
+        }
+      ],
       "maxPerRow": 6,
       "options": {
         "displayMode": "lcd",
@@ -587,7 +799,8 @@
           "calcs": [
             "lastNotNull"
           ],
-          "fields": "",
+          "fields": "/.*/",
+          "limit": 1,
           "values": false
         },
         "showUnfilled": true,
@@ -596,11 +809,9 @@
           "titleSize": 12,
           "valueSize": 12
         },
-        "valueMode": "text"
+        "valueMode": "color"
       },
       "pluginVersion": "12.1.1",
-      "repeat": "hostname",
-      "repeatDirection": "h",
       "targets": [
         {
           "datasource": {
@@ -608,8 +819,8 @@
             "uid": "${Cluster}"
           },
           "disableTextWrap": false,
-          "editorMode": "builder",
-          "expr": "warehousepg_observability_loadavg_1min{hostname=\"$hostname\"}",
+          "editorMode": "code",
+          "expr": "avg (warehousepg_observability_loadavg_1min)",
           "format": "time_series",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
@@ -624,8 +835,8 @@
             "uid": "${Cluster}"
           },
           "disableTextWrap": false,
-          "editorMode": "builder",
-          "expr": "warehousepg_observability_loadavg_5min{hostname=\"$hostname\"}",
+          "editorMode": "code",
+          "expr": "avg (warehousepg_observability_loadavg_5min)",
           "format": "time_series",
           "fullMetaSearch": false,
           "hide": false,
@@ -642,8 +853,8 @@
             "uid": "${Cluster}"
           },
           "disableTextWrap": false,
-          "editorMode": "builder",
-          "expr": "warehousepg_observability_loadavg_15min{hostname=\"$hostname\"}",
+          "editorMode": "code",
+          "expr": "avg (warehousepg_observability_loadavg_15min)",
           "fullMetaSearch": false,
           "hide": false,
           "includeNullMetadata": true,
@@ -654,7 +865,21 @@
           "useBackend": false
         }
       ],
-      "title": "$hostname",
+      "title": "Host Load average ",
+      "transformations": [
+        {
+          "id": "filterFieldsByName",
+          "options": {
+            "include": {
+              "names": [
+                "1 Min % Load",
+                "5 Min % Load",
+                "15 Min % Load"
+              ]
+            }
+          }
+        }
+      ],
       "type": "bargauge"
     },
     {
@@ -663,7 +888,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 20
+        "y": 24
       },
       "id": 29,
       "panels": [],
@@ -725,16 +950,16 @@
         ]
       },
       "gridPos": {
-        "h": 5,
+        "h": 4,
         "w": 12,
         "x": 0,
-        "y": 21
+        "y": 25
       },
       "id": 12,
       "links": [
         {
-          "title": "Detailed View",
-          "url": "/d/warehousepg_detaild_view_edb/BQoYawrHg?orgId=1&cluster=${Cluster:queryparam}&hostname=${hostname:queryparam}"
+          "title": "Detailed Analysis Dashboard",
+          "url": "/d/warehousepg_detailed_view_edb/BQoYawrHg?orgId=1&cluster=${Cluster:queryparam}&hostname=${hostname:queryparam}"
         }
       ],
       "maxPerRow": 12,
@@ -770,7 +995,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "dewyqvl00udj4a"
+            "uid": "${Cluster}"
           },
           "disableTextWrap": false,
           "editorMode": "code",
@@ -877,16 +1102,16 @@
         ]
       },
       "gridPos": {
-        "h": 5,
+        "h": 4,
         "w": 12,
         "x": 12,
-        "y": 21
+        "y": 25
       },
       "id": 3,
       "links": [
         {
-          "title": "MeMory Detailed Analysis",
-          "url": "/d/138fcf64-12ba-4c85-8114-c36948e3b7fb-new/BQoYawrHg?orgId=1&cluster=${Cluster:queryparam}&hostname=${hostname:queryparam}"
+          "title": "Detailed Analysis Dashboard",
+          "url": "/d/warehousepg_detailed_view_edb/BQoYawrHg?orgId=1&cluster=${Cluster:queryparam}&hostname=${hostname:queryparam}"
         }
       ],
       "maxPerRow": 12,
@@ -960,7 +1185,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 26
+        "y": 29
       },
       "id": 27,
       "panels": [],
@@ -1059,7 +1284,7 @@
         "h": 4,
         "w": 24,
         "x": 0,
-        "y": 27
+        "y": 30
       },
       "id": 6,
       "options": {
@@ -1080,7 +1305,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "dewyqvl00udj4a"
+            "uid": "${Cluster}"
           },
           "disableTextWrap": false,
           "editorMode": "builder",
@@ -1122,7 +1347,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 31
+        "y": 34
       },
       "id": 28,
       "panels": [],
@@ -1263,7 +1488,7 @@
         "h": 4,
         "w": 24,
         "x": 0,
-        "y": 32
+        "y": 35
       },
       "id": 10,
       "options": {
@@ -1362,11 +1587,9 @@
         "allValue": ".*",
         "allowCustomValue": true,
         "current": {
-          "text": [
-            "coordinator"
-          ],
+          "text": "All",
           "value": [
-            "coordinator"
+            "$__all"
           ]
         },
         "definition": "label_values(warehousepg_observability_loadavg_15min, hostname)",
@@ -1383,6 +1606,29 @@
         "refresh": 1,
         "regex": "",
         "type": "query"
+      },
+      {
+        "allowCustomValue": true,
+        "current": {
+          "text": "All",
+          "value": [
+            "$__all"
+          ]
+        },
+        "definition": "label_values(warehousepg_observability_du_used_pct_segments, mountpoint)",
+        "includeAll": true,
+        "label": "Mountpoint",
+        "multi": true,
+        "name": "mountpoint",
+        "options": [],
+        "query": {
+          "qryType": 5,
+          "query": "label_values(warehousepg_observability_du_used_pct_segments, mountpoint)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
+        },
+        "refresh": 1,
+        "regex": "",
+        "type": "query"
       }
     ]
   },
@@ -1392,7 +1638,7 @@
   },
   "timepicker": {},
   "timezone": "browser",
-  "title": "Warehouse PG Dashboard",
-  "uid": "31e1a529-b76f-4274-87d1-de9f4c4fc0e9-new",
-  "version": 7
+  "title": "Warehouse PG Dashboard Demo",
+  "uid": "warehousepg_dashboard_demo_edb",
+  "version": 2
 }

@@ -24,16 +24,154 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 5,
+  "id": 10,
   "links": [],
   "panels": [
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 21,
+      "panels": [],
+      "title": "Load Average by Host",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${Cluster}"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-GrYlRd"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 24,
+        "x": 0,
+        "y": 1
+      },
+      "id": 20,
+      "maxPerRow": 12,
+      "options": {
+        "displayMode": "lcd",
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "maxVizHeight": 20,
+        "minVizHeight": 20,
+        "minVizWidth": 8,
+        "namePlacement": "left",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "limit": 1,
+          "values": false
+        },
+        "showUnfilled": true,
+        "sizing": "manual",
+        "text": {
+          "titleSize": 12,
+          "valueSize": 12
+        },
+        "valueMode": "color"
+      },
+      "pluginVersion": "12.1.1",
+      "repeat": "hostname",
+      "repeatDirection": "h",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Cluster}"
+          },
+          "disableTextWrap": false,
+          "editorMode": "builder",
+          "expr": "warehousepg_observability_loadavg_1min{hostname=\"$hostname\"}",
+          "format": "time_series",
+          "fullMetaSearch": false,
+          "includeNullMetadata": true,
+          "legendFormat": "1 Min % Load",
+          "range": true,
+          "refId": "A",
+          "useBackend": false
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Cluster}"
+          },
+          "disableTextWrap": false,
+          "editorMode": "builder",
+          "expr": "warehousepg_observability_loadavg_5min{hostname=\"$hostname\"}",
+          "format": "time_series",
+          "fullMetaSearch": false,
+          "hide": false,
+          "includeNullMetadata": true,
+          "instant": false,
+          "legendFormat": "5 Min % Load",
+          "range": true,
+          "refId": "B",
+          "useBackend": false
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Cluster}"
+          },
+          "disableTextWrap": false,
+          "editorMode": "builder",
+          "expr": "warehousepg_observability_loadavg_15min{hostname=\"$hostname\"}",
+          "fullMetaSearch": false,
+          "hide": false,
+          "includeNullMetadata": true,
+          "instant": false,
+          "legendFormat": "15 Min % Load",
+          "range": true,
+          "refId": "C",
+          "useBackend": false
+        }
+      ],
+      "title": "$hostname",
+      "type": "bargauge"
+    },
     {
       "collapsed": true,
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 0
+        "y": 5
       },
       "id": 17,
       "panels": [],
@@ -41,34 +179,240 @@
       "type": "row"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${Cluster}"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 11,
+            "gradientMode": "opacity",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineStyle": {
+              "fill": "solid"
+            },
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "semi-dark-yellow",
+                "value": 75
+              },
+              {
+                "color": "semi-dark-red",
+                "value": 85
+              },
+              {
+                "color": "dark-red",
+                "value": 95
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
       "gridPos": {
-        "h": 6,
-        "w": 13,
+        "h": 4,
+        "w": 12,
         "x": 0,
-        "y": 1
+        "y": 6
       },
       "id": 19,
-      "libraryPanel": {
-        "name": "Segments -",
-        "uid": "fexqs0qk1fpj4f"
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
       },
-      "title": "Segments",
-      "type": "library-panel-ref"
+      "pluginVersion": "12.1.1",
+      "repeatDirection": "h",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Cluster}"
+          },
+          "disableTextWrap": false,
+          "editorMode": "builder",
+          "exemplar": false,
+          "expr": "avg by(mountpoint) (warehousepg_observability_du_used_pct_coordinator)",
+          "format": "time_series",
+          "fullMetaSearch": false,
+          "includeNullMetadata": true,
+          "instant": false,
+          "legendFormat": "{{mountpoint}}",
+          "range": true,
+          "refId": "A",
+          "useBackend": false
+        }
+      ],
+      "title": "Cordinator",
+      "type": "timeseries"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${Cluster}"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 11,
+            "gradientMode": "opacity",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineStyle": {
+              "fill": "solid"
+            },
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "semi-dark-yellow",
+                "value": 75
+              },
+              {
+                "color": "semi-dark-red",
+                "value": 85
+              },
+              {
+                "color": "dark-red",
+                "value": 95
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
       "gridPos": {
-        "h": 6,
-        "w": 11,
-        "x": 13,
-        "y": 1
+        "h": 4,
+        "w": 12,
+        "x": 12,
+        "y": 6
       },
-      "id": 18,
-      "libraryPanel": {
-        "name": "Cordinator - ",
-        "uid": "eexqs0c6ugk5cd"
+      "id": 22,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
       },
-      "title": "Cordinator",
-      "type": "library-panel-ref"
+      "pluginVersion": "12.1.1",
+      "repeatDirection": "h",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Cluster}"
+          },
+          "disableTextWrap": false,
+          "editorMode": "builder",
+          "exemplar": false,
+          "expr": "avg by(mountpoint) (warehousepg_observability_du_used_pct_segments)",
+          "format": "time_series",
+          "fullMetaSearch": false,
+          "includeNullMetadata": true,
+          "instant": false,
+          "legendFormat": "{{mountpoint}}",
+          "range": true,
+          "refId": "A",
+          "useBackend": false
+        }
+      ],
+      "title": "Segments",
+      "type": "timeseries"
     },
     {
       "collapsed": false,
@@ -76,7 +420,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 7
+        "y": 10
       },
       "id": 12,
       "panels": [],
@@ -140,7 +484,7 @@
         "h": 5,
         "w": 24,
         "x": 0,
-        "y": 8
+        "y": 11
       },
       "id": 14,
       "maxPerRow": 12,
@@ -177,7 +521,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "dewyqvl00udj4a"
+            "uid": "${Cluster}"
           },
           "disableTextWrap": false,
           "editorMode": "builder",
@@ -322,7 +666,7 @@
         "h": 5,
         "w": 24,
         "x": 0,
-        "y": 13
+        "y": 16
       },
       "id": 8,
       "maxPerRow": 12,
@@ -403,7 +747,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 18
+        "y": 21
       },
       "id": 13,
       "panels": [],
@@ -467,7 +811,7 @@
         "h": 5,
         "w": 24,
         "x": 0,
-        "y": 19
+        "y": 22
       },
       "id": 15,
       "maxPerRow": 12,
@@ -652,7 +996,7 @@
         "h": 5,
         "w": 24,
         "x": 0,
-        "y": 24
+        "y": 27
       },
       "id": 11,
       "maxPerRow": 12,
@@ -676,7 +1020,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "dewyqvl00udj4a"
+            "uid": "${Cluster}"
           },
           "disableTextWrap": false,
           "editorMode": "code",
@@ -712,7 +1056,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "dewyqvl00udj4a"
+            "uid": "${Cluster}"
           },
           "disableTextWrap": false,
           "editorMode": "code",
@@ -786,6 +1130,6 @@
   "timepicker": {},
   "timezone": "browser",
   "title": "Warehouse PG Detailed View",
-  "uid": "warehousepg_detaild_view_edb",
-  "version": 3
+  "uid": "warehousepg_detailed_view_edb",
+  "version": 2
 }
