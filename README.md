@@ -22,7 +22,10 @@ and launch respective containers.
 3. Verify the containers
 `make status`
 
-4. Clean up the setup
+4. Stop the containers.
+`make stop`
+
+5. Clean everything
 `make clean`
 
 ## Start viewing dashboard in grafana
