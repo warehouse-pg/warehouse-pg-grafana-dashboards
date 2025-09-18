@@ -20,6 +20,7 @@ stop:
 
 .IGNORE: clean
 clean:
+	docker compose down
 	rm ./docker-compose.yaml
 	rm -rf ./prometheus/*
 	rm -rf ./grafana/provisioning/datasources/*

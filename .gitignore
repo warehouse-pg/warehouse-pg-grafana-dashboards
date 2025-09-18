@@ -34,7 +34,7 @@ Thumbs.db
 
 # Log files
 *.log
-
+__pycache__/
 # Binary output directory
 bin/
 dist/
