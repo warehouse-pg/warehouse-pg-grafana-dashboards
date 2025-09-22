@@ -272,7 +272,6 @@
         }
       },
       "pluginVersion": "12.1.1",
-      "repeatDirection": "h",
       "targets": [
         {
           "datasource": {
@@ -390,7 +389,6 @@
         }
       },
       "pluginVersion": "12.1.1",
-      "repeatDirection": "h",
       "targets": [
         {
           "datasource": {
@@ -1101,10 +1099,18 @@
         "allValue": ".*",
         "allowCustomValue": true,
         "current": {
-          "text": "All",
+          "text": [
+            "seg1",
+            "seg2"
+          ],
           "value": [
-            "$__all"
+            "seg1",
+            "seg2"
           ]
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${Cluster}"
         },
         "definition": "label_values(warehousepg_observability_loadavg_15min, hostname)",
         "includeAll": true,
@@ -1131,5 +1137,5 @@
   "timezone": "browser",
   "title": "Warehouse PG Detailed View",
   "uid": "warehousepg_detailed_view_edb",
-  "version": 2
+  "version": 4
 }
