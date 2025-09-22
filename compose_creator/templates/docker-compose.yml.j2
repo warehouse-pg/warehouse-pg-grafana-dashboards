@@ -11,7 +11,7 @@ services:
     ports:
       - "{{ 9186 + loop.index }}:9187"
     environment:
-      WHPG_OBS_DSN: {{ cluster_dsn }}
+      WHPG_OBS_DSN: "{{ cluster_dsn }}"
       WHPG_OBS_LOG_LEVEL: {{config.WHPG_OBS_LOG_LEVEL}}
     restart: unless-stopped
     networks:
