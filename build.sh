@@ -15,12 +15,13 @@ if [ -d "warehouse-pg-observability-exporter/.git" ]; then
   echo "Updating existing repo..."
   cd warehouse-pg-observability-exporter
   git pull
-  commit_info=$(git log -1 --pretty=format:"%h %s")
-  echo "Commit ID: $commit_info"
 else
   echo "Cloning repo..."
   git clone https://github.com/warehouse-pg/warehouse-pg-observability-exporter.git
+  cd warehouse-pg-observability-exporter
 fi
+commit_info=$(git log -1 --pretty=format:"%h %s")
+echo "Commit ID: $commit_info"
 
 docker build --platform=linux/amd64 -t whpg_exporter -f ./Dockerfile .
 
