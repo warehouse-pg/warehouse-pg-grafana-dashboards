@@ -465,7 +465,7 @@
           "expr": "warehousepg_observability_db_size",
           "instant": true,
           "legendFormat": "{{datname}}",
-          "range": true,
+          "range": false,
           "refId": "A"
         }
       ],
@@ -1291,7 +1291,7 @@
       },
       "gridPos": {
         "h": 4,
-        "w": 24,
+        "w": 12,
         "x": 0,
         "y": 31
       },
@@ -1348,6 +1348,106 @@
         }
       ],
       "title": "",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${Cluster}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 12,
+        "x": 12,
+        "y": 31
+      },
+      "id": 33,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.1.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${Cluster}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "warehousepg_observability_qu",
+          "instant": false,
+          "legendFormat": "{{username}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Queries per user",
       "type": "timeseries"
     },
     {
@@ -1658,7 +1758,7 @@
   },
   "timepicker": {},
   "timezone": "browser",
-  "title": "Warehouse PG Dashboard Demo",
+  "title": "WarehousePG",
   "uid": "warehousepg_dashboard_demo_edb",
-  "version": 20
+  "version": 23
 }

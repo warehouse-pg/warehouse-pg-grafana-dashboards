@@ -1135,7 +1135,7 @@
   },
   "timepicker": {},
   "timezone": "browser",
-  "title": "Warehouse PG Detailed View",
+  "title": "WarehousePG Detailed View",
   "uid": "warehousepg_detailed_view_edb",
   "version": 4
 }
