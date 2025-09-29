@@ -461,7 +461,9 @@
             "uid": "${Cluster}"
           },
           "editorMode": "code",
+          "exemplar": false,
           "expr": "warehousepg_observability_db_size",
+          "instant": true,
           "legendFormat": "{{datname}}",
           "range": true,
           "refId": "A"
