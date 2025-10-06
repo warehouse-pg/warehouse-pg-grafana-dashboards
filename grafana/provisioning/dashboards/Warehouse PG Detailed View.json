@@ -389,6 +389,8 @@
         }
       },
       "pluginVersion": "12.1.1",
+      "repeat": "filtered_hostname",
+      "repeatDirection": "h",
       "targets": [
         {
           "datasource": {
@@ -396,9 +398,9 @@
             "uid": "${Cluster}"
           },
           "disableTextWrap": false,
-          "editorMode": "builder",
+          "editorMode": "code",
           "exemplar": false,
-          "expr": "avg by(mountpoint) (warehousepg_observability_du_used_pct_segments)",
+          "expr": "warehousepg_observability_du_used_pct_segments{hostname=\"${filtered_hostname:raw}\"}",
           "format": "time_series",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
@@ -409,7 +411,7 @@
           "useBackend": false
         }
       ],
-      "title": "Segments",
+      "title": "$filtered_hostname",
       "type": "timeseries"
     },
     {
@@ -1121,6 +1123,33 @@
         "query": {
           "qryType": 5,
           "query": "label_values(warehousepg_observability_loadavg_15min, hostname)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
+        },
+        "refresh": 1,
+        "regex": "",
+        "type": "query"
+      },
+      {
+        "allValue": "",
+        "allowCustomValue": false,
+        "current": {
+          "text": "All",
+          "value": "$__all"
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${Cluster}"
+        },
+        "definition": "label_values(warehousepg_observability_du_available_segments{hostname=~\"$hostname\", hostname!~\"coordinator\"}, hostname)",
+        "hide": 2,
+        "includeAll": true,
+        "label": "filtered_hostname",
+        "multi": true,
+        "name": "filtered_hostname",
+        "options": [],
+        "query": {
+          "qryType": 5,
+          "query": "label_values(warehousepg_observability_du_available_segments{hostname=~\"$hostname\", hostname!~\"coordinator\"}, hostname)",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 1,
