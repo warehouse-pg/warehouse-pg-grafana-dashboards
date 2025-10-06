@@ -117,7 +117,7 @@
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "warehousepg_observability_loadavg_1min{hostname=\"$hostname\"}",
+          "expr": "warehousepg_observability_loadavg_1min{hostname=\"${hostname:raw}\"}",
           "format": "time_series",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
@@ -133,7 +133,7 @@
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "warehousepg_observability_loadavg_5min{hostname=\"$hostname\"}",
+          "expr": "warehousepg_observability_loadavg_5min{hostname=\"${hostname:raw}\"}",
           "format": "time_series",
           "fullMetaSearch": false,
           "hide": false,
@@ -151,7 +151,7 @@
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "warehousepg_observability_loadavg_15min{hostname=\"$hostname\"}",
+          "expr": "warehousepg_observability_loadavg_15min{hostname=\"${hostname:raw}\"}",
           "fullMetaSearch": false,
           "hide": false,
           "includeNullMetadata": true,
@@ -187,7 +187,7 @@
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "thresholds"
+            "mode": "palette-classic-by-name"
           },
           "custom": {
             "axisBorderShow": false,
@@ -304,7 +304,7 @@
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "thresholds"
+            "mode": "palette-classic-by-name"
           },
           "custom": {
             "axisBorderShow": false,
@@ -523,7 +523,7 @@
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "warehousepg_observability_mu_memtotal{hostname=\"$hostname\"} - warehousepg_observability_mu_memfree{hostname=\"$hostname\"}",
+          "expr": "warehousepg_observability_mu_memtotal{hostname=\"${hostname:raw}\"} - warehousepg_observability_mu_memfree{hostname=\"${hostname:raw}\"}",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "legendFormat": "Used",
@@ -538,7 +538,7 @@
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "warehousepg_observability_mu_memfree{hostname=\"$hostname\"}",
+          "expr": "warehousepg_observability_mu_memfree{hostname=\"${hostname:raw}\"}",
           "fullMetaSearch": false,
           "hide": false,
           "includeNullMetadata": true,
@@ -693,7 +693,7 @@
           },
           "disableTextWrap": false,
           "editorMode": "code",
-          "expr": "warehousepg_observability_mu_memtotal{hostname=\"$hostname\"}",
+          "expr": "warehousepg_observability_mu_memtotal{hostname=\"${hostname:raw}\"}",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "legendFormat": "Total",
@@ -708,7 +708,7 @@
           },
           "disableTextWrap": false,
           "editorMode": "code",
-          "expr": "warehousepg_observability_mu_memfree{hostname=\"$hostname\"}",
+          "expr": "warehousepg_observability_mu_memfree{hostname=\"${hostname:raw}\"}",
           "fullMetaSearch": false,
           "hide": false,
           "includeNullMetadata": true,
@@ -725,7 +725,7 @@
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "warehousepg_observability_mu_memtotal{hostname=\"$hostname\"} - warehousepg_observability_mu_memfree{hostname=\"$hostname\"}",
+          "expr": "warehousepg_observability_mu_memtotal{hostname=\"${hostname:raw}\"} - warehousepg_observability_mu_memfree{hostname=\"${hostname:raw}\"}",
           "fullMetaSearch": false,
           "hide": false,
           "includeNullMetadata": true,
@@ -850,7 +850,7 @@
           },
           "disableTextWrap": false,
           "editorMode": "code",
-          "expr": "warehousepg_observability_mu_swaptotal{hostname=\"$hostname\"} - warehousepg_observability_mu_swapfree{hostname=\"$hostname\"}",
+          "expr": "warehousepg_observability_mu_swaptotal{hostname=\"${hostname:raw}\"} - warehousepg_observability_mu_swapfree{hostname=\"${hostname:raw}\"}",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "legendFormat": "Used",
@@ -865,7 +865,7 @@
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "warehousepg_observability_mu_swapfree{hostname=\"$hostname\"}",
+          "expr": "warehousepg_observability_mu_swapfree{hostname=\"${hostname:raw}\"}",
           "fullMetaSearch": false,
           "hide": false,
           "includeNullMetadata": true,
