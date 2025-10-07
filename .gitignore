@@ -43,3 +43,4 @@ config_local.py
 grafana/provisioning/datasources/
 prometheus/
 warehouse-pg-observability-exporter/
+docker-compose.yaml

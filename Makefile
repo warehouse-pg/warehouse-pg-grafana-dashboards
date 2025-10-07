@@ -1,3 +1,5 @@
+include token.mk
+
 all:
 	@echo ""
 	@echo "WarehousePG cluster observability setup"
@@ -24,10 +26,6 @@ clean:
 	rm ./docker-compose.yaml
 	rm -rf ./prometheus/*
 	rm -rf ./grafana/provisioning/datasources/*
-	rm -rf ./warehouse-pg-observability-exporter/*
-	rm -rf ./warehouse-pg-observability-exporter/.[!.]*
-	rm -rf ./warehouse-pg-observability-exporter/..?*
-	rmdir ./warehouse-pg-observability-exporter
 	docker rmi whpg_exporter
 
 status:

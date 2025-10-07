@@ -67,5 +67,5 @@ for cluster, cluster_dsn in config.WHPG_OBS_DSN_DICT.items():
         f.write(rendered)
 print("prometheus.yaml generated successfully.")
 
-print(f"✅ Created docker compose for observability stack for {config.NUMBER_OF_WHPG_CLUSTER} cluster.")
+print(f"Created docker compose for observability stack for {config.NUMBER_OF_WHPG_CLUSTER} cluster.")
 

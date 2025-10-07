@@ -1,0 +1,17 @@
+# from commandline arguments
+FROM rockylinux:9
+
+# download setup.rpm.sh
+RUN --mount=type=secret,id=edbtoken_secret --mount=type=secret,id=edbrepository_secret curl -u token:$(cat /run/secrets/edbtoken_secret) -1sLf https://downloads.enterprisedb.com/basic/$(cat /run/secrets/edbrepository_secret)/setup.rpm.sh -o /root/setup.rpm.sh
+
+#RUN dnf update -y
+RUN dnf install -y make
+
+# install the database from RPM
+RUN chmod u+x /root/setup.rpm.sh && \
+    /root/setup.rpm.sh
+
+RUN dnf install -y edb-whpg7-observability-exporter && dnf clean all
+
+EXPOSE 9187
+CMD ["whpg_observability_exporter"]
