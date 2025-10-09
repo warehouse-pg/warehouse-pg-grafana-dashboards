@@ -19,7 +19,7 @@ You need to install this extension on the **coordinator**, **standby**, and **al
 
 2. Download the extension on the coordinator
     ```
-    sudo wget edb-whpg7-observability-0.1.0-0.el9.x86_64.rpm
+    sudo wget edb-whpg7-observability.rpm
    ```
 3. Copy the RPM to all hosts<br/>Ensure that the all_hosts file contains the list of hostnames for all nodes in the cluster.
     ```

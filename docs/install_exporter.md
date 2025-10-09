@@ -17,7 +17,7 @@ The exporter can be installed either on the coordinator host or on any other Lin
    5. Follow the instructions for setting up the EDB repository.
 2. Install the exporter RPM
     ```
-    sudo dnf install edb-whpg7-observability-exporter-7bcdafd-0.0.1.el9.x86_64.rpm
+    sudo dnf install edb-whpg7-observability-exporter.rpm
     ```
    
 3. Configure the connection URL<br >
