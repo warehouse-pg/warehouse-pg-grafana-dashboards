@@ -1,6 +1,5 @@
 # Setting Up the WarehousePG Observability Exporter
-The **Observability Exporter** queries the views in the observability schema and exposes WarehousePG metrics at the _/metrics_ endpoint.
-These metrics can be scraped by **Prometheus** and visualized in **Grafana**.
+To install the observability exporter, follow the instructions here.
 
 The exporter can be installed either on the coordinator host or on any other Linux host.
 

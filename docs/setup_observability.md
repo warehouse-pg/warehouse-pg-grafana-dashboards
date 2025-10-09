@@ -1,9 +1,9 @@
 # Monitoring setup for WarehousePG
 This guide explains how to configure monitoring for a WarehousePG cluster using **Prometheus** and **Grafana**.
 <br>The WarehousePG monitoring stack includes the following components:
-1. **Extension** - Provides live monitoring data from the WarehousePG cluster.
-2. **Exporter** - Collects and exposes data from the WarehousePG cluster in the form of metrics.
-3. **Prometheus** - Stores historical data (or a similar time-series database).
+1. **Extension** - Creates views that exposes monitoring data for the WarehousePG cluster.
+2. **Exporter** - Collects metrics from the WarehousePG cluster using the monitoring extension and exposes them in a format compatible with Prometheus for real-time monitoring.
+3. **Prometheus** - Stores historical data.
 4. **Grafana** - Creates dashboards and visual graphs
 
 ## Setup
