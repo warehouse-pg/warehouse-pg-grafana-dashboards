@@ -51,8 +51,16 @@ To install the observability exporter, follow the instructions here.
 
 1. Download and install the exporter RPM from EDB repository.
 
+RHEL 7:
+
 ```
 sudo dnf install edb-whpg7-observability-exporter
+```
+
+RHEL 6:
+
+```
+sudo yum install edb-whpg7-observability-exporter
 ```
    
 2. Configure the connection URL
