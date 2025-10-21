@@ -21,8 +21,16 @@ The database extension creates the `observability` schema in the database, which
 
 Download the RPM from the EDB repository, and install it on all hosts (coordinator, standby, and all segments).
 
+RHEL 7:
+
 ```
 sudo dnf install edb-whpg7-observability
+```
+
+RHEL 6:
+
+```
+sudo yum install edb-whpg7-observability
 ```
 
 In a database of your choice, execute the following command:
