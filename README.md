@@ -122,7 +122,7 @@ export WHPG_OBS_PROM_PORT=<port_number>     # Default: 9187
 export WHPG_OBS_LOG_LEVEL=<level>           # Options: debug, info, warn
 ```
 
-Note: the default port for the Prometheus dataabse is `9187`.
+Note: the default port for the Exporter is `9187`.
 
 4. Start the exporter
 
