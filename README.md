@@ -51,7 +51,7 @@ The views are documented in the [Extension documentation](Extension.md).
 
 The [Prometheus Exporter](https://prometheus.io/docs/instrumenting/exporters/) connects to the WHPG database and exclusively uses the views in the `observability` schema to gather data. It exposes a `/metrics` endpoint to be consumed by Prometheus for metrics.
 
-The Exporter must be able to connect to the WHPG database, and requires a superuser account. The Exporter is lightweight and does not require a lot of CPU or memory resources. It can run on the coordinator, the standby, or an external host.
+The Exporter must be able to connect to the WHPG database, and requires either a superuser account, or all tables and views in the `observability` schema must be accessible by the designated rolename used fo rthe Exporter. The Exporter is lightweight and does not require a lot of CPU or memory resources. It can run on the coordinator, the standby, or an external host.
 
 To install the observability exporter, follow the instructions here.
 
