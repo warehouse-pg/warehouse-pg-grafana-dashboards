@@ -59,18 +59,34 @@ To install the observability exporter, follow the instructions here.
 
 1. Download and install the exporter RPM from EDB repository.
 
-RHEL 7:
+#### RHEL 8, 9
+
+For WHPG 7:
 
 ```
 sudo dnf install edb-whpg7-observability-exporter
 ```
 
-RHEL 6:
+For WHPG 6:
+
+```
+sudo dnf install edb-whpg6-observability-exporter
+```
+
+#### RHEL 7
+
+For WHPG 7:
 
 ```
 sudo yum install edb-whpg7-observability-exporter
 ```
-   
+
+For WHPG 6:
+
+```
+sudo yum install edb-whpg6-observability-exporter
+```
+
 2. Configure the connection URL
 
 Set the environment variable to allow the exporter to connect to the WarehousePG cluster:
