@@ -49,7 +49,7 @@ The views are documented in the [Extension documentation](Extension.md).
 
 ## WarehousePG Observability Exporter
 
-The [Prometheus Exporter](https://prometheus.io/docs/instrumenting/exporters/) connects to the WHPG database and exclusively uses the views in the `observability` schema to gather data. This data is exported in machine-readable format to be consumed by Grafana and other tools.
+The [Prometheus Exporter](https://prometheus.io/docs/instrumenting/exporters/) connects to the WHPG database and exclusively uses the views in the `observability` schema to gather data. It exposes a `/metrics` endpoint to be consumed by Prometheus for metrics.
 
 The Exporter must be able to connect to the WHPG database, and requires a superuser account. The Exporter is lightweight and does not require a lot of CPU or memory resources. It can run on the coordinator, the standby, or an external host.
 
