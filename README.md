@@ -1,5 +1,9 @@
 # Grafana Dashboards for WarehousePG
 
+> [!CAUTION]
+> This feature is in Technical Preview and not yet recommended for production deployments. We recommend that you try this feature in test or development environments.
+
+
 ## Observability for WarehousePG
 
 The Observability for [WarehousePG](https://warehouse-pg.io/) (WHPG) consists of two separate packages: This is intentional in order to separate the data gathering from data storage and data display. This approach allows to minimize required permissions to the database, and also allows multiple forms of visualization and alerting.
