@@ -1,7 +1,7 @@
 # Grafana Dashboards for WarehousePG
 
-[!CAUTION]
-This software is for preview use only. Should not be used in production.
+> [!CAUTION]
+> This software is for preview use only. Should not be used in production.
 
 ## Observability for WarehousePG
 
