@@ -1680,8 +1680,8 @@
       {
         "allowCustomValue": false,
         "current": {
-          "text": "prometheus",
-          "value": "aexiwz0x3rvnkd"
+          "text": "DS_PROMETHEUS",
+          "value": "DS_PROMETHEUS"
         },
         "includeAll": false,
         "label": "Cluster",
@@ -1758,7 +1758,7 @@
   },
   "timepicker": {},
   "timezone": "browser",
-  "title": "WarehousePG",
+  "title": "WarehousePG-Overview",
   "uid": "warehousepg_dashboard_demo_edb",
   "version": 23
 }

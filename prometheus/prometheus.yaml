@@ -1,0 +1,31 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+scrape_configs:
+
+  # -------------------------------------------------
+  # Job: whpg_exporter running locally on host machine
+  # -------------------------------------------------
+  - job_name: 'whpg_exporter'  # A unique name for this scrape job
+    static_configs:
+      - targets: ['host.docker.internal:9187']
+        # List of endpoints to scrape metrics from
+        # 'host.docker.internal' allows the containerized Prometheus
+        # to reach services running on the host (macOS/Windows)
+        # Port 9187 must be the host-mapped port of your exporter
+        #
+        # NOTE: For this to work on Linux, the prometheus service
+        # in docker-compose.yml must have the 'extra_hosts' setting.
+
+  # -------------------------------------------------
+  # Job: Remote exporter running on AWS EC2
+  # -------------------------------------------------
+  # Uncomment and configure the following block to scrape metrics
+  # from an exporter running on a remote AWS machine.
+  # Ensure the EC2 Security Group allows inbound traffic to the port.
+  # - job_name: 'remote-aws-exporter'
+  #   static_configs:
+  #     # Replace '12.34.56.78' with your EC2 instance's public IP
+  #     # Replace '9100' with the port your exporter is running on
+  #     - targets: ['12.34.56.78:9100'] # <-- CHANGE THIS - EC2_PUBLIC_IP:PORT
