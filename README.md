@@ -202,3 +202,9 @@ EDB provides a set of JSON configuration files for Grafana in the [Grafana Dashb
 3. Access Dashboard
 
 Navigate to Dashboards in Grafana and select the WarehousePG dashboard to view the monitoring graphs.
+
+## Configuring Prometheus and Grafana in container environment
+Use this docker-compose example to spin up Prometheus and Grafana in containers.It works out of the box and
+a few small tweaks to complete the observability setup.
+Modify prometheus/prometheus.yml as per above recommendations before starting containers.Once both containers
+are running you can import jsons from the Sample-dashboard folders.
