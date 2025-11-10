@@ -1,0 +1,50 @@
+
+services:
+  # ---------------------------
+  # Prometheus service
+  # ---------------------------
+  prometheus-whpg:
+    image: prom/prometheus:v3.5.0
+    container_name: prometheus-whpg
+    ports:
+      - "9092:9090"  # Host port 9092 maps to Prometheus container port 9090
+    volumes:
+      - ./prometheus/:/etc/prometheus/  # Local config directory mounted into container
+      - prometheus:/prometheus          # Named volume to persist metrics/TSDB
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yaml'  # Config file path
+      - '--storage.tsdb.path=/prometheus'                # TSDB data storage path
+      - '--storage.tsdb.retention.time=30d'             # Keep 30 days of metrics
+    restart: unless-stopped
+    # # --- Use this on Linux to scrape other local containers---
+    # extra_hosts:
+    #   - "host.docker.internal:host-gateway"
+    # # ------------------------
+
+  # ---------------------------
+  # Grafana service
+  # ---------------------------
+  grafana-whpg:
+    image: grafana/grafana:12.1.1
+    container_name: grafana-whpg
+    depends_on:
+      - prometheus-whpg  # Ensure Prometheus starts before Grafana
+    ports:
+      - "3001:3000"  # Host port 3001 maps to Grafana container port 3000
+    environment:
+      GF_SECURITY_ADMIN_USER: admin         # Grafana admin username
+      GF_SECURITY_ADMIN_PASSWORD: secret    # Grafana admin password
+      GF_USERS_ALLOW_SIGN_UP: false         # Disable public signup
+    volumes:
+      - grafana:/var/lib/grafana            # Persistent Grafana DB
+      - ./grafana/dashboards.yaml:/etc/grafana/provisioning/dashboards/dashboards.yaml
+      - ./grafana/datasources:/etc/grafana/provisioning/datasources
+      - ./grafana/dashboards:/var/lib/grafana/dashboards
+    restart: unless-stopped
+
+# ---------------------------
+# Named volumes for persistence
+# ---------------------------
+volumes:
+  prometheus:  # Prometheus TSDB
+  grafana:    # Grafana DB and dashboards

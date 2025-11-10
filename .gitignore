@@ -1,0 +1,44 @@
+# ----------------------------
+# OS & Editor files
+# ----------------------------
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+*.swp
+*.swo
+.idea/
+.vscode/
+
+# ----------------------------
+# Python cache (if any scripts used)
+# ----------------------------
+__pycache__/
+*.pyc
+
+# ----------------------------
+# Logs
+# ----------------------------
+*.log
+
+# ----------------------------
+# Local / environment-specific configuration
+# ----------------------------
+.env               # local environment variables
+
+# ----------------------------
+# Build or temporary directories (if used)
+# ----------------------------
+bin/
+dist/
+tmp/
+temp/
+
+# ----------------------------
+# Docker Compose override files
+# ----------------------------
+docker-compose.override.yaml   
+

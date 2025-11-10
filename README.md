@@ -1,210 +1,169 @@
-# Grafana Dashboards for WarehousePG
+# WHPG Grafana & Prometheus Monitoring Setup
 
 > [!CAUTION]
 > This feature is in Technical Preview and not yet recommended for production deployments. We recommend that you try this feature in test or development environments.
 
+This repository provides a **ready-to-run monitoring stack** for WarehousePG using **Prometheus** and **Grafana**. It includes pre-configured dashboards, data sources, and support for custom exporters. This setup runs an independent Prometheus and Grafana stack using Docker Compose.
 
-## Observability for WarehousePG
+It is designed to be a central monitoring point, capable of scraping metrics from:
 
-The Observability for [WarehousePG](https://warehouse-pg.io/) (WHPG) consists of two separate packages: This is intentional in order to separate the data gathering from data storage and data display. This approach allows to minimize required permissions to the database, and also allows multiple forms of visualization and alerting.
+* Other Docker containers running on the same host (e.g., exporters from another compose stack).
+* Remote servers (e.g., EC2 instances on AWS).
 
-* Data gathering: the WarehousePG Observability Extension (part 1)
-* Data exporting: the WarehousePG Observability Exporter (part 2)
-* Data storage: Prometheus for historical data storage (example implementation)
-* Data visualization: the WarehousePG Grafana dashboard (example dashboards)
 
-## WarehousePG Observability Extension
+---
 
-The *WarehousePG Observability Extension* is a database extension and is installed using `CREATE EXTENSION` in the WarehousePG database. Currently versions 6 and 7 of WarehousePG are supported.
+## Table of Contents
 
-EDB provides the extension as RPM package for various RHEL versions and compatible platforms.
+1. [Overview](#overview)
+2. [Prerequisites](#prerequisites)
+3. [Setup Instructions](#setup-instructions)
+4. [Configuring a New Exporter](#configuring-a-new-exporter)
+5. [The Checklist](#the-checklist)
+6. [Common Docker Commands](#common-docker-commands)
 
-The database extension creates the `observability` schema in the database, which includes a number of views and external tables. A superuser account is required in order to access views in this schema.
+---
 
-### Installation of the extension
+## Overview
 
-Download the RPM from the EDB repository, and install it on all hosts (coordinator, standby, and all segments).
+This stack consists of:
 
-#### RHEL 8, 9
+| Service           | Image / Version        | Purpose                                     |
+| ----------------- | ---------------------- | --------------------------------------------|
+| `prometheus-whpg` | prom/prometheus:v3.5.0 | Collects metrics from WarehousePG exporters. Accessible at http://localhost:9092 |
+| `grafana-whpg`    | grafana/grafana:12.1.1 | Visualization and dashboards. Accessible at http://localhost:3001 (User: admin, Pass: secret)                |
 
-For WHPG 7:
+Prometheus scrapes metrics from one or more `whpg_exporter` instances. Grafana reads data from Prometheus and displays it on  pre-configured dashboards.
 
-```
-sudo dnf install edb-whpg7-observability
-```
+---
 
-For WHPG 6:
+## Prerequisites
 
-```
-sudo dnf install edb-whpg6-observability
-```
+* Docker Desktop (Mac/Windows) or Docker Engine (Linux)
+* Network connectivity between Docker containers and exporter targets.
 
-#### RHEL 7
+---
 
-For WHPG 7:
+## Setup Instructions
 
-```
-sudo yum install edb-whpg7-observability
-```
+1. **Clone the repository**
 
-For WHPG 6:
+   ```
+   git clone <repo-url>
+   cd warehouse-pg-grafana-dashboards
+   ```
 
-```
-sudo yum install edb-whpg6-observability
-```
+2. **Start the monitoring stack**
 
-#### Activate the extension
+   ```
+   docker-compose up -d
+   ```
 
-In a database of your choice, execute the following command:
+3. **Access Grafana**
 
-```
-CREATE EXTENSION whpg_observability;
-```
+   * URL: `http://localhost:3001`
+   * Default credentials:
 
-We recommend that you create a separate database for observability, and limit access to the account used for the Prometheus Exporter (see later steps in this document) to this database.
+     * User: `admin`
+     * Password: `secret`
 
-Configure access for the Prometheus Exporter account in `pg_hba.conf`, see the [documentation](https://warehouse-pg.io/docs/7x/admin_guide/getting_started.html) about configuring roles and access.
+4. **Prometheus** is accessible at `http://localhost:9092`.
 
-### Available views
+---
 
-The views are documented in the [Extension documentation](Extension.md).
+## Configuring a new Exporter
 
-## WarehousePG Observability Exporter
 
-The [Prometheus Exporter](https://prometheus.io/docs/instrumenting/exporters/) connects to the WHPG database and exclusively uses the views in the `observability` schema to gather data. It exposes a `/metrics` endpoint to be consumed by Prometheus for metrics.
 
-The Exporter must be able to connect to the WHPG database, and requires either a superuser account, or all tables and views in the `observability` schema must be accessible by the designated rolename used fo rthe Exporter. The Exporter is lightweight and does not require a lot of CPU or memory resources. It can run on the coordinator, the standby, or an external host.
-
-To install the observability exporter, follow the instructions here.
-
-### Steps to install and configure the exporter
-
-1. Download and install the exporter RPM from EDB repository.
-
-#### RHEL 8, 9
-
-For WHPG 7:
-
-```
-sudo dnf install edb-whpg7-observability-exporter
+**Update Prometheus configuration** (`prometheus/prometheus.yaml`) to configure a new exporter. After any change to prometheus.yaml, you must restart Prometheus:
+ ```
+ docker-compose up -d --force-recreate prometheus-whpg
 ```
 
-For WHPG 6:
+***Case 1: Scraping Local Docker Exporters (Same Host, Different Compose)***
+   ```yaml
+   scrape_configs:
+     - job_name: 'whpg_exporter'
+       static_configs:
+       # Use host.docker.internal and the HOST port (9187)
+         - targets: ['host.docker.internal:9187']
+   ```
+* Use host.docker.internal to allow the Prometheus container to access the host's ports.
+* Port 9187 must match the container port the exporter exposes.
+* On Linux, Docker containers cannot automatically resolve host.docker.internal. To scrape exporters running on the same Linux host, add this to docker-compose.yml under the Prometheus service:
 
-```
-sudo dnf install edb-whpg6-observability-exporter
-```
+   ```
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+  ```
+***Case 2: Scraping a Remote Exporter (e.g., on AWS)***
 
-#### RHEL 7
+Use the server's public IP address and the exposed port. Ensure the firewall or Security Group allows inbound traffic from the Prometheus host/container.Then, **restart Prometheus** to pick up the changes:
 
-For WHPG 7:
+   ```
+     scrape_configs:
+     - job_name: 'remote-aws-node'
+       static_configs:
+        # Use the PUBLIC IP of the AWS server and its exporter port
+        - targets: ['54.12.34.56:9187']
+   ```
+---
 
-```
-sudo yum install edb-whpg7-observability-exporter
-```
+## The Checklist
 
-For WHPG 6:
+For the entire system to work, these four connections must be correct.
 
-```
-sudo yum install edb-whpg6-observability-exporter
-```
+1. **Prometheus <-> Exporter (Network)** 
 
-2. Configure the connection URL
+Prometheus must be able to reach the exporter IP/host and port. On AWS, ensure Security Groups allow access; on Linux, extra_hosts may be required for host services
 
-Set the environment variable to allow the exporter to connect to the WarehousePG cluster:
+2. **Prometheus <-> Config (Scraping)** 
 
-```
-export WHPG_OBS_DSN="host=<host> port=<port> dbname=<db_name> user=<user> password=<password> sslmode=disable"
-```
+The targets list in prometheus.yaml must match the exact container/service names, hostnames, or IPs and ports of exporters. This is how Prometheus finds the metrics endpoints.
 
-3. (Optional) Customize exporter settings
+3. **Grafana <-> Prometheus (Datasource URL)** 
 
-You can adjust the port and log level using environment variables:
+The url in grafana/datasources/datasource.yaml must match the service: name in docker-compose.yaml (prometheus-whpg) and its internal port (9090). This is how Grafana finds the Prometheus server.
 
-```
-export WHPG_OBS_PROM_PORT=<port_number>     # Default: 9187
-export WHPG_OBS_LOG_LEVEL=<level>           # Options: debug, info, warn
-```
+4. **Grafana <-> Dashboard (Datasource UID)** 
 
-Note: the default port for the Exporter is `9187`.
+The UID in grafana/datasources/datasource.yaml must match the datasource UID referenced in dashboards. This ensures dashboards load with the correct datasource automatically.
 
-4. Start the exporter
+## Common Docker Commands
 
-```
-whpg_observability_exporter 1>logfile.txt 2>&1 &
-```
+1. Start the stack (in background):
 
-This will start and run the exporter process in the background.
+   ```
+   docker-compose up -d
+   ```
 
-Note: You can either start the process when the system reboots or include it in your startup init script.
+2. Stop the stack
 
-5. Verify the exporter
+   ```
+   docker-compose down
+   ```
 
-Access the metrics endpoint in the browser to confirm the exporter is running:
+3. Restart a single service: (e.g., to apply changes to prometheus.yaml)
 
-```
-http://localhost:<WHPG_OBS_PROM_PORT:-9187>/metrics
-```
+   ```
+   docker-compose restart prometheus-whpg
+   ```
 
-You should see a list of metrics that can be consumed by Prometheus and visualized in Grafana.
+4. View all running containers:
 
-## Configuring Prometheus
+   ```
+   docker ps
+   ```
 
-Add the exporter to the scrape_configs section of your prometheus.yml configuration file:
+5. Check which containers are on network
 
-```
-   - job_name: whpg_cluster_monitoring
-      scrape_interval: 30s
-      scrape_timeout: 28s
-      static_configs:
-        - targets:
-          - "<exporter_url>:<exporter_port>"
-```
+   ```
+   docker network inspect <network-name>
+   ```
 
-**scrape_interval** and **scrape_timeout** should be configured based on the WarehousePG cluster's response time.
+5. View live logs for one service: (Press Ctrl+C to exit)
 
-Generally, scrape_timeout should be slightly less than scrape_interval.
+   ```
+   docker-compose logs -f grafana-whpg
+   ```
 
-To determine an appropriate scrape_interval, use the following command to measure the current response time:
-
-```
-curl -w "Total time: %{time_total} seconds\n" -o /dev/null -s <exporter_url>:<exporter_port>/metrics
-```
-
-## Configuring Grafana
-
-[Grafana](https://grafana.com/) is a visualization tool for data gathered by other tools (as example [Prometheus Exporter](https://prometheus.io/docs/visualization/grafana/)) or by directly querying data sources.
-
-While Grafana can directly connect to the WHPG database and use the views provided by the `observability` schema, we strongly recommend separating the access between Grafana and WHPG by exporting the data using the Prometheus Exporter. This has the additional advantage that the Exporter continuously exports and stores the data, and provides historical data.
-
-EDB provides a set of JSON configuration files for Grafana in the [Grafana Dashboards for WarehousePG](https://github.com/warehouse-pg/warehouse-pg-grafana-dashboards/example-dashboards/) repository. We understand that users have different needs for monitoring. The provided Grafana configurations provide a starting point for customization.
-
-### Configuring Data Source and Importing Dashboards into Grafana
-
-1. Add Prometheus as a data source:
-
-* Log in to Grafana with Admin privileges.
-* Go to Connections > Data Sources.
-* Click Add new data source.
-* Select Prometheus.
-* Enter the Prometheus server URL (e.g., http://<prometheus_host>:9090).
-* Click Save & Test.
-
-2. Import WarehousePG Dashboard:
-
-* Download WarehousePG dashboard JSON file here.
-* In Grafana, go to Dashboards.
-* Click on the New dropdown and select Import.
-* Upload the JSON file or paste its content.
-* Click Import.
-* Repeat the same step for importing the WarehousePG Detailed View dashboard.
-
-3. Access Dashboard
-
-Navigate to Dashboards in Grafana and select the WarehousePG dashboard to view the monitoring graphs.
-
-## Configuring Prometheus and Grafana in container environment
-Use this docker-compose example to spin up Prometheus and Grafana in containers.It works out of the box and
-a few small tweaks to complete the observability setup.
-Modify prometheus/prometheus.yml as per above recommendations before starting containers.Once both containers
-are running you can import jsons from the Sample-dashboard folders.
