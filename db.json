@@ -1,0 +1,124 @@
+{
+  "active_queries": [
+    {
+      "database": "aws_whpg5",
+      "user": "gpadmin",
+      "pid": 75974,
+      "state": "active",
+      "query_start": "2025-11-10T14:18:09.196808Z",
+      "duration_text": "24 days 20:12:17",
+      "duration_seconds": 2143457,
+      "wait_event_type": "Activity",
+      "wait_event": "WalSenderMain",
+      "query": "START_REPLICATION 0/28000000 TIMELINE 1"
+    },
+    {
+      "database": "aws_whpg5",
+      "user": "gpadmin",
+      "pid": 844901,
+      "state": "active",
+      "query_start": "2025-11-10T15:00:09.196808Z",
+      "duration_text": "00:15:32",
+      "duration_seconds": 932,
+      "wait_event_type": "",
+      "wait_event": "",
+      "query": "SELECT * FROM pg_stat_activity WHERE state='active';"
+    },
+    {
+      "database": "aws_whpg5",
+      "user": "etl_user",
+      "pid": 849001,
+      "state": "active",
+      "query_start": "2025-11-10T14:59:00.123456Z",
+      "duration_text": "00:25:11",
+      "duration_seconds": 1511,
+      "wait_event_type": "Lock",
+      "wait_event": "relation",
+      "query": "UPDATE sales_orders SET status='processed' WHERE order_id < 500;"
+    },
+    {
+      "database": "aws_whpg5",
+      "user": "report_user",
+      "pid": 849002,
+      "state": "active",
+      "query_start": "2025-11-10T14:45:00.123456Z",
+      "duration_text": "00:39:18",
+      "duration_seconds": 2358,
+      "wait_event_type": "",
+      "wait_event": "",
+      "query": "SELECT product_id, SUM(amount) FROM transactions GROUP BY product_id;"
+    },
+    {
+      "database": "aws_whpg7",
+      "user": "analytics",
+      "pid": 849003,
+      "state": "active",
+      "query_start": "2025-11-10T14:40:00.123456Z",
+      "duration_text": "00:44:22",
+      "duration_seconds": 2662,
+      "wait_event_type": "IO",
+      "wait_event": "DataFileRead",
+      "query": "WITH temp AS (SELECT * FROM logs WHERE log_time > now() - interval '1 day') SELECT COUNT(*) FROM temp;"
+    },
+    {
+      "database": "aws_whpg1",
+      "user": "dev_team",
+      "pid": 849004,
+      "state": "active",
+      "query_start": "2025-11-10T14:35:00.123456Z",
+      "duration_text": "00:49:18",
+      "duration_seconds": 2958,
+      "wait_event_type": "Activity",
+      "wait_event": "ExecutorRun",
+      "query": "INSERT INTO metrics_archive SELECT * FROM metrics_live;"
+    },
+    {
+      "database": "aws_whpg7",
+      "user": "gpadmin",
+      "pid": 849005,
+      "state": "active",
+      "query_start": "2025-11-10T14:32:00.123456Z",
+      "duration_text": "00:52:11",
+      "duration_seconds": 3131,
+      "wait_event_type": "LWLock",
+      "wait_event": "ProcArrayLock",
+      "query": "VACUUM ANALYZE users;"
+    },
+    {
+      "database": "aws_whpg7",
+      "user": "monitor",
+      "pid": 849006,
+      "state": "active",
+      "query_start": "2025-11-10T14:30:00.123456Z",
+      "duration_text": "00:54:12",
+      "duration_seconds": 3252,
+      "wait_event_type": "Client",
+      "wait_event": "ClientRead",
+      "query": "SELECT count(*) FROM system_events WHERE event_type='warning';"
+    },
+    {
+      "database": "aws_whpg7",
+      "user": "qa_user",
+      "pid": 849007,
+      "state": "active",
+      "query_start": "2025-11-10T14:20:00.123456Z",
+      "duration_text": "01:04:00",
+      "duration_seconds": 3840,
+      "wait_event_type": "IO",
+      "wait_event": "BufferIO",
+      "query": "DELETE FROM temp_table WHERE created_at < now() - interval '7 days';"
+    },
+    {
+      "database": "aws_whpg7",
+      "user": "load_test",
+      "pid": 849008,
+      "state": "active",
+      "query_start": "2025-11-10T14:10:00.123456Z",
+      "duration_text": "01:14:00",
+      "duration_seconds": 4440,
+      "wait_event_type": "",
+      "wait_event": "",
+      "query": "SELECT generate_series(1, 1000000);"
+    }
+  ]
+}

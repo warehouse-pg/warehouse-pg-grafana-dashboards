@@ -1,8 +1,22 @@
 apiVersion: 1
+
 datasources:
+# 1. The Prometheus Datasource
   - name: WHPG Prometheus
     type: prometheus
     access: proxy
     url: http://prometheus-whpg:9090  # Matches the Prometheus container
     isDefault: true
     uid: DS_PROMETHEUS
+
+# 2. The JSON API (Infinity) Datasource
+  - name: JSON API Exporter
+    type: yesoreyeram-infinity-datasource
+    access: proxy
+    # Use the docker service name
+    url: http://json-api
+    editable: true
+    # For security, explicitly allow Grafana to query this URL
+    jsonData:
+      allowedHosts:
+        - http://json-api

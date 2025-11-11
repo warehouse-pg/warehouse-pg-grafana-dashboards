@@ -29,17 +29,31 @@ services:
     container_name: grafana-whpg
     depends_on:
       - prometheus-whpg  # Ensure Prometheus starts before Grafana
+      - json-api
     ports:
       - "3001:3000"  # Host port 3001 maps to Grafana container port 3000
     environment:
       GF_SECURITY_ADMIN_USER: admin         # Grafana admin username
       GF_SECURITY_ADMIN_PASSWORD: secret    # Grafana admin password
       GF_USERS_ALLOW_SIGN_UP: false         # Disable public signup
+      GF_INSTALL_PLUGINS: yesoreyeram-infinity-datasource # Install Infinity plugin
     volumes:
       - grafana:/var/lib/grafana            # Persistent Grafana DB
       - ./grafana/dashboards.yaml:/etc/grafana/provisioning/dashboards/dashboards.yaml
       - ./grafana/datasources:/etc/grafana/provisioning/datasources
       - ./grafana/dashboards:/var/lib/grafana/dashboards
+    restart: unless-stopped
+
+  # ---------------------------
+  # Mock JSON API Exporter (for testing)
+  # ---------------------------
+  json-api:
+    image: clue/json-server
+    container_name: json-api
+    ports:
+      - "8080:80"
+    volumes:
+      - ./db.json:/data/db.json
     restart: unless-stopped
 
 # ---------------------------
