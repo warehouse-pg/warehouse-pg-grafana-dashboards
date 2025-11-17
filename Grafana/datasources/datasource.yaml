@@ -20,3 +20,24 @@ datasources:
     jsonData:
       allowedHosts:
         - http://json-api
+
+# 3. The Loki Datasource 
+  - name: Loki
+    type: loki
+    access: proxy
+    url: http://loki:3100 # Uses the Docker service name
+    editable: true
+    jsonData:
+      maxLines: 1000
+
+# 4. Direct db 
+  - name: directDbMetrics
+    type: yesoreyeram-infinity-datasource
+    access: proxy
+    # Use host.docker.internal to allow the Grafana container to reach your Mac
+    url: http://host.docker.internal:8090/api/v1/query
+    editable: true
+    jsonData:
+      # You must also allow this special address
+      allowedHosts:
+        - http://host.docker.internal:8090/api/v1/query
