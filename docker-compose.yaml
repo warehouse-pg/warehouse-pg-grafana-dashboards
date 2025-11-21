@@ -23,40 +23,40 @@ services:
     # # ------------------------
 
 
-  # ---------------------------
-  # Loki (The Log Database)
-  # ---------------------------
-  loki:
-    # image: grafana/loki:2.9.8  # <--- SET SPECIFIC VERSION
-    image: grafana/loki:latest
-    container_name: loki
-    ports:
-      - "3100:3100"
-    volumes:
-      - ./loki/loki-config.yaml:/etc/loki/config.yml
-    command: -config.file=/etc/loki/config.yml
-    restart: unless-stopped
+  # # ---------------------------
+  # # Loki (The Log Database)
+  # # ---------------------------
+  # loki:
+  #   # image: grafana/loki:2.9.8  #
+  #   image: grafana/loki:latest
+  #   container_name: loki
+  #   ports:
+  #     - "3100:3100"
+  #   volumes:
+  #     - ./loki/loki-config.yaml:/etc/loki/config.yml
+  #   command: -config.file=/etc/loki/config.yml
+  #   restart: unless-stopped
 
-  # ---------------------------
-  # Promtail (The Log Shipper)
-  # ---------------------------
-  promtail:
-    image: grafana/promtail:latest
-    # image: grafana/promtail:2.10.0
-    # image: grafana/promtail:2.9.8
-    platform: linux/amd64    # if on Apple Silicon
-    container_name: promtail
-    depends_on:
-      - loki
-    volumes:
-      - ./promtail/promtail-config.yaml:/etc/promtail/config.yml
-      # --------------------------------
-      # We now mount only the logfiles directory
-      - ./logfiles:/mnt/logs
-      # --------------------------------
-      - promtail-positions:/tmp
-    command: -config.file=/etc/promtail/config.yml
-    restart: unless-stopped
+  # # ---------------------------
+  # # Promtail (The Log Shipper)
+  # # ---------------------------
+  # promtail:
+  #   image: grafana/promtail:latest
+  #   # image: grafana/promtail:2.10.0
+  #   # image: grafana/promtail:2.9.8
+  #   platform: linux/amd64    # if on Apple Silicon
+  #   container_name: promtail
+  #   depends_on:
+  #     - loki
+  #   volumes:
+  #     - ./promtail/promtail-config.yaml:/etc/promtail/config.yml
+  #     # --------------------------------
+  #     # We now mount only the logfiles directory
+  #     - ./logfiles:/mnt/logs
+  #     # --------------------------------
+  #     - promtail-positions:/tmp
+  #   command: -config.file=/etc/promtail/config.yml
+  #   restart: unless-stopped
 
 
   # # ---------------------------
