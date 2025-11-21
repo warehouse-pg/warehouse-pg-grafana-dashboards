@@ -9,7 +9,8 @@ scrape_configs:
   # -------------------------------------------------
   - job_name: 'whpg_exporter'  # A unique name for this scrape job
     static_configs:
-      - targets: ['host.docker.internal:9187']
+      # - targets: ['host.docker.internal:9187']
+        - targets: ['host.docker.internal:8090']  # not reqd with new exporter
         # List of endpoints to scrape metrics from
         # 'host.docker.internal' allows the containerized Prometheus
         # to reach services running on the host (macOS/Windows)

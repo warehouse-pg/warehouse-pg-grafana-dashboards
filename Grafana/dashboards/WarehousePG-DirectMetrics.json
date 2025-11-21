@@ -18,8 +18,23 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 5,
-  "links": [],
+  "id": 1,
+  "links": [
+    {
+      "asDropdown": true,
+      "icon": "external link",
+      "includeVars": true,
+      "keepTime": true,
+      "tags": [
+        "whpg"
+      ],
+      "targetBlank": false,
+      "title": "Dashboard List",
+      "tooltip": "",
+      "type": "dashboards",
+      "url": ""
+    }
+  ],
   "panels": [
     {
       "datasource": {
@@ -344,6 +359,110 @@
         "type": "yesoreyeram-infinity-datasource",
         "uid": "${DataSourceInfinity}"
       },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": true,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "fillOpacity": 80,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineWidth": 1,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 9,
+        "x": 0,
+        "y": 6
+      },
+      "id": 13,
+      "options": {
+        "barRadius": 0,
+        "barWidth": 0.97,
+        "fullHighlight": false,
+        "groupWidth": 0.7,
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "right",
+          "showLegend": true
+        },
+        "orientation": "auto",
+        "showValue": "auto",
+        "stacking": "none",
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        },
+        "xTickLabelRotation": 0,
+        "xTickLabelSpacing": 0
+      },
+      "pluginVersion": "12.1.1",
+      "targets": [
+        {
+          "columns": [],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "${DataSourceInfinity}"
+          },
+          "filters": [],
+          "format": "table",
+          "global_query_id": "",
+          "parser": "backend",
+          "refId": "A",
+          "root_selector": "",
+          "source": "url",
+          "type": "json",
+          "url": "/object_list",
+          "url_options": {
+            "data": "",
+            "method": "GET"
+          }
+        }
+      ],
+      "title": "Object Details",
+      "type": "barchart"
+    },
+    {
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "${DataSourceInfinity}"
+      },
       "description": "This table shows the list of longest running queries.",
       "fieldConfig": {
         "defaults": {
@@ -430,7 +549,7 @@
         "h": 7,
         "w": 24,
         "x": 0,
-        "y": 6
+        "y": 12
       },
       "id": 1,
       "options": {
@@ -547,7 +666,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 13
+        "y": 19
       },
       "id": 7,
       "options": {
@@ -649,7 +768,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 13
+        "y": 19
       },
       "id": 6,
       "options": {
@@ -763,7 +882,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 21
+        "y": 27
       },
       "id": 5,
       "options": {
@@ -859,7 +978,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 21
+        "y": 27
       },
       "id": 3,
       "options": {
@@ -939,7 +1058,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 29
+        "y": 35
       },
       "id": 4,
       "options": {
@@ -1039,7 +1158,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 29
+        "y": 35
       },
       "id": 2,
       "options": {
@@ -1120,9 +1239,8 @@
             "bf409a9ei0zy8e"
           ]
         },
-        "includeAll": true,
+        "includeAll": false,
         "label": "DataSourceInfinity",
-        "multi": true,
         "name": "DataSourceInfinity",
         "options": [],
         "query": "yesoreyeram-infinity-datasource",
@@ -1137,8 +1255,8 @@
     "to": "now"
   },
   "timepicker": {},
-  "timezone": "browser",
+  "timezone": "Europe/London",
   "title": "WarehousePG-DirectMetrics",
   "uid": "adfd6868-145d-4ad3-b65a-e61d1ec1d100",
-  "version": 26
+  "version": 4
 }
