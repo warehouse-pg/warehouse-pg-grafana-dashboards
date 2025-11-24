@@ -465,6 +465,119 @@
       "fieldConfig": {
         "defaults": {
           "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "left",
+            "cellOptions": {
+              "type": "auto",
+              "wrapText": false
+            },
+            "filterable": true,
+            "inspect": false,
+            "minWidth": 50
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 6
+      },
+      "id": 15,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true
+      },
+      "pluginVersion": "12.1.1",
+      "targets": [
+        {
+          "columns": [],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "${DataSourceInfinity}"
+          },
+          "filters": [],
+          "format": "table",
+          "global_query_id": "",
+          "parser": "backend",
+          "refId": "A",
+          "root_selector": "",
+          "source": "url",
+          "type": "json",
+          "url": "/table_gp_segment_config",
+          "url_options": {
+            "data": "",
+            "method": "GET"
+          }
+        }
+      ],
+      "title": "GP-Segment-Config Table",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "address": true
+            },
+            "includeByName": {},
+            "indexByName": {
+              "address": 6,
+              "content": 0,
+              "datadir": 5,
+              "dbid": 7,
+              "hostname": 8,
+              "mode": 1,
+              "port": 9,
+              "preferred_role": 4,
+              "role": 3,
+              "status": 2
+            },
+            "renameByName": {
+              "address": "Address",
+              "content": "Content",
+              "datadir": "Data Directory",
+              "dbid": "DB ID",
+              "hostname": "Hostname",
+              "mode": "Mode",
+              "port": "Port",
+              "preferred_role": "Preferred Role",
+              "role": "Role",
+              "status": "Status"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "${DataSourceInfinity}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
             "mode": "palette-classic"
           },
           "custom": {
@@ -507,9 +620,9 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 6,
+        "h": 8,
         "w": 9,
-        "x": 0,
+        "x": 12,
         "y": 6
       },
       "id": 13,
@@ -560,6 +673,145 @@
       ],
       "title": "Object Details",
       "type": "barchart"
+    },
+    {
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "${DataSourceInfinity}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Seq to Index Scan Ratio"
+            },
+            "properties": [
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-background"
+                }
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": 0
+                    },
+                    {
+                      "color": "orange",
+                      "value": 5
+                    },
+                    {
+                      "color": "red",
+                      "value": 20
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 16,
+        "x": 0,
+        "y": 14
+      },
+      "id": 16,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true
+      },
+      "pluginVersion": "12.1.1",
+      "targets": [
+        {
+          "columns": [],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "${DataSourceInfinity}"
+          },
+          "filters": [],
+          "format": "table",
+          "global_query_id": "",
+          "parser": "backend",
+          "refId": "A",
+          "root_selector": "",
+          "source": "url",
+          "type": "json",
+          "url": "/table_need_index",
+          "url_options": {
+            "data": "",
+            "method": "GET"
+          }
+        }
+      ],
+      "title": "Tables Need Index",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {},
+            "includeByName": {},
+            "indexByName": {
+              "count_idx_scan": 3,
+              "count_seq_scan": 4,
+              "row_count": 5,
+              "schema_name": 0,
+              "seq_to_idx_ratio": 2,
+              "table_name": 1
+            },
+            "renameByName": {
+              "count_idx_scan": "No of Index Scan",
+              "count_seq_scan": "No of Seq Scan",
+              "row_count": "Row Count",
+              "schema_name": "Schema Name",
+              "seq_to_idx_ratio": "Seq to Index Scan Ratio",
+              "table_name": "Table Name"
+            }
+          }
+        }
+      ],
+      "type": "table"
     },
     {
       "datasource": {
@@ -652,7 +904,7 @@
         "h": 7,
         "w": 24,
         "x": 0,
-        "y": 12
+        "y": 22
       },
       "id": 1,
       "options": {
@@ -769,7 +1021,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 19
+        "y": 29
       },
       "id": 7,
       "options": {
@@ -871,7 +1123,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 19
+        "y": 29
       },
       "id": 6,
       "options": {
@@ -985,7 +1237,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 27
+        "y": 37
       },
       "id": 5,
       "options": {
@@ -1081,7 +1333,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 27
+        "y": 37
       },
       "id": 3,
       "options": {
@@ -1161,7 +1413,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 35
+        "y": 45
       },
       "id": 4,
       "options": {
@@ -1261,7 +1513,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 35
+        "y": 45
       },
       "id": 2,
       "options": {
@@ -1361,5 +1613,5 @@
   "timezone": "Europe/London",
   "title": "WarehousePG-DirectMetrics",
   "uid": "adfd6868-145d-4ad3-b65a-e61d1ec1d100",
-  "version": 6
+  "version": 7
 }
