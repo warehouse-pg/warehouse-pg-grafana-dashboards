@@ -82,7 +82,8 @@ services:
   # Grafana service
   # ---------------------------
   grafana-whpg:
-    image: grafana/grafana:12.1.1
+    # image: grafana/grafana:12.1.1
+    image: grafana/grafana:latest
     container_name: grafana-whpg
     depends_on:
       - prometheus-whpg  # Ensure Prometheus starts before Grafana

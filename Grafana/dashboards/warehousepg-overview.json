@@ -121,6 +121,12 @@
                     "type": "value"
                   }
                 ]
+              },
+              {
+                "id": "color",
+                "value": {
+                  "mode": "thresholds"
+                }
               }
             ]
           }
@@ -248,6 +254,7 @@
           ],
           "show": false
         },
+        "frameIndex": 1,
         "showHeader": false,
         "sortBy": [
           {
@@ -1116,7 +1123,7 @@
       "type": "barchart"
     },
     {
-      "collapsed": true,
+      "collapsed": false,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1124,123 +1131,183 @@
         "y": 22
       },
       "id": 30,
-      "panels": [
+      "panels": [],
+      "title": "Disk Usage",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "df536wp73lv5sb"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "fieldMinMax": false,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "#F2495C",
+                "value": 0
+              },
+              {
+                "color": "#EAB839",
+                "value": 1000000000
+              },
+              {
+                "color": "green",
+                "value": 50000000000
+              }
+            ]
+          },
+          "unit": "decbytes"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 13,
+        "x": 0,
+        "y": 23
+      },
+      "id": 53,
+      "options": {
+        "displayMode": "basic",
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "maxVizHeight": 300,
+        "minVizHeight": 16,
+        "minVizWidth": 8,
+        "namePlacement": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showUnfilled": true,
+        "sizing": "auto",
+        "valueMode": "color"
+      },
+      "pluginVersion": "12.1.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "df536wp73lv5sb"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "warehousepg_observability_node_filesystem_free_bytes{instance=~\".+\", mountpoint=~\"$HostMountPoints\"}",
+          "format": "time_series",
+          "instant": true,
+          "legendFormat": "{{instance}}",
+          "range": false,
+          "refId": "A"
+        }
+      ],
+      "title": "Free Disk Space(Host View) For Mount Point  - $HostMountPoints ",
+      "type": "bargauge"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DataSourcePrometheus}"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "fieldMinMax": false,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "#F2495C",
+                "value": 0
+              },
+              {
+                "color": "#EAB839",
+                "value": 1000000000
+              },
+              {
+                "color": "green",
+                "value": 50000000000
+              }
+            ]
+          },
+          "unit": "decbytes"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 11,
+        "x": 13,
+        "y": 23
+      },
+      "id": 54,
+      "options": {
+        "displayMode": "basic",
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "maxVizHeight": 300,
+        "minVizHeight": 16,
+        "minVizWidth": 8,
+        "namePlacement": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showUnfilled": true,
+        "sizing": "auto",
+        "valueMode": "color"
+      },
+      "pluginVersion": "12.1.1",
+      "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "${DataSourcePrometheus}"
           },
-          "description": "",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "fieldMinMax": true,
-              "mappings": [],
-              "thresholds": {
-                "mode": "percentage",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": 0
-                  },
-                  {
-                    "color": "semi-dark-yellow",
-                    "value": 70
-                  },
-                  {
-                    "color": "red",
-                    "value": 85
-                  },
-                  {
-                    "color": "dark-red",
-                    "value": 95
-                  }
-                ]
-              },
-              "unit": "percent"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 5,
-            "w": 24,
-            "x": 0,
-            "y": 156
-          },
-          "id": 32,
-          "links": [
-            {
-              "title": "Detailed Analysis Dashboard",
-              "url": "/d/warehousepg_detailed_view_edb/BQoYawrHg?orgId=1&${__all_variables}"
-            }
-          ],
-          "maxPerRow": 4,
-          "options": {
-            "minVizHeight": 75,
-            "minVizWidth": 89,
-            "orientation": "auto",
-            "reduceOptions": {
-              "calcs": [],
-              "fields": "",
-              "values": false
-            },
-            "showThresholdLabels": false,
-            "showThresholdMarkers": true,
-            "sizing": "auto",
-            "text": {
-              "percentSize": 100,
-              "titleSize": 10
-            }
-          },
-          "pluginVersion": "12.1.1",
-          "repeat": "mountpoint",
-          "repeatDirection": "h",
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${DataSourcePrometheus}"
-              },
-              "disableTextWrap": false,
-              "editorMode": "builder",
-              "exemplar": false,
-              "expr": "avg by(mountpoint) (warehousepg_observability_du_used_pct_segments{mountpoint=\"$mountpoint\"})",
-              "format": "time_series",
-              "fullMetaSearch": false,
-              "hide": false,
-              "includeNullMetadata": true,
-              "instant": false,
-              "legendFormat": "Avg ",
-              "range": true,
-              "refId": "A",
-              "useBackend": false
-            },
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${DataSourcePrometheus}"
-              },
-              "disableTextWrap": false,
-              "editorMode": "builder",
-              "expr": "max by(mountpoint) (warehousepg_observability_du_used_pct_segments{mountpoint=\"$mountpoint\"})",
-              "fullMetaSearch": false,
-              "hide": false,
-              "includeNullMetadata": true,
-              "instant": false,
-              "legendFormat": "Max",
-              "range": true,
-              "refId": "B",
-              "useBackend": false
-            }
-          ],
-          "title": "$mountpoint",
-          "type": "gauge"
+          "disableTextWrap": false,
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "warehousepg_observability_node_filesystem_free_bytes{instance=~\"$HostList\", device=~\".+\"}",
+          "format": "time_series",
+          "fullMetaSearch": false,
+          "includeNullMetadata": true,
+          "instant": true,
+          "legendFormat": "{{device}}",
+          "range": false,
+          "refId": "A",
+          "useBackend": false
         }
       ],
-      "title": "Disk Usage by Mount Points",
-      "type": "row"
+      "title": "Free Disk Space (Device View) for Host - $HostList",
+      "type": "bargauge"
     },
     {
       "collapsed": true,
@@ -1248,7 +1315,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 23
+        "y": 31
       },
       "id": 23,
       "panels": [
@@ -1285,7 +1352,7 @@
             "h": 4,
             "w": 24,
             "x": 0,
-            "y": 75
+            "y": 80
           },
           "id": 19,
           "links": [
@@ -1405,7 +1472,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 24
+        "y": 32
       },
       "id": 29,
       "panels": [
@@ -1467,7 +1534,7 @@
             "h": 4,
             "w": 12,
             "x": 0,
-            "y": 158
+            "y": 163
           },
           "id": 12,
           "links": [
@@ -1619,7 +1686,7 @@
             "h": 4,
             "w": 12,
             "x": 12,
-            "y": 158
+            "y": 163
           },
           "id": 3,
           "links": [
@@ -1703,7 +1770,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 25
+        "y": 33
       },
       "id": 27,
       "panels": [],
@@ -1778,7 +1845,7 @@
         "h": 7,
         "w": 12,
         "x": 0,
-        "y": 26
+        "y": 34
       },
       "id": 41,
       "options": {
@@ -1876,7 +1943,7 @@
         "h": 7,
         "w": 12,
         "x": 12,
-        "y": 26
+        "y": 34
       },
       "id": 33,
       "options": {
@@ -2003,7 +2070,7 @@
         "h": 5,
         "w": 12,
         "x": 0,
-        "y": 33
+        "y": 41
       },
       "id": 6,
       "options": {
@@ -2089,7 +2156,7 @@
         "h": 5,
         "w": 6,
         "x": 12,
-        "y": 33
+        "y": 41
       },
       "id": 40,
       "options": {
@@ -2156,7 +2223,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 38
+        "y": 46
       },
       "id": 28,
       "panels": [],
@@ -2191,7 +2258,7 @@
         "h": 6,
         "w": 4,
         "x": 0,
-        "y": 39
+        "y": 47
       },
       "id": 42,
       "options": {
@@ -2256,7 +2323,7 @@
         "h": 6,
         "w": 4,
         "x": 4,
-        "y": 39
+        "y": 47
       },
       "id": 48,
       "options": {
@@ -2321,7 +2388,7 @@
         "h": 6,
         "w": 4,
         "x": 8,
-        "y": 39
+        "y": 47
       },
       "id": 51,
       "options": {
@@ -2386,7 +2453,7 @@
         "h": 6,
         "w": 4,
         "x": 12,
-        "y": 39
+        "y": 47
       },
       "id": 52,
       "options": {
@@ -2435,17 +2502,12 @@
       {
         "allowCustomValue": false,
         "current": {
-          "text": [
-            "WHPG Prometheus"
-          ],
-          "value": [
-            "DS_PROMETHEUS"
-          ]
+          "text": "prometheus_host",
+          "value": "df536wp73lv5sb"
         },
         "description": "Shows a list of available Prometheus data sources.",
         "includeAll": false,
         "label": "DataSourcePrometheus",
-        "multi": true,
         "name": "DataSourcePrometheus",
         "options": [],
         "query": "prometheus",
@@ -2454,59 +2516,7 @@
         "type": "datasource"
       },
       {
-        "allValue": ".*",
-        "allowCustomValue": true,
-        "current": {
-          "text": "All",
-          "value": "$__all"
-        },
-        "datasource": {
-          "type": "prometheus",
-          "uid": "${DataSourcePrometheus}"
-        },
-        "definition": "label_values(warehousepg_observability_loadavg_15min, hostname)",
-        "includeAll": true,
-        "label": "Hostname",
-        "multi": true,
-        "name": "hostname",
-        "options": [],
-        "query": {
-          "qryType": 5,
-          "query": "label_values(warehousepg_observability_loadavg_15min, hostname)",
-          "refId": "PrometheusVariableQueryEditor-VariableQuery"
-        },
-        "refresh": 1,
-        "regex": "",
-        "type": "query"
-      },
-      {
-        "allowCustomValue": true,
-        "current": {
-          "text": "All",
-          "value": "$__all"
-        },
-        "datasource": {
-          "type": "prometheus",
-          "uid": "${Cluster}"
-        },
-        "definition": "label_values(warehousepg_observability_du_used_pct_segments, mountpoint)",
-        "hide": 2,
-        "includeAll": true,
-        "label": "Mountpoint",
-        "multi": true,
-        "name": "mountpoint",
-        "options": [],
-        "query": {
-          "qryType": 5,
-          "query": "label_values(warehousepg_observability_du_used_pct_segments, mountpoint)",
-          "refId": "PrometheusVariableQueryEditor-VariableQuery"
-        },
-        "refresh": 1,
-        "regex": "",
-        "type": "query"
-      },
-      {
-        "allowCustomValue": true,
+        "allowCustomValue": false,
         "current": {
           "text": "directDbMetrics",
           "value": "P252102CBA0A337FB"
@@ -2520,6 +2530,7 @@
         "type": "datasource"
       },
       {
+        "allowCustomValue": false,
         "current": {
           "text": "Loki",
           "value": "P8E80F9AEF21F6940"
@@ -2531,16 +2542,66 @@
         "refresh": 1,
         "regex": "",
         "type": "datasource"
+      },
+      {
+        "allowCustomValue": false,
+        "current": {
+          "text": "/run",
+          "value": "/run"
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${DataSourcePrometheus}"
+        },
+        "definition": "label_values(warehousepg_observability_node_filesystem_free_bytes,mountpoint)",
+        "description": "",
+        "label": "HostMountPoints",
+        "name": "HostMountPoints",
+        "options": [],
+        "query": {
+          "qryType": 1,
+          "query": "label_values(warehousepg_observability_node_filesystem_free_bytes,mountpoint)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
+        },
+        "refresh": 1,
+        "regex": "",
+        "sort": 1,
+        "type": "query"
+      },
+      {
+        "allowCustomValue": false,
+        "current": {
+          "text": "ip-10-0-2-60.eu-west-2.compute.internal",
+          "value": "ip-10-0-2-60.eu-west-2.compute.internal"
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${DataSourcePrometheus}"
+        },
+        "definition": "label_values(warehousepg_observability_node_filesystem_free_bytes,instance)",
+        "description": "",
+        "label": "HostList",
+        "name": "HostList",
+        "options": [],
+        "query": {
+          "qryType": 1,
+          "query": "label_values(warehousepg_observability_node_filesystem_free_bytes,instance)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
+        },
+        "refresh": 1,
+        "regex": "",
+        "sort": 1,
+        "type": "query"
       }
     ]
   },
   "time": {
-    "from": "now-12h",
+    "from": "now-7d",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "Europe/London",
   "title": "WarehousePG-Overview",
   "uid": "warehousepg_dashboard_demo_edb",
-  "version": 16
+  "version": 20
 }
