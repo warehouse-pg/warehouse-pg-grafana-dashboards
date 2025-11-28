@@ -41,7 +41,7 @@
   ],
   "panels": [
     {
-      "collapsed": true,
+      "collapsed": false,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -49,749 +49,8 @@
         "y": 0
       },
       "id": 42,
-      "panels": [
-        {
-          "datasource": {
-            "type": "yesoreyeram-infinity-datasource",
-            "uid": "${DataSourceInfinity}"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisBorderShow": true,
-                "axisCenteredZero": false,
-                "axisColorMode": "text",
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "fillOpacity": 80,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "lineWidth": 1,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": 0
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              },
-              "unit": "short"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 0,
-            "y": 1
-          },
-          "id": 43,
-          "options": {
-            "barRadius": 0,
-            "barWidth": 0.97,
-            "fullHighlight": false,
-            "groupWidth": 0.7,
-            "legend": {
-              "calcs": [],
-              "displayMode": "list",
-              "placement": "right",
-              "showLegend": true
-            },
-            "orientation": "auto",
-            "showValue": "auto",
-            "stacking": "none",
-            "tooltip": {
-              "hideZeros": false,
-              "mode": "single",
-              "sort": "none"
-            },
-            "xTickLabelRotation": 0,
-            "xTickLabelSpacing": 0
-          },
-          "pluginVersion": "12.3.0",
-          "targets": [
-            {
-              "columns": [],
-              "datasource": {
-                "type": "yesoreyeram-infinity-datasource",
-                "uid": "${DataSourceInfinity}"
-              },
-              "filters": [],
-              "format": "table",
-              "global_query_id": "",
-              "parser": "backend",
-              "refId": "A",
-              "root_selector": "",
-              "source": "url",
-              "type": "json",
-              "url": "/object_list",
-              "url_options": {
-                "data": "",
-                "method": "GET"
-              }
-            }
-          ],
-          "title": "Object Details",
-          "type": "barchart"
-        },
-        {
-          "datasource": {
-            "type": "yesoreyeram-infinity-datasource",
-            "uid": "${DataSourceInfinity}"
-          },
-          "description": "This presents list of largest top 20 tables. ",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "custom": {
-                "align": "left",
-                "cellOptions": {
-                  "type": "auto"
-                },
-                "footer": {
-                  "reducers": []
-                },
-                "inspect": false
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": 0
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              }
-            },
-            "overrides": [
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "Table Size"
-                },
-                "properties": [
-                  {
-                    "id": "unit",
-                    "value": "decbytes"
-                  }
-                ]
-              }
-            ]
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 12,
-            "y": 1
-          },
-          "id": 49,
-          "options": {
-            "cellHeight": "sm",
-            "showHeader": true
-          },
-          "pluginVersion": "12.3.0",
-          "targets": [
-            {
-              "columns": [],
-              "datasource": {
-                "type": "yesoreyeram-infinity-datasource",
-                "uid": "${DataSourceInfinity}"
-              },
-              "filters": [],
-              "format": "table",
-              "global_query_id": "",
-              "parser": "backend",
-              "refId": "A",
-              "root_selector": "",
-              "source": "url",
-              "type": "json",
-              "url": "/top_N_largest_tables",
-              "url_options": {
-                "data": "",
-                "method": "GET"
-              }
-            }
-          ],
-          "title": "Largest Table List",
-          "transformations": [
-            {
-              "id": "organize",
-              "options": {
-                "excludeByName": {
-                  "total_size_readable": true
-                },
-                "includeByName": {},
-                "indexByName": {},
-                "renameByName": {
-                  "schema_name": "Schema Name",
-                  "table_name": "Table Name",
-                  "total_bytes": "Table Size"
-                }
-              }
-            }
-          ],
-          "type": "table"
-        },
-        {
-          "datasource": {
-            "type": "yesoreyeram-infinity-datasource",
-            "uid": "${DataSourceInfinity}"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "custom": {
-                "align": "auto",
-                "cellOptions": {
-                  "type": "auto"
-                },
-                "footer": {
-                  "reducers": []
-                },
-                "inspect": false
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": 0
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 0,
-            "y": 83
-          },
-          "id": 48,
-          "options": {
-            "cellHeight": "sm",
-            "showHeader": true
-          },
-          "pluginVersion": "12.3.0",
-          "targets": [
-            {
-              "columns": [],
-              "datasource": {
-                "type": "yesoreyeram-infinity-datasource",
-                "uid": "${DataSourceInfinity}"
-              },
-              "filters": [],
-              "format": "table",
-              "global_query_id": "",
-              "parser": "backend",
-              "refId": "A",
-              "root_selector": "",
-              "source": "url",
-              "type": "json",
-              "url": "/bloated_table_list",
-              "url_options": {
-                "data": "",
-                "method": "GET"
-              }
-            }
-          ],
-          "title": "Bloated Table List",
-          "transformations": [
-            {
-              "id": "organize",
-              "options": {
-                "excludeByName": {},
-                "includeByName": {},
-                "indexByName": {
-                  "dead_row_percentage": 4,
-                  "dead_rows": 3,
-                  "live_rows": 2,
-                  "schemaname": 0,
-                  "table_name": 1
-                },
-                "renameByName": {
-                  "dead_row_percentage": "Dead Rows (%)",
-                  "dead_rows": "Dead Rows Count",
-                  "live_rows": "Live Rows Count",
-                  "schemaname": "Schema Name",
-                  "table_name": "Table Name"
-                }
-              }
-            }
-          ],
-          "type": "table"
-        },
-        {
-          "datasource": {
-            "type": "yesoreyeram-infinity-datasource",
-            "uid": "${DataSourceInfinity}"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "custom": {
-                "align": "left",
-                "cellOptions": {
-                  "type": "auto"
-                },
-                "footer": {
-                  "reducers": []
-                },
-                "inspect": false
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": 0
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 12,
-            "y": 83
-          },
-          "id": 46,
-          "options": {
-            "cellHeight": "sm",
-            "showHeader": true
-          },
-          "pluginVersion": "12.3.0",
-          "targets": [
-            {
-              "columns": [],
-              "datasource": {
-                "type": "yesoreyeram-infinity-datasource",
-                "uid": "${DataSourceInfinity}"
-              },
-              "filters": [],
-              "format": "table",
-              "global_query_id": "",
-              "parser": "backend",
-              "refId": "A",
-              "root_selector": "",
-              "source": "url",
-              "type": "json",
-              "url": "/table_with_most_dead_rows",
-              "url_options": {
-                "data": "",
-                "method": "GET"
-              }
-            }
-          ],
-          "title": "Tables with most dead rows",
-          "transformations": [
-            {
-              "id": "organize",
-              "options": {
-                "excludeByName": {},
-                "includeByName": {},
-                "indexByName": {
-                  "dead_rows": 2,
-                  "live_rows": 3,
-                  "schemaname": 0,
-                  "table_name": 1
-                },
-                "renameByName": {
-                  "dead_rows": "Dead Rows Count",
-                  "live_rows": "Live Rows Count",
-                  "schemaname": "Schema Name",
-                  "table_name": "Table Name"
-                }
-              }
-            }
-          ],
-          "type": "table"
-        },
-        {
-          "datasource": {
-            "type": "yesoreyeram-infinity-datasource",
-            "uid": "${DataSourceInfinity}"
-          },
-          "description": "This presents a list of top 20 un-vacuumed table by order of number of dead tuples.",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "custom": {
-                "align": "left",
-                "cellOptions": {
-                  "type": "auto"
-                },
-                "footer": {
-                  "reducers": []
-                },
-                "inspect": false
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": 0
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 0,
-            "y": 91
-          },
-          "id": 50,
-          "options": {
-            "cellHeight": "sm",
-            "showHeader": true
-          },
-          "pluginVersion": "12.3.0",
-          "targets": [
-            {
-              "columns": [],
-              "datasource": {
-                "type": "yesoreyeram-infinity-datasource",
-                "uid": "${DataSourceInfinity}"
-              },
-              "filters": [],
-              "format": "table",
-              "global_query_id": "",
-              "parser": "backend",
-              "refId": "A",
-              "root_selector": "",
-              "source": "url",
-              "type": "json",
-              "url": "/top_N_not_vacuumed_tables",
-              "url_options": {
-                "data": "",
-                "method": "GET"
-              }
-            }
-          ],
-          "title": "List of Un-Vacuumed table",
-          "transformations": [
-            {
-              "id": "organize",
-              "options": {
-                "excludeByName": {},
-                "includeByName": {},
-                "indexByName": {
-                  "dead_rows": 2,
-                  "schemaname": 0,
-                  "table_name": 1
-                },
-                "renameByName": {
-                  "dead_rows": "Count(Dead Tuples)",
-                  "schemaname": "Schema Name",
-                  "table_name": "Table Name"
-                }
-              }
-            }
-          ],
-          "type": "table"
-        },
-        {
-          "datasource": {
-            "type": "yesoreyeram-infinity-datasource",
-            "uid": "${DataSourceInfinity}"
-          },
-          "description": "This shows the top 20 tables ranked by the count of columns with missing optimizer stats",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "custom": {
-                "align": "left",
-                "cellOptions": {
-                  "type": "auto"
-                },
-                "filterable": true,
-                "footer": {
-                  "reducers": []
-                },
-                "inspect": false
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": 0
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 12,
-            "y": 91
-          },
-          "id": 47,
-          "options": {
-            "cellHeight": "sm",
-            "enablePagination": false,
-            "showHeader": true
-          },
-          "pluginVersion": "12.3.0",
-          "targets": [
-            {
-              "columns": [],
-              "datasource": {
-                "type": "yesoreyeram-infinity-datasource",
-                "uid": "${DataSourceInfinity}"
-              },
-              "filters": [],
-              "format": "table",
-              "global_query_id": "",
-              "parser": "backend",
-              "refId": "A",
-              "root_selector": "",
-              "source": "url",
-              "type": "json",
-              "url": "/top_N_not_analyzed_tables",
-              "url_options": {
-                "data": "",
-                "method": "GET"
-              }
-            }
-          ],
-          "title": "List of not Analysed tables",
-          "transformations": [
-            {
-              "id": "organize",
-              "options": {
-                "excludeByName": {},
-                "includeByName": {},
-                "indexByName": {
-                  "columns_with_stats": 3,
-                  "schema_name": 0,
-                  "table_name": 1,
-                  "total_columns": 2
-                },
-                "renameByName": {
-                  "columns_with_stats": "Columns With Stats",
-                  "schema_name": "Schema Name",
-                  "table_name": "Table Name",
-                  "total_columns": "Total Columms"
-                }
-              }
-            }
-          ],
-          "type": "table"
-        },
-        {
-          "datasource": {
-            "type": "yesoreyeram-infinity-datasource",
-            "uid": "${DataSourceInfinity}"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "custom": {
-                "align": "auto",
-                "cellOptions": {
-                  "type": "auto"
-                },
-                "footer": {
-                  "reducers": []
-                },
-                "inspect": false
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": 0
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              }
-            },
-            "overrides": [
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "Seq to Index Scan Ratio"
-                },
-                "properties": [
-                  {
-                    "id": "custom.cellOptions",
-                    "value": {
-                      "type": "color-background"
-                    }
-                  },
-                  {
-                    "id": "thresholds",
-                    "value": {
-                      "mode": "absolute",
-                      "steps": [
-                        {
-                          "color": "green",
-                          "value": 0
-                        },
-                        {
-                          "color": "orange",
-                          "value": 5
-                        },
-                        {
-                          "color": "red",
-                          "value": 20
-                        }
-                      ]
-                    }
-                  }
-                ]
-              }
-            ]
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 0,
-            "y": 99
-          },
-          "id": 44,
-          "options": {
-            "cellHeight": "sm",
-            "showHeader": true
-          },
-          "pluginVersion": "12.3.0",
-          "targets": [
-            {
-              "columns": [],
-              "datasource": {
-                "type": "yesoreyeram-infinity-datasource",
-                "uid": "${DataSourceInfinity}"
-              },
-              "filters": [],
-              "format": "table",
-              "global_query_id": "",
-              "parser": "backend",
-              "refId": "A",
-              "root_selector": "",
-              "source": "url",
-              "type": "json",
-              "url": "/table_need_index",
-              "url_options": {
-                "data": "",
-                "method": "GET"
-              }
-            }
-          ],
-          "title": "Tables Need Index",
-          "transformations": [
-            {
-              "id": "organize",
-              "options": {
-                "excludeByName": {},
-                "includeByName": {},
-                "indexByName": {
-                  "count_idx_scan": 3,
-                  "count_seq_scan": 4,
-                  "row_count": 5,
-                  "schema_name": 0,
-                  "seq_to_idx_ratio": 2,
-                  "table_name": 1
-                },
-                "renameByName": {
-                  "count_idx_scan": "No of Index Scan",
-                  "count_seq_scan": "No of Seq Scan",
-                  "row_count": "Row Count",
-                  "schema_name": "Schema Name",
-                  "seq_to_idx_ratio": "Seq to Index Scan Ratio",
-                  "table_name": "Table Name"
-                }
-              }
-            }
-          ],
-          "type": "table"
-        }
-      ],
-      "title": "Table Details",
-      "type": "row"
-    },
-    {
-      "collapsed": false,
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 1
-      },
-      "id": 39,
       "panels": [],
-      "title": "Spill File Details",
+      "title": "Table Details",
       "type": "row"
     },
     {
@@ -799,6 +58,437 @@
         "type": "yesoreyeram-infinity-datasource",
         "uid": "${DataSourceInfinity}"
       },
+      "description": "Shows the current status and configuration of all segments in the cluster, including segment roles, preferred roles, synchronization mode, status, and network details",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "left",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "filterable": true,
+            "footer": {
+              "reducers": []
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Hostname"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 318
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 24,
+        "x": 0,
+        "y": 1
+      },
+      "id": 54,
+      "options": {
+        "cellHeight": "sm",
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": false,
+            "displayName": "dbid"
+          }
+        ]
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "columns": [],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "${DataSourceInfinity}"
+          },
+          "filters": [],
+          "format": "table",
+          "global_query_id": "",
+          "parser": "backend",
+          "refId": "A",
+          "root_selector": "",
+          "source": "url",
+          "type": "json",
+          "url": "/table_gp_segment_config",
+          "url_options": {
+            "data": "",
+            "method": "GET"
+          }
+        }
+      ],
+      "title": "WHPG Segment Configuration (Live)",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {},
+            "includeByName": {},
+            "indexByName": {
+              "address": 7,
+              "content": 1,
+              "dbid": 2,
+              "hostname": 0,
+              "mode": 3,
+              "port": 8,
+              "preferred_role": 5,
+              "role": 4,
+              "status": 6
+            },
+            "renameByName": {
+              "address": "Address",
+              "content": "Content",
+              "datadir": "Data Directory",
+              "dbid": "",
+              "hostname": "Hostname",
+              "mode": "Mode",
+              "port": "Port",
+              "preferred_role": "Preferred Role",
+              "role": "Role",
+              "status": "Status"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "${DataSourceInfinity}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": true,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "fillOpacity": 80,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineWidth": 1,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 24,
+        "x": 0,
+        "y": 10
+      },
+      "id": 43,
+      "options": {
+        "barRadius": 0,
+        "barWidth": 0.97,
+        "fullHighlight": false,
+        "groupWidth": 0.7,
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "right",
+          "showLegend": true
+        },
+        "orientation": "auto",
+        "showValue": "auto",
+        "stacking": "none",
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        },
+        "xTickLabelRotation": 0,
+        "xTickLabelSpacing": 0
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "columns": [],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "${DataSourceInfinity}"
+          },
+          "filters": [],
+          "format": "table",
+          "global_query_id": "",
+          "parser": "backend",
+          "refId": "A",
+          "root_selector": "",
+          "source": "url",
+          "type": "json",
+          "url": "/object_list",
+          "url_options": {
+            "data": "",
+            "method": "GET"
+          }
+        }
+      ],
+      "title": "Object Details",
+      "type": "barchart"
+    },
+    {
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "${DataSourceInfinity}"
+      },
+      "description": "Lists the tables with the highest proportion of dead rows, showing live and dead row counts along with dead_row_percentage. Tables with high dead row percentages are considered “bloated” and may require vacuuming to reclaim space and improve performance.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "footer": {
+              "reducers": []
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 19
+      },
+      "id": 48,
+      "options": {
+        "cellHeight": "sm",
+        "enablePagination": false,
+        "showHeader": true
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "columns": [],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "${DataSourceInfinity}"
+          },
+          "filters": [],
+          "format": "table",
+          "global_query_id": "",
+          "parser": "backend",
+          "refId": "A",
+          "root_selector": "",
+          "source": "url",
+          "type": "json",
+          "url": "/bloated_table_list",
+          "url_options": {
+            "data": "",
+            "method": "GET"
+          }
+        }
+      ],
+      "title": "Top 20 Bloated Tables",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {},
+            "includeByName": {},
+            "indexByName": {
+              "dead_row_percentage": 4,
+              "dead_rows": 3,
+              "live_rows": 2,
+              "schemaname": 0,
+              "table_name": 1
+            },
+            "renameByName": {
+              "dead_row_percentage": "Dead Rows (%)",
+              "dead_rows": "Dead Rows Count",
+              "live_rows": "Live Rows Count",
+              "schemaname": "Schema Name",
+              "table_name": "Table Name"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "${DataSourceInfinity}"
+      },
+      "description": "Shows the 20 tables consuming the most disk space in the database. This helps identify tables that are the biggest contributors to storage usage, useful for capacity planning and monitoring growth trends.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "left",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "filterable": true,
+            "footer": {
+              "reducers": []
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Table Size"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "decbytes"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 19
+      },
+      "id": 49,
+      "options": {
+        "cellHeight": "sm",
+        "enablePagination": false,
+        "showHeader": true
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "columns": [],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "${DataSourceInfinity}"
+          },
+          "filters": [],
+          "format": "table",
+          "global_query_id": "",
+          "parser": "backend",
+          "refId": "A",
+          "root_selector": "",
+          "source": "url",
+          "type": "json",
+          "url": "/top_N_largest_tables",
+          "url_options": {
+            "data": "",
+            "method": "GET"
+          }
+        }
+      ],
+      "title": "Top 20 Largest Tables by Disk Usage",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "total_size_readable": true
+            },
+            "includeByName": {},
+            "indexByName": {},
+            "renameByName": {
+              "schema_name": "Schema Name",
+              "table_name": "Table Name",
+              "total_bytes": "Table Size"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "${DataSourceInfinity}"
+      },
+      "description": "Lists the tables that have never been vacuumed or auto-vacuumed and currently contain dead rows.\nThese tables are at high risk of bloat, increased I/O, and degraded query performance.\nThis list can be used to prioritize manual VACUUM operations or adjust autovacuum settings to ensure timely cleanup.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -835,7 +525,557 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 2
+        "y": 27
+      },
+      "id": 50,
+      "options": {
+        "cellHeight": "sm",
+        "showHeader": true
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "columns": [],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "${DataSourceInfinity}"
+          },
+          "filters": [],
+          "format": "table",
+          "global_query_id": "",
+          "parser": "backend",
+          "refId": "A",
+          "root_selector": "",
+          "source": "url",
+          "type": "json",
+          "url": "/top_N_not_vacuumed_tables",
+          "url_options": {
+            "data": "",
+            "method": "GET"
+          }
+        }
+      ],
+      "title": "Top 20 Tables Not Vacuumed",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {},
+            "includeByName": {},
+            "indexByName": {
+              "dead_rows": 2,
+              "schemaname": 0,
+              "table_name": 1
+            },
+            "renameByName": {
+              "dead_rows": "Count(Dead Tuples)",
+              "schemaname": "Schema Name",
+              "table_name": "Table Name"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "${DataSourceInfinity}"
+      },
+      "description": "Displays the tables containing the highest number of dead rows across the database.\nDead rows accumulate due to updates and deletes and contribute to table bloat, increasing storage usage and degrading query performance.\nThis list helps identify tables that may require VACUUM, ANALYZE, or maintenance tuning.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "left",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "footer": {
+              "reducers": []
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 27
+      },
+      "id": 46,
+      "options": {
+        "cellHeight": "sm",
+        "showHeader": true
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "columns": [],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "${DataSourceInfinity}"
+          },
+          "filters": [],
+          "format": "table",
+          "global_query_id": "",
+          "parser": "backend",
+          "refId": "A",
+          "root_selector": "",
+          "source": "url",
+          "type": "json",
+          "url": "/table_with_most_dead_rows",
+          "url_options": {
+            "data": "",
+            "method": "GET"
+          }
+        }
+      ],
+      "title": "Top 20 Tables With the Most Dead Rows",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {},
+            "includeByName": {},
+            "indexByName": {
+              "dead_rows": 2,
+              "live_rows": 3,
+              "schemaname": 0,
+              "table_name": 1
+            },
+            "renameByName": {
+              "dead_rows": "Dead Rows Count",
+              "live_rows": "Live Rows Count",
+              "schemaname": "Schema Name",
+              "table_name": "Table Name"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "${DataSourceInfinity}"
+      },
+      "description": "Identifies tables where sequential scans are performed more significantly than index scans, suggesting missing or inefficient indexes.\nThese tables meet the following conditions:\n\t•\tseq_scan > 100 — frequently scanned sequentially\n\t•\tidx_scan < seq_scan — index usage is low compared to seq scans\n\t•\tA high seq_to_idx_ratio indicates potential optimization opportunities\n\nIf no such tables are found, a placeholder row is returned.\n\nThis view helps detect tables that may benefit from new indexes to improve query performance",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "footer": {
+              "reducers": []
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Seq to Index Scan Ratio"
+            },
+            "properties": [
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-background"
+                }
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": 0
+                    },
+                    {
+                      "color": "orange",
+                      "value": 5
+                    },
+                    {
+                      "color": "red",
+                      "value": 20
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 35
+      },
+      "id": 44,
+      "options": {
+        "cellHeight": "sm",
+        "showHeader": true
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "columns": [],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "${DataSourceInfinity}"
+          },
+          "filters": [],
+          "format": "table",
+          "global_query_id": "",
+          "parser": "backend",
+          "refId": "A",
+          "root_selector": "",
+          "source": "url",
+          "type": "json",
+          "url": "/table_need_index",
+          "url_options": {
+            "data": "",
+            "method": "GET"
+          }
+        }
+      ],
+      "title": "Tables Likely Needing Indexes",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {},
+            "includeByName": {},
+            "indexByName": {
+              "count_idx_scan": 3,
+              "count_seq_scan": 4,
+              "row_count": 5,
+              "schema_name": 0,
+              "seq_to_idx_ratio": 2,
+              "table_name": 1
+            },
+            "renameByName": {
+              "count_idx_scan": "No of Index Scan",
+              "count_seq_scan": "No of Seq Scan",
+              "row_count": "Row Count",
+              "schema_name": "Schema Name",
+              "seq_to_idx_ratio": "Seq to Index Scan Ratio",
+              "table_name": "Table Name"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "${DataSourceInfinity}"
+      },
+      "description": "Shows tables that are missing ANALYZE statistics, based on the number of columns without collected stats.\nTables lacking proper statistics can cause the query optimizer to choose suboptimal execution plans, leading to slower performance.\nThis list helps identify tables that should be analyzed to ensure accurate row estimates and efficient query execution.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "left",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "filterable": true,
+            "footer": {
+              "reducers": []
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 35
+      },
+      "id": 47,
+      "options": {
+        "cellHeight": "sm",
+        "enablePagination": false,
+        "showHeader": true
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "columns": [],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "${DataSourceInfinity}"
+          },
+          "filters": [],
+          "format": "table",
+          "global_query_id": "",
+          "parser": "backend",
+          "refId": "A",
+          "root_selector": "",
+          "source": "url",
+          "type": "json",
+          "url": "/top_N_not_analyzed_tables",
+          "url_options": {
+            "data": "",
+            "method": "GET"
+          }
+        }
+      ],
+      "title": "Top 20 Tables Missing Statistics",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {},
+            "includeByName": {},
+            "indexByName": {
+              "columns_with_stats": 3,
+              "schema_name": 0,
+              "table_name": 1,
+              "total_columns": 2
+            },
+            "renameByName": {
+              "columns_with_stats": "Columns With Stats",
+              "schema_name": "Schema Name",
+              "table_name": "Table Name",
+              "total_columns": "Total Columms"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 43
+      },
+      "id": 39,
+      "panels": [],
+      "title": "Spill File Details",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "${DataSourceInfinity}"
+      },
+      "description": "Shows the top 20 queries generating workfile spills in the cluster.  If no active spill queries exist, a placeholder row is shown to indicate zero spill activity.",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "left",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "filterable": true,
+            "footer": {
+              "reducers": []
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Spill Size"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "decbytes"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 44
+      },
+      "id": 55,
+      "options": {
+        "cellHeight": "sm",
+        "showHeader": true
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "columns": [],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "${DataSourceInfinity}"
+          },
+          "filters": [],
+          "format": "table",
+          "global_query_id": "",
+          "parser": "backend",
+          "refId": "A",
+          "root_selector": "",
+          "source": "url",
+          "type": "json",
+          "url": "/top_N_spilling_queries",
+          "url_options": {
+            "data": "",
+            "method": "GET"
+          }
+        }
+      ],
+      "title": "Top Queries by Spill Usage",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {},
+            "includeByName": {},
+            "indexByName": {
+              "datname": 0,
+              "numfiles": 2,
+              "query": 1,
+              "spill_size_bytes": 3,
+              "usename": 4
+            },
+            "renameByName": {
+              "datname": "Database Name",
+              "numfiles": "No Of Files Created",
+              "query": "Query",
+              "spill_size_bytes": "Spill Size",
+              "usename": "Role Name"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "${DataSourceInfinity}"
+      },
+      "description": "Displays the total number of workfile spill files and total spill size (in bytes) for each segment in the cluster. ",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "left",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "footer": {
+              "reducers": []
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Total Spill Size"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "decbytes"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 44
       },
       "id": 40,
       "options": {
@@ -865,95 +1105,27 @@
           }
         }
       ],
-      "title": "Spill count per segment",
-      "type": "table"
-    },
-    {
-      "datasource": {
-        "type": "yesoreyeram-infinity-datasource",
-        "uid": "${DataSourceInfinity}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": 0
-              }
-            ]
-          },
-          "unit": "decbytes"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 4,
-        "x": 12,
-        "y": 2
-      },
-      "id": 41,
-      "options": {
-        "colorMode": "background",
-        "graphMode": "area",
-        "justifyMode": "center",
-        "orientation": "auto",
-        "percentChangeColorMode": "standard",
-        "reduceOptions": {
-          "calcs": [
-            "sum"
-          ],
-          "fields": "/^Total Spill Bytes$/",
-          "values": false
-        },
-        "showPercentChange": false,
-        "textMode": "value",
-        "wideLayout": true
-      },
-      "pluginVersion": "12.3.0",
-      "targets": [
+      "title": "Spill File Usage per Segment",
+      "transformations": [
         {
-          "columns": [
-            {
-              "selector": "",
-              "text": "",
-              "type": "string"
+          "id": "organize",
+          "options": {
+            "excludeByName": {},
+            "includeByName": {},
+            "indexByName": {
+              "segment_id": 0,
+              "total_spill_bytes": 2,
+              "total_spill_files": 1
+            },
+            "renameByName": {
+              "segment_id": "Segment ID",
+              "total_spill_bytes": "Total Spill Size",
+              "total_spill_files": "Total Spill Files"
             }
-          ],
-          "computed_columns": [
-            {
-              "selector": "",
-              "text": "",
-              "type": "string"
-            }
-          ],
-          "datasource": {
-            "type": "yesoreyeram-infinity-datasource",
-            "uid": "${DataSourceInfinity}"
-          },
-          "filters": [],
-          "format": "table",
-          "global_query_id": "",
-          "parser": "backend",
-          "refId": "A",
-          "root_selector": "",
-          "source": "url",
-          "type": "json",
-          "url": "/spill_count_per_primary_seg",
-          "url_options": {
-            "data": "",
-            "method": "GET"
           }
         }
       ],
-      "title": "Total Spill File Size (Cluster)",
-      "type": "stat"
+      "type": "table"
     },
     {
       "collapsed": false,
@@ -961,7 +1133,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 10
+        "y": 52
       },
       "id": 34,
       "panels": [],
@@ -973,7 +1145,7 @@
         "type": "prometheus",
         "uid": "${DataSourcePrometheus}"
       },
-      "description": "This panel shows the percentage of time the disk spent doing write operations over the last 5 minutes.",
+      "description": "This panel shows the percentage of time the disk spent doing write operations averagedover the last 5 minutes.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1022,7 +1194,8 @@
                 "value": 0
               }
             ]
-          }
+          },
+          "unit": "percent"
         },
         "overrides": []
       },
@@ -1030,14 +1203,17 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 11
+        "y": 53
       },
       "id": 36,
       "options": {
         "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
+          "calcs": [
+            "mean",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "right",
           "showLegend": true
         },
         "tooltip": {
@@ -1067,7 +1243,7 @@
           "useBackend": false
         }
       ],
-      "title": "Disk Write Utilization",
+      "title": "Disk Write Utilization (%)",
       "type": "timeseries"
     },
     {
@@ -1075,7 +1251,7 @@
         "type": "prometheus",
         "uid": "${DataSourcePrometheus}"
       },
-      "description": "This panel shows the percentage of time the disk spent doing read operations over the last 5 minutes.",
+      "description": "This panel shows the percentage of time the disk spent doing read operations averaged over the last 5 minutes.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1124,7 +1300,8 @@
                 "value": 0
               }
             ]
-          }
+          },
+          "unit": "percent"
         },
         "overrides": []
       },
@@ -1132,14 +1309,17 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 11
+        "y": 53
       },
       "id": 35,
       "options": {
         "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
+          "calcs": [
+            "mean",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "right",
           "showLegend": true
         },
         "tooltip": {
@@ -1169,7 +1349,7 @@
           "useBackend": false
         }
       ],
-      "title": "Disk Read Utilization",
+      "title": "Disk Read Utilization (%)",
       "type": "timeseries"
     },
     {
@@ -1220,7 +1400,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 19
+        "y": 61
       },
       "id": 37,
       "options": {
@@ -1276,7 +1456,7 @@
         "type": "prometheus",
         "uid": "${DataSourcePrometheus}"
       },
-      "description": "total number of filesystem or device errors across all monitored disks and partitions for each server",
+      "description": "This panel shows total number of filesystem or device errors across all monitored disks and partitions for each server",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1341,7 +1521,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 19
+        "y": 61
       },
       "id": 38,
       "options": {
@@ -1378,7 +1558,7 @@
           "useBackend": false
         }
       ],
-      "title": "File system device error",
+      "title": "File System Device Error",
       "type": "timeseries"
     },
     {
@@ -1387,7 +1567,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 27
+        "y": 69
       },
       "id": 32,
       "panels": [],
@@ -1399,7 +1579,7 @@
         "type": "prometheus",
         "uid": "${DataSourcePrometheus}"
       },
-      "description": "Displays the average CPU usage per host over the last 15 minutes",
+      "description": "Shows the percentage of CPU currently in use per instance, calculated as 100 - %idle over the last 15 minutes. This provides a 15-minute rolling average of CPU utilization across the system.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1461,7 +1641,7 @@
         "h": 10,
         "w": 24,
         "x": 0,
-        "y": 28
+        "y": 70
       },
       "id": 31,
       "options": {
@@ -1509,7 +1689,7 @@
         "type": "prometheus",
         "uid": "${DataSourcePrometheus}"
       },
-      "description": "Shows the percentage of CPU being actively used on each host over the last 5 minutes.",
+      "description": "Shows the percentage of CPU actively used on each host, calculated as 100 - %idle over the last 5 minutes. ",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1542,7 +1722,7 @@
         "h": 11,
         "w": 24,
         "x": 0,
-        "y": 38
+        "y": 80
       },
       "id": 33,
       "options": {
@@ -1584,7 +1764,7 @@
           "useBackend": false
         }
       ],
-      "title": "CPU Utilisation for every Host",
+      "title": "CPU Utilisation for every Host (Current)",
       "type": "stat"
     },
     {
@@ -1593,7 +1773,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 49
+        "y": 91
       },
       "id": 21,
       "panels": [],
@@ -1662,7 +1842,7 @@
         "h": 7,
         "w": 24,
         "x": 0,
-        "y": 50
+        "y": 92
       },
       "id": 51,
       "options": {
@@ -1760,7 +1940,7 @@
         "h": 7,
         "w": 24,
         "x": 0,
-        "y": 57
+        "y": 99
       },
       "id": 52,
       "options": {
@@ -1858,7 +2038,7 @@
         "h": 7,
         "w": 24,
         "x": 0,
-        "y": 64
+        "y": 106
       },
       "id": 53,
       "options": {
@@ -1900,7 +2080,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 71
+        "y": 113
       },
       "id": 13,
       "panels": [],
@@ -1943,7 +2123,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 72
+        "y": 114
       },
       "id": 29,
       "options": {
@@ -2027,7 +2207,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 72
+        "y": 114
       },
       "id": 30,
       "options": {
@@ -2187,5 +2367,5 @@
   "timezone": "Europe/London",
   "title": "WarehousePG-Detailed",
   "uid": "warehousepg_detailed_view_edb",
-  "version": 19
+  "version": 22
 }
