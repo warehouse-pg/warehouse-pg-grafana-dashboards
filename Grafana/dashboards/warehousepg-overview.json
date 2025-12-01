@@ -85,6 +85,7 @@
             "mode": "thresholds"
           },
           "mappings": [],
+          "noValue": "DB DISCONNECTED",
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -1568,7 +1569,7 @@
       "type": "bargauge"
     },
     {
-      "collapsed": true,
+      "collapsed": false,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1576,1393 +1577,1394 @@
         "y": 42
       },
       "id": 23,
-      "panels": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DataSourcePrometheus}"
-          },
-          "description": "The average number of processes that are in the run queue over a specific time period using 1 min rolling average across cluster",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": 0
-                  }
-                ]
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 4,
-            "w": 8,
-            "x": 0,
-            "y": 94
-          },
-          "id": 60,
-          "options": {
-            "colorMode": "value",
-            "graphMode": "area",
-            "justifyMode": "auto",
-            "orientation": "auto",
-            "percentChangeColorMode": "standard",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "showPercentChange": false,
-            "textMode": "auto",
-            "wideLayout": true
-          },
-          "pluginVersion": "12.3.0",
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${DataSourcePrometheus}"
-              },
-              "editorMode": "code",
-              "exemplar": false,
-              "expr": "avg(warehousepg_observability_node_load1)",
-              "instant": false,
-              "legendFormat": "Cluster Load (1m)",
-              "range": true,
-              "refId": "A"
-            }
-          ],
-          "title": "System Load (1min avg)",
-          "type": "stat"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DataSourcePrometheus}"
-          },
-          "description": "The average number of processes that are in the run queue over a specific time period using 5 min rolling average across cluster",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": 0
-                  }
-                ]
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 4,
-            "w": 8,
-            "x": 8,
-            "y": 94
-          },
-          "id": 61,
-          "options": {
-            "colorMode": "value",
-            "graphMode": "area",
-            "justifyMode": "auto",
-            "orientation": "auto",
-            "percentChangeColorMode": "standard",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "showPercentChange": false,
-            "textMode": "auto",
-            "wideLayout": true
-          },
-          "pluginVersion": "12.3.0",
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${DataSourcePrometheus}"
-              },
-              "editorMode": "code",
-              "exemplar": false,
-              "expr": "avg(warehousepg_observability_node_load5)",
-              "instant": false,
-              "legendFormat": "Cluster Load (5m)",
-              "range": true,
-              "refId": "A"
-            }
-          ],
-          "title": "System Load (5min avg)",
-          "type": "stat"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DataSourcePrometheus}"
-          },
-          "description": "The average number of processes that are in the run queue over a specific time period using 15 min rolling average across cluster",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": 0
-                  }
-                ]
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 4,
-            "w": 8,
-            "x": 16,
-            "y": 94
-          },
-          "id": 62,
-          "options": {
-            "colorMode": "value",
-            "graphMode": "area",
-            "justifyMode": "auto",
-            "orientation": "auto",
-            "percentChangeColorMode": "standard",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "showPercentChange": false,
-            "textMode": "auto",
-            "wideLayout": true
-          },
-          "pluginVersion": "12.3.0",
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${DataSourcePrometheus}"
-              },
-              "editorMode": "code",
-              "exemplar": false,
-              "expr": "avg(warehousepg_observability_node_load15)",
-              "instant": false,
-              "legendFormat": "Cluster Load (15m)",
-              "range": true,
-              "refId": "A"
-            }
-          ],
-          "title": "System Load (15min avg)",
-          "type": "stat"
-        }
-      ],
+      "panels": [],
       "title": "Load Average",
       "type": "row"
     },
     {
-      "collapsed": true,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DataSourcePrometheus}"
+      },
+      "description": "The average number of processes that are in the run queue over a specific time period using 1 min rolling average across cluster",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 8,
+        "x": 0,
+        "y": 43
+      },
+      "id": 60,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DataSourcePrometheus}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "avg(warehousepg_observability_node_load1)",
+          "instant": false,
+          "legendFormat": "Cluster Load (1m)",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "System Load (1min avg)",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DataSourcePrometheus}"
+      },
+      "description": "The average number of processes that are in the run queue over a specific time period using 5 min rolling average across cluster",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 8,
+        "x": 8,
+        "y": 43
+      },
+      "id": 61,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DataSourcePrometheus}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "avg(warehousepg_observability_node_load5)",
+          "instant": false,
+          "legendFormat": "Cluster Load (5m)",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "System Load (5min avg)",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DataSourcePrometheus}"
+      },
+      "description": "The average number of processes that are in the run queue over a specific time period using 15 min rolling average across cluster",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 8,
+        "x": 16,
+        "y": 43
+      },
+      "id": 62,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DataSourcePrometheus}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "avg(warehousepg_observability_node_load15)",
+          "instant": false,
+          "legendFormat": "Cluster Load (15m)",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "System Load (15min avg)",
+      "type": "stat"
+    },
+    {
+      "collapsed": false,
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 43
+        "y": 47
       },
       "id": 27,
-      "panels": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DataSourcePrometheus}"
-          },
-          "description": "",
-          "fieldConfig": {
-            "defaults": {
-              "fieldMinMax": false,
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": 0
-                  }
-                ]
-              }
-            },
-            "overrides": [
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "Long Running Queries(>120s)"
-                },
-                "properties": [
-                  {
-                    "id": "color",
-                    "value": {
-                      "mode": "thresholds"
-                    }
-                  },
-                  {
-                    "id": "mappings",
-                    "value": [
-                      {
-                        "options": {
-                          "from": 0,
-                          "result": {
-                            "color": "green",
-                            "index": 1
-                          },
-                          "to": 20
-                        },
-                        "type": "range"
-                      },
-                      {
-                        "options": {
-                          "from": 21,
-                          "result": {
-                            "color": "orange",
-                            "index": 2
-                          },
-                          "to": 50
-                        },
-                        "type": "range"
-                      },
-                      {
-                        "options": {
-                          "from": 51,
-                          "result": {
-                            "color": "red",
-                            "index": 3
-                          },
-                          "to": 1000000
-                        },
-                        "type": "range"
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "Queries in Wait"
-                },
-                "properties": [
-                  {
-                    "id": "color",
-                    "value": {
-                      "mode": "thresholds"
-                    }
-                  },
-                  {
-                    "id": "mappings",
-                    "value": [
-                      {
-                        "options": {
-                          "from": 0,
-                          "result": {
-                            "color": "green",
-                            "index": 0
-                          },
-                          "to": 20
-                        },
-                        "type": "range"
-                      },
-                      {
-                        "options": {
-                          "from": 21,
-                          "result": {
-                            "color": "orange",
-                            "index": 1
-                          },
-                          "to": 50
-                        },
-                        "type": "range"
-                      },
-                      {
-                        "options": {
-                          "from": 51,
-                          "result": {
-                            "color": "red",
-                            "index": 2
-                          },
-                          "to": 1000000
-                        },
-                        "type": "range"
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "Blocked Queries"
-                },
-                "properties": [
-                  {
-                    "id": "color"
-                  },
-                  {
-                    "id": "mappings",
-                    "value": [
-                      {
-                        "options": {
-                          "0": {
-                            "color": "green",
-                            "index": 0
-                          }
-                        },
-                        "type": "value"
-                      },
-                      {
-                        "options": {
-                          "from": 1,
-                          "result": {
-                            "color": "orange",
-                            "index": 1
-                          },
-                          "to": 50
-                        },
-                        "type": "range"
-                      },
-                      {
-                        "options": {
-                          "from": 51,
-                          "result": {
-                            "color": "red",
-                            "index": 2
-                          },
-                          "to": 1000000
-                        },
-                        "type": "range"
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
-          },
-          "gridPos": {
-            "h": 4,
-            "w": 24,
-            "x": 0,
-            "y": 44
-          },
-          "id": 40,
-          "options": {
-            "colorMode": "background",
-            "graphMode": "none",
-            "justifyMode": "center",
-            "orientation": "vertical",
-            "percentChangeColorMode": "standard",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "showPercentChange": false,
-            "textMode": "value_and_name",
-            "wideLayout": true
-          },
-          "pluginVersion": "12.3.0",
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${DataSourcePrometheus}"
-              },
-              "editorMode": "builder",
-              "exemplar": false,
-              "expr": "warehousepg_observability_q_total",
-              "hide": false,
-              "instant": true,
-              "legendFormat": "Total Queries",
-              "range": false,
-              "refId": "C"
-            },
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${DataSourcePrometheus}"
-              },
-              "disableTextWrap": false,
-              "editorMode": "builder",
-              "exemplar": false,
-              "expr": "warehousepg_observability_q_active",
-              "format": "time_series",
-              "fullMetaSearch": false,
-              "includeNullMetadata": true,
-              "instant": true,
-              "legendFormat": "Active Queries",
-              "range": false,
-              "refId": "A",
-              "useBackend": false
-            },
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${DataSourcePrometheus}"
-              },
-              "disableTextWrap": false,
-              "editorMode": "builder",
-              "exemplar": false,
-              "expr": "warehousepg_observability_q_idle",
-              "fullMetaSearch": false,
-              "hide": false,
-              "includeNullMetadata": true,
-              "instant": true,
-              "legendFormat": "Idle Queries",
-              "range": false,
-              "refId": "B",
-              "useBackend": false
-            },
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${DataSourcePrometheus}"
-              },
-              "editorMode": "builder",
-              "exemplar": false,
-              "expr": "warehousepg_observability_q_long_running_120s",
-              "hide": false,
-              "instant": true,
-              "legendFormat": "Long Running Queries(>120s)",
-              "range": false,
-              "refId": "D"
-            },
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${DataSourcePrometheus}"
-              },
-              "editorMode": "builder",
-              "exemplar": false,
-              "expr": "warehousepg_observability_q_in_wait",
-              "hide": false,
-              "instant": true,
-              "legendFormat": "Queries in Wait",
-              "range": false,
-              "refId": "E"
-            },
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${DataSourcePrometheus}"
-              },
-              "editorMode": "builder",
-              "exemplar": false,
-              "expr": "warehousepg_observability_q_blocked",
-              "hide": false,
-              "instant": true,
-              "legendFormat": "Blocked Queries",
-              "range": false,
-              "refId": "F"
-            }
-          ],
-          "title": "",
-          "type": "stat"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DataSourcePrometheus}"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisBorderShow": false,
-                "axisCenteredZero": false,
-                "axisColorMode": "text",
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "barWidthFactor": 0.6,
-                "drawStyle": "line",
-                "fillOpacity": 0,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "insertNulls": false,
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "never",
-                "showValues": false,
-                "spanNulls": true,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": 0
-                  }
-                ]
-              },
-              "unit": "none"
-            },
-            "overrides": [
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "Active queries"
-                },
-                "properties": [
-                  {
-                    "id": "color",
-                    "value": {
-                      "fixedColor": "dark-green",
-                      "mode": "fixed"
-                    }
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "Idle queries"
-                },
-                "properties": [
-                  {
-                    "id": "color",
-                    "value": {
-                      "fixedColor": "dark-orange",
-                      "mode": "fixed"
-                    }
-                  }
-                ]
-              }
-            ]
-          },
-          "gridPos": {
-            "h": 7,
-            "w": 12,
-            "x": 0,
-            "y": 48
-          },
-          "id": 6,
-          "options": {
-            "legend": {
-              "calcs": [],
-              "displayMode": "list",
-              "placement": "bottom",
-              "showLegend": true
-            },
-            "tooltip": {
-              "hideZeros": false,
-              "mode": "single",
-              "sort": "none"
-            }
-          },
-          "pluginVersion": "12.3.0",
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${DataSourcePrometheus}"
-              },
-              "disableTextWrap": false,
-              "editorMode": "builder",
-              "exemplar": false,
-              "expr": "warehousepg_observability_q_active",
-              "format": "heatmap",
-              "fullMetaSearch": false,
-              "includeNullMetadata": true,
-              "instant": false,
-              "legendFormat": "Active queries",
-              "range": true,
-              "refId": "A",
-              "useBackend": false
-            },
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${DataSourcePrometheus}"
-              },
-              "disableTextWrap": false,
-              "editorMode": "builder",
-              "expr": "warehousepg_observability_q_idle",
-              "fullMetaSearch": false,
-              "hide": false,
-              "includeNullMetadata": true,
-              "instant": false,
-              "legendFormat": "Idle queries",
-              "range": true,
-              "refId": "B",
-              "useBackend": false
-            }
-          ],
-          "title": "Queries Overview",
-          "type": "timeseries"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DataSourcePrometheus}"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisBorderShow": false,
-                "axisCenteredZero": false,
-                "axisColorMode": "text",
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "barWidthFactor": 0.6,
-                "drawStyle": "line",
-                "fillOpacity": 0,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "insertNulls": false,
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "auto",
-                "showValues": false,
-                "spanNulls": true,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "mappings": [],
-              "min": 0,
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": 0
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 7,
-            "w": 12,
-            "x": 12,
-            "y": 48
-          },
-          "id": 33,
-          "options": {
-            "legend": {
-              "calcs": [],
-              "displayMode": "list",
-              "placement": "bottom",
-              "showLegend": true
-            },
-            "tooltip": {
-              "hideZeros": false,
-              "mode": "single",
-              "sort": "none"
-            }
-          },
-          "pluginVersion": "12.3.0",
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${DataSourcePrometheus}"
-              },
-              "editorMode": "code",
-              "exemplar": false,
-              "expr": "warehousepg_observability_qu",
-              "instant": false,
-              "legendFormat": "{{username}}",
-              "range": true,
-              "refId": "A"
-            }
-          ],
-          "title": "Queries per user",
-          "type": "timeseries"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DataSourcePrometheus}"
-          },
-          "description": "Measures the average number of queries executed per second over the last 5 minutes.\nThis metric is calculated using a monotonically increasing counter on total transactions(commit+rollback). A higher value indicates increased workload on the cluster. ",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "custom": {
-                "axisBorderShow": false,
-                "axisCenteredZero": false,
-                "axisColorMode": "text",
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "barWidthFactor": 0.6,
-                "drawStyle": "line",
-                "fillOpacity": 20,
-                "gradientMode": "scheme",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "insertNulls": false,
-                "lineInterpolation": "smooth",
-                "lineWidth": 2,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "auto",
-                "showValues": false,
-                "spanNulls": false,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
-                "thresholdsStyle": {
-                  "mode": "line+area"
-                }
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": 0
-                  },
-                  {
-                    "color": "#EAB839",
-                    "value": 100
-                  },
-                  {
-                    "color": "red",
-                    "value": 200
-                  }
-                ]
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 7,
-            "w": 9,
-            "x": 0,
-            "y": 55
-          },
-          "id": 41,
-          "options": {
-            "legend": {
-              "calcs": [],
-              "displayMode": "hidden",
-              "placement": "right",
-              "showLegend": false
-            },
-            "tooltip": {
-              "hideZeros": false,
-              "mode": "single",
-              "sort": "none"
-            }
-          },
-          "pluginVersion": "12.3.0",
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${DataSourcePrometheus}"
-              },
-              "editorMode": "code",
-              "expr": "rate(warehousepg_observability_txn_total_queries_executed[5m])",
-              "legendFormat": "QPS (5m rate)",
-              "range": true,
-              "refId": "A"
-            }
-          ],
-          "title": "Query Per Second (5 minute rate)",
-          "type": "timeseries"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DataSourcePrometheus}"
-          },
-          "description": "Shows the current number of queries executed per second, calculated as the 1-minute rate of total transactions (commits + rollbacks). ",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": 0
-                  }
-                ]
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 7,
-            "w": 3,
-            "x": 9,
-            "y": 55
-          },
-          "id": 64,
-          "options": {
-            "colorMode": "value",
-            "graphMode": "area",
-            "justifyMode": "auto",
-            "orientation": "auto",
-            "percentChangeColorMode": "inverted",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "showPercentChange": true,
-            "textMode": "value_and_name",
-            "wideLayout": true
-          },
-          "pluginVersion": "12.3.0",
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${DataSourcePrometheus}"
-              },
-              "editorMode": "code",
-              "exemplar": false,
-              "expr": "rate(warehousepg_observability_txn_total_queries_executed[1m])",
-              "instant": true,
-              "legendFormat": "QPS (1m rate)",
-              "range": false,
-              "refId": "A"
-            }
-          ],
-          "title": "",
-          "type": "stat"
-        },
-        {
-          "datasource": {
-            "type": "yesoreyeram-infinity-datasource",
-            "uid": "${DataSourceInfinity}"
-          },
-          "description": "This table shows the list of longest running queries.",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "custom": {
-                "align": "left",
-                "cellOptions": {
-                  "type": "auto"
-                },
-                "filterable": true,
-                "footer": {
-                  "reducers": []
-                },
-                "inspect": false
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": 0
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              }
-            },
-            "overrides": [
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "Duration"
-                },
-                "properties": [
-                  {
-                    "id": "thresholds",
-                    "value": {
-                      "mode": "absolute",
-                      "steps": [
-                        {
-                          "color": "green",
-                          "value": 0
-                        },
-                        {
-                          "color": "orange",
-                          "value": 1800
-                        },
-                        {
-                          "color": "red",
-                          "value": 3600
-                        }
-                      ]
-                    }
-                  },
-                  {
-                    "id": "custom.cellOptions",
-                    "value": {
-                      "type": "color-text"
-                    }
-                  },
-                  {
-                    "id": "unit",
-                    "value": "dtdhms"
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "Query"
-                },
-                "properties": [
-                  {
-                    "id": "custom.width",
-                    "value": 288
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "duration_seconds"
-                },
-                "properties": [
-                  {
-                    "id": "custom.footer.reducers",
-                    "value": [
-                      "max"
-                    ]
-                  }
-                ]
-              }
-            ]
-          },
-          "gridPos": {
-            "h": 7,
-            "w": 12,
-            "x": 12,
-            "y": 55
-          },
-          "id": 59,
-          "options": {
-            "cellHeight": "sm",
-            "showHeader": true,
-            "sortBy": []
-          },
-          "pluginVersion": "12.3.0",
-          "targets": [
-            {
-              "columns": [],
-              "datasource": {
-                "type": "yesoreyeram-infinity-datasource",
-                "uid": "${DataSourceInfinity}"
-              },
-              "filters": [],
-              "format": "table",
-              "global_query_id": "",
-              "parser": "backend",
-              "refId": "A",
-              "root_selector": "",
-              "source": "url",
-              "type": "json",
-              "url": "/pg_stat_activity",
-              "url_options": {
-                "data": "",
-                "method": "GET"
-              }
-            }
-          ],
-          "title": "Longest Running Query",
-          "transformations": [
-            {
-              "id": "organize",
-              "options": {
-                "excludeByName": {
-                  "duration_string": true,
-                  "query_start": true
-                },
-                "includeByName": {},
-                "indexByName": {
-                  "database": 0,
-                  "duration_seconds": 1,
-                  "duration_string": 2,
-                  "pid": 9,
-                  "query": 3,
-                  "query_start": 4,
-                  "state": 5,
-                  "user": 6,
-                  "wait_event": 7,
-                  "wait_event_type": 8
-                },
-                "renameByName": {
-                  "database": "Database",
-                  "duration_seconds": "Duration",
-                  "pid": "Process ID",
-                  "query": "Query",
-                  "query_start": "Query Start Time",
-                  "state": "Query State",
-                  "user": "User",
-                  "wait_event": "Query Wait Event",
-                  "wait_event_type": "Query Wait Event Type"
-                }
-              }
-            }
-          ],
-          "type": "table"
-        }
-      ],
+      "panels": [],
       "title": "Query Status",
       "type": "row"
     },
     {
-      "collapsed": true,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DataSourcePrometheus}"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "fieldMinMax": false,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Long Running Queries(>120s)"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "thresholds"
+                }
+              },
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "from": 0,
+                      "result": {
+                        "color": "green",
+                        "index": 1
+                      },
+                      "to": 20
+                    },
+                    "type": "range"
+                  },
+                  {
+                    "options": {
+                      "from": 21,
+                      "result": {
+                        "color": "orange",
+                        "index": 2
+                      },
+                      "to": 50
+                    },
+                    "type": "range"
+                  },
+                  {
+                    "options": {
+                      "from": 51,
+                      "result": {
+                        "color": "red",
+                        "index": 3
+                      },
+                      "to": 1000000
+                    },
+                    "type": "range"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Queries in Wait"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "thresholds"
+                }
+              },
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "from": 0,
+                      "result": {
+                        "color": "green",
+                        "index": 0
+                      },
+                      "to": 20
+                    },
+                    "type": "range"
+                  },
+                  {
+                    "options": {
+                      "from": 21,
+                      "result": {
+                        "color": "orange",
+                        "index": 1
+                      },
+                      "to": 50
+                    },
+                    "type": "range"
+                  },
+                  {
+                    "options": {
+                      "from": 51,
+                      "result": {
+                        "color": "red",
+                        "index": 2
+                      },
+                      "to": 1000000
+                    },
+                    "type": "range"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Blocked Queries"
+            },
+            "properties": [
+              {
+                "id": "color"
+              },
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "0": {
+                        "color": "green",
+                        "index": 0
+                      }
+                    },
+                    "type": "value"
+                  },
+                  {
+                    "options": {
+                      "from": 1,
+                      "result": {
+                        "color": "orange",
+                        "index": 1
+                      },
+                      "to": 50
+                    },
+                    "type": "range"
+                  },
+                  {
+                    "options": {
+                      "from": 51,
+                      "result": {
+                        "color": "red",
+                        "index": 2
+                      },
+                      "to": 1000000
+                    },
+                    "type": "range"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 24,
+        "x": 0,
+        "y": 48
+      },
+      "id": 40,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "vertical",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "value_and_name",
+        "wideLayout": true
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DataSourcePrometheus}"
+          },
+          "editorMode": "builder",
+          "exemplar": false,
+          "expr": "warehousepg_observability_q_total",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "Total Queries",
+          "range": false,
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DataSourcePrometheus}"
+          },
+          "disableTextWrap": false,
+          "editorMode": "builder",
+          "exemplar": false,
+          "expr": "warehousepg_observability_q_active",
+          "format": "time_series",
+          "fullMetaSearch": false,
+          "includeNullMetadata": true,
+          "instant": true,
+          "legendFormat": "Active Queries",
+          "range": false,
+          "refId": "A",
+          "useBackend": false
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DataSourcePrometheus}"
+          },
+          "disableTextWrap": false,
+          "editorMode": "builder",
+          "exemplar": false,
+          "expr": "warehousepg_observability_q_idle",
+          "fullMetaSearch": false,
+          "hide": false,
+          "includeNullMetadata": true,
+          "instant": true,
+          "legendFormat": "Idle Queries",
+          "range": false,
+          "refId": "B",
+          "useBackend": false
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DataSourcePrometheus}"
+          },
+          "editorMode": "builder",
+          "exemplar": false,
+          "expr": "warehousepg_observability_q_long_running_120s",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "Long Running Queries(>120s)",
+          "range": false,
+          "refId": "D"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DataSourcePrometheus}"
+          },
+          "editorMode": "builder",
+          "exemplar": false,
+          "expr": "warehousepg_observability_q_in_wait",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "Queries in Wait",
+          "range": false,
+          "refId": "E"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DataSourcePrometheus}"
+          },
+          "editorMode": "builder",
+          "exemplar": false,
+          "expr": "warehousepg_observability_q_blocked",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "Blocked Queries",
+          "range": false,
+          "refId": "F"
+        }
+      ],
+      "title": "",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DataSourcePrometheus}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "showValues": false,
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Active queries"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-green",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Idle queries"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-orange",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 0,
+        "y": 52
+      },
+      "id": 6,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DataSourcePrometheus}"
+          },
+          "disableTextWrap": false,
+          "editorMode": "builder",
+          "exemplar": false,
+          "expr": "warehousepg_observability_q_active",
+          "format": "heatmap",
+          "fullMetaSearch": false,
+          "includeNullMetadata": true,
+          "instant": false,
+          "legendFormat": "Active queries",
+          "range": true,
+          "refId": "A",
+          "useBackend": false
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DataSourcePrometheus}"
+          },
+          "disableTextWrap": false,
+          "editorMode": "builder",
+          "expr": "warehousepg_observability_q_idle",
+          "fullMetaSearch": false,
+          "hide": false,
+          "includeNullMetadata": true,
+          "instant": false,
+          "legendFormat": "Idle queries",
+          "range": true,
+          "refId": "B",
+          "useBackend": false
+        }
+      ],
+      "title": "Queries Overview",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DataSourcePrometheus}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 12,
+        "y": 52
+      },
+      "id": 33,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DataSourcePrometheus}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "warehousepg_observability_qu",
+          "instant": false,
+          "legendFormat": "{{username}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Queries per user",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DataSourcePrometheus}"
+      },
+      "description": "Measures the average number of queries executed per second over the last 5 minutes.\nThis metric is calculated using a monotonically increasing counter on total transactions(commit+rollback). A higher value indicates increased workload on the cluster. ",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 20,
+            "gradientMode": "scheme",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "smooth",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "line+area"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "#EAB839",
+                "value": 100
+              },
+              {
+                "color": "red",
+                "value": 200
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 9,
+        "x": 0,
+        "y": 59
+      },
+      "id": 41,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "hidden",
+          "placement": "right",
+          "showLegend": false
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DataSourcePrometheus}"
+          },
+          "editorMode": "code",
+          "expr": "rate(warehousepg_observability_txn_total_queries_executed[5m])",
+          "legendFormat": "QPS (5m rate)",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Query Per Second (5 minute rate)",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DataSourcePrometheus}"
+      },
+      "description": "Shows the current number of queries executed per second, calculated as the 1-minute rate of total transactions (commits + rollbacks). ",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 3,
+        "x": 9,
+        "y": 59
+      },
+      "id": 64,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "inverted",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": true,
+        "textMode": "value_and_name",
+        "wideLayout": true
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DataSourcePrometheus}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "rate(warehousepg_observability_txn_total_queries_executed[1m])",
+          "instant": true,
+          "legendFormat": "QPS (1m rate)",
+          "range": false,
+          "refId": "A"
+        }
+      ],
+      "title": "",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "${DataSourceInfinity}"
+      },
+      "description": "This table shows list of queries running more than 120seconds.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "left",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "filterable": true,
+            "footer": {
+              "reducers": []
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "noValue": "No Slow Queries Found!",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Duration"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": 0
+                    },
+                    {
+                      "color": "orange",
+                      "value": 1800
+                    },
+                    {
+                      "color": "red",
+                      "value": 3600
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-text"
+                }
+              },
+              {
+                "id": "unit",
+                "value": "dtdhms"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Query"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 288
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "duration_seconds"
+            },
+            "properties": [
+              {
+                "id": "custom.footer.reducers",
+                "value": [
+                  "max"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 12,
+        "y": 59
+      },
+      "id": 59,
+      "options": {
+        "cellHeight": "sm",
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "columns": [],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "${DataSourceInfinity}"
+          },
+          "filters": [],
+          "format": "table",
+          "global_query_id": "",
+          "parser": "backend",
+          "refId": "A",
+          "root_selector": "",
+          "source": "url",
+          "type": "json",
+          "url": "/pg_stat_activity",
+          "url_options": {
+            "data": "",
+            "method": "GET"
+          }
+        }
+      ],
+      "title": "Longest Running Query",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "duration_string": true,
+              "query_start": true
+            },
+            "includeByName": {},
+            "indexByName": {
+              "database": 0,
+              "duration_seconds": 1,
+              "duration_string": 2,
+              "pid": 9,
+              "query": 3,
+              "query_start": 4,
+              "state": 5,
+              "user": 6,
+              "wait_event": 7,
+              "wait_event_type": 8
+            },
+            "renameByName": {
+              "database": "Database",
+              "duration_seconds": "Duration",
+              "pid": "Process ID",
+              "query": "Query",
+              "query_start": "Query Start Time",
+              "state": "Query State",
+              "user": "User",
+              "wait_event": "Query Wait Event",
+              "wait_event_type": "Query Wait Event Type"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "collapsed": false,
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 44
+        "y": 66
       },
       "id": 28,
-      "panels": [
-        {
-          "datasource": {
-            "type": "loki",
-            "uid": "${DataSourceLoki}"
-          },
-          "description": "Displays the total number of LOG-level messages generated across the cluster during the selected dashboard time range.",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": 0
-                  }
-                ]
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 6,
-            "w": 4,
-            "x": 0,
-            "y": 63
-          },
-          "id": 42,
-          "options": {
-            "colorMode": "value",
-            "graphMode": "none",
-            "justifyMode": "auto",
-            "orientation": "auto",
-            "percentChangeColorMode": "inverted",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "showPercentChange": true,
-            "textMode": "auto",
-            "wideLayout": true
-          },
-          "pluginVersion": "12.3.0",
-          "targets": [
-            {
-              "datasource": {
-                "type": "loki",
-                "uid": "${DataSourceLoki}"
-              },
-              "direction": "backward",
-              "editorMode": "code",
-              "expr": "sum(count_over_time({severity=\"LOG\"}[${__range}]))",
-              "queryType": "range",
-              "refId": "A"
-            }
-          ],
-          "title": "LOG Severity Count",
-          "type": "stat"
-        },
-        {
-          "datasource": {
-            "type": "loki",
-            "uid": "${DataSourceLoki}"
-          },
-          "description": "Displays the total number of ERROR-level messages generated across the cluster during the selected dashboard time range.",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": 0
-                  }
-                ]
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 6,
-            "w": 4,
-            "x": 4,
-            "y": 63
-          },
-          "id": 48,
-          "options": {
-            "colorMode": "value",
-            "graphMode": "none",
-            "justifyMode": "auto",
-            "orientation": "auto",
-            "percentChangeColorMode": "inverted",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "showPercentChange": true,
-            "textMode": "auto",
-            "wideLayout": true
-          },
-          "pluginVersion": "12.3.0",
-          "targets": [
-            {
-              "datasource": {
-                "type": "loki",
-                "uid": "${DataSourceLoki}"
-              },
-              "direction": "backward",
-              "editorMode": "code",
-              "expr": "sum(count_over_time({severity=\"ERROR\"}[${__range}]))",
-              "queryType": "range",
-              "refId": "A"
-            }
-          ],
-          "title": "ERROR Severity Count",
-          "type": "stat"
-        },
-        {
-          "datasource": {
-            "type": "loki",
-            "uid": "${DataSourceLoki}"
-          },
-          "description": "Displays the total number of FATAL-level messages generated across the cluster during the selected dashboard time range",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": 0
-                  }
-                ]
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 6,
-            "w": 4,
-            "x": 8,
-            "y": 63
-          },
-          "id": 51,
-          "options": {
-            "colorMode": "value",
-            "graphMode": "none",
-            "justifyMode": "auto",
-            "orientation": "auto",
-            "percentChangeColorMode": "inverted",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "showPercentChange": true,
-            "textMode": "auto",
-            "wideLayout": true
-          },
-          "pluginVersion": "12.3.0",
-          "targets": [
-            {
-              "datasource": {
-                "type": "loki",
-                "uid": "${DataSourceLoki}"
-              },
-              "direction": "backward",
-              "editorMode": "code",
-              "expr": "sum(count_over_time({severity=\"FATAL\"}[${__range}]))",
-              "queryType": "range",
-              "refId": "A"
-            }
-          ],
-          "title": "FATAL Severity Count",
-          "type": "stat"
-        },
-        {
-          "datasource": {
-            "type": "loki",
-            "uid": "${DataSourceLoki}"
-          },
-          "description": "Displays the total number of PANIC-level messages generated across the cluster during the selected dashboard time range",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": 0
-                  }
-                ]
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 6,
-            "w": 4,
-            "x": 12,
-            "y": 63
-          },
-          "id": 52,
-          "options": {
-            "colorMode": "value",
-            "graphMode": "none",
-            "justifyMode": "auto",
-            "orientation": "auto",
-            "percentChangeColorMode": "inverted",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "showPercentChange": true,
-            "textMode": "auto",
-            "wideLayout": true
-          },
-          "pluginVersion": "12.3.0",
-          "targets": [
-            {
-              "datasource": {
-                "type": "loki",
-                "uid": "${DataSourceLoki}"
-              },
-              "direction": "backward",
-              "editorMode": "code",
-              "expr": "sum(count_over_time({severity=\"PANIC\"}[${__range}]))",
-              "queryType": "range",
-              "refId": "A"
-            }
-          ],
-          "title": "PANIC Severity Count",
-          "type": "stat"
-        }
-      ],
+      "panels": [],
       "title": "Log Info",
       "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "${DataSourceLoki}"
+      },
+      "description": "Displays the total number of LOG-level messages generated across the cluster during the selected dashboard time range.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 4,
+        "x": 0,
+        "y": 67
+      },
+      "id": 42,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "inverted",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": true,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "${DataSourceLoki}"
+          },
+          "direction": "backward",
+          "editorMode": "code",
+          "expr": "sum(count_over_time({severity=\"LOG\"}[${__range}]))",
+          "queryType": "range",
+          "refId": "A"
+        }
+      ],
+      "title": "LOG Severity Count",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "${DataSourceLoki}"
+      },
+      "description": "Displays the total number of ERROR-level messages generated across the cluster during the selected dashboard time range.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "noValue": "No log with ERROR severity found!",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 4,
+        "x": 4,
+        "y": 67
+      },
+      "id": 48,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "inverted",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": true,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "${DataSourceLoki}"
+          },
+          "direction": "backward",
+          "editorMode": "code",
+          "expr": "sum(count_over_time({severity=\"ERROR\"}[${__range}]))",
+          "queryType": "range",
+          "refId": "A"
+        }
+      ],
+      "title": "ERROR Severity Count",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "${DataSourceLoki}"
+      },
+      "description": "Displays the total number of FATAL-level messages generated across the cluster during the selected dashboard time range",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "noValue": "No log with FATAL severity found!",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 4,
+        "x": 8,
+        "y": 67
+      },
+      "id": 51,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "inverted",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": true,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "${DataSourceLoki}"
+          },
+          "direction": "backward",
+          "editorMode": "code",
+          "expr": "sum(count_over_time({severity=\"FATAL\"}[${__range}]))",
+          "queryType": "range",
+          "refId": "A"
+        }
+      ],
+      "title": "FATAL Severity Count",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "${DataSourceLoki}"
+      },
+      "description": "Displays the total number of PANIC-level messages generated across the cluster during the selected dashboard time range",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "noValue": "No log with PANIC severity found!",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 4,
+        "x": 12,
+        "y": 67
+      },
+      "id": 52,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "inverted",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": true,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "${DataSourceLoki}"
+          },
+          "direction": "backward",
+          "editorMode": "code",
+          "expr": "sum(count_over_time({severity=\"PANIC\"}[${__range}]))",
+          "queryType": "range",
+          "refId": "A"
+        }
+      ],
+      "title": "PANIC Severity Count",
+      "type": "stat"
     }
   ],
   "preload": false,
@@ -3075,7 +3077,7 @@
   },
   "timepicker": {},
   "timezone": "Europe/London",
-  "title": "WarehousePG-Overview",
+  "title": "WarehousePG-Overview-Dashboard",
   "uid": "warehousepg_dashboard_demo_edb",
-  "version": 45
+  "version": 50
 }

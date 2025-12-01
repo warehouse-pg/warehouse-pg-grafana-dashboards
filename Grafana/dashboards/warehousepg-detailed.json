@@ -2365,7 +2365,7 @@
   },
   "timepicker": {},
   "timezone": "Europe/London",
-  "title": "WarehousePG-Detailed",
+  "title": "WarehousePG-Detailed-Dashboard",
   "uid": "warehousepg_detailed_view_edb",
-  "version": 22
+  "version": 28
 }
