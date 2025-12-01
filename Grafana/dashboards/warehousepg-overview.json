@@ -46,7 +46,7 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 3,
+        "h": 2,
         "w": 3,
         "x": 0,
         "y": 0
@@ -141,7 +141,7 @@
         ]
       },
       "gridPos": {
-        "h": 3,
+        "h": 2,
         "w": 3,
         "x": 3,
         "y": 0
@@ -192,10 +192,10 @@
         "defaults": {
           "color": {
             "fixedColor": "text",
-            "mode": "fixed"
+            "mode": "palette-classic"
           },
           "custom": {
-            "align": "auto",
+            "align": "center",
             "cellOptions": {
               "type": "color-text"
             },
@@ -205,25 +205,7 @@
             },
             "inspect": false
           },
-          "mappings": [
-            {
-              "options": {
-                "db_uptime": {
-                  "index": 0,
-                  "text": "Database Up Time"
-                },
-                "observability": {
-                  "index": 2,
-                  "text": "Observability Version"
-                },
-                "version": {
-                  "index": 1,
-                  "text": "Database Version"
-                }
-              },
-              "type": "value"
-            }
-          ],
+          "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -238,12 +220,24 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "label"
+              "options": "DB Uptime"
             },
             "properties": [
               {
-                "id": "custom.width",
-                "value": 160
+                "id": "unit",
+                "value": "dateTimeFromNow"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "DB Version"
+            },
+            "properties": [
+              {
+                "id": "custom.align",
+                "value": "left"
               }
             ]
           }
@@ -255,12 +249,12 @@
         "x": 6,
         "y": 0
       },
-      "id": 36,
+      "id": 65,
       "options": {
         "cellHeight": "sm",
         "enablePagination": false,
         "frameIndex": 1,
-        "showHeader": false,
+        "showHeader": true,
         "sortBy": [
           {
             "desc": false,
@@ -275,12 +269,12 @@
             "type": "prometheus",
             "uid": "${DataSourcePrometheus}"
           },
-          "editorMode": "code",
+          "editorMode": "builder",
           "exemplar": false,
           "expr": "warehousepg_observability_connected",
-          "format": "time_series",
+          "format": "table",
           "instant": true,
-          "legendFormat": " ",
+          "legendFormat": "  ",
           "range": false,
           "refId": "A"
         }
@@ -288,27 +282,31 @@
       "title": "",
       "transformations": [
         {
-          "id": "labelsToFields",
-          "options": {
-            "keepLabels": [
-              "version",
-              "db_uptime",
-              "observability"
-            ],
-            "mode": "rows"
-          }
-        },
-        {
           "id": "organize",
           "options": {
-            "excludeByName": {},
+            "excludeByName": {
+              "Time": true,
+              "Value": true,
+              "__name__": true,
+              "connected": true
+            },
             "includeByName": {},
-            "indexByName": {},
-            "orderByMode": "auto",
+            "indexByName": {
+              "Time": 0,
+              "Value": 6,
+              "__name__": 2,
+              "connected": 3,
+              "db_uptime": 4,
+              "observability": 5,
+              "version": 1
+            },
             "renameByName": {
-              "db_uptime": "Database Uptime",
-              "label": "",
-              "version": "Database Version"
+              "Value": "",
+              "__name__": "",
+              "connected": "Connection Status",
+              "db_uptime": "DB Uptime",
+              "observability": "Observability Version",
+              "version": "DB Version"
             }
           }
         }
@@ -2517,7 +2515,7 @@
         "type": "yesoreyeram-infinity-datasource",
         "uid": "${DataSourceInfinity}"
       },
-      "description": "This table shows list of queries running more than 120seconds.",
+      "description": "This table shows list of queries running more than 120 seconds.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -3079,5 +3077,5 @@
   "timezone": "Europe/London",
   "title": "WarehousePG-Overview-Dashboard",
   "uid": "warehousepg_dashboard_demo_edb",
-  "version": 50
+  "version": 58
 }
