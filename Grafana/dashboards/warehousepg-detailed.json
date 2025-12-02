@@ -162,7 +162,7 @@
             },
             "renameByName": {
               "address": "Address",
-              "content": "Content",
+              "content": "Segment ID",
               "datadir": "Data Directory",
               "dbid": "",
               "hostname": "Hostname",
@@ -1232,7 +1232,7 @@
           "disableTextWrap": false,
           "editorMode": "code",
           "exemplar": false,
-          "expr": "rate(warehousepg_observability_node_disk_write_time_seconds_total[5m])*100",
+          "expr": "avg by (instance) (\n  rate(warehousepg_observability_node_disk_write_time_seconds_total[5m]) * 100\n)",
           "format": "time_series",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
@@ -1338,7 +1338,7 @@
           "disableTextWrap": false,
           "editorMode": "code",
           "exemplar": false,
-          "expr": "rate(warehousepg_observability_node_disk_read_time_seconds_total[5m])*100",
+          "expr": "avg by (instance) (\n  rate(warehousepg_observability_node_disk_read_time_seconds_total[5m])*100\n)",
           "format": "time_series",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
@@ -1436,9 +1436,9 @@
             "uid": "${DataSourcePrometheus}"
           },
           "disableTextWrap": false,
-          "editorMode": "builder",
+          "editorMode": "code",
           "exemplar": false,
-          "expr": "warehousepg_observability_node_disk_io_now",
+          "expr": "sum by (instance) (warehousepg_observability_node_disk_io_now)",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": true,
@@ -1719,7 +1719,7 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 11,
+        "h": 6,
         "w": 24,
         "x": 0,
         "y": 80
@@ -1739,6 +1739,7 @@
           "values": false
         },
         "showPercentChange": true,
+        "text": {},
         "textMode": "value_and_name",
         "wideLayout": true
       },
@@ -1773,7 +1774,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 91
+        "y": 86
       },
       "id": 21,
       "panels": [],
@@ -1842,7 +1843,7 @@
         "h": 7,
         "w": 24,
         "x": 0,
-        "y": 92
+        "y": 87
       },
       "id": 51,
       "options": {
@@ -1868,14 +1869,14 @@
             "type": "prometheus",
             "uid": "${DataSourcePrometheus}"
           },
-          "editorMode": "builder",
-          "expr": "warehousepg_observability_node_load1",
+          "editorMode": "code",
+          "expr": "avg by (instance) (warehousepg_observability_node_load1)",
           "legendFormat": "{{instance}}",
           "range": true,
           "refId": "A"
         }
       ],
-      "title": "System Load (1min avg)",
+      "title": "System Load (1 min avg)",
       "type": "timeseries"
     },
     {
@@ -1940,7 +1941,7 @@
         "h": 7,
         "w": 24,
         "x": 0,
-        "y": 99
+        "y": 94
       },
       "id": 52,
       "options": {
@@ -1966,14 +1967,14 @@
             "type": "prometheus",
             "uid": "${DataSourcePrometheus}"
           },
-          "editorMode": "builder",
-          "expr": "warehousepg_observability_node_load5",
+          "editorMode": "code",
+          "expr": "avg by (instance) (warehousepg_observability_node_load5)",
           "legendFormat": "{{instance}}",
           "range": true,
           "refId": "A"
         }
       ],
-      "title": "System Load (5min avg)",
+      "title": "System Load (5 min avg)",
       "type": "timeseries"
     },
     {
@@ -2038,7 +2039,7 @@
         "h": 7,
         "w": 24,
         "x": 0,
-        "y": 106
+        "y": 101
       },
       "id": 53,
       "options": {
@@ -2064,14 +2065,14 @@
             "type": "prometheus",
             "uid": "${DataSourcePrometheus}"
           },
-          "editorMode": "builder",
-          "expr": "warehousepg_observability_node_load15",
+          "editorMode": "code",
+          "expr": "avg by (instance) (warehousepg_observability_node_load15)",
           "legendFormat": "{{instance}}",
           "range": true,
           "refId": "A"
         }
       ],
-      "title": "System Load (15min avg)",
+      "title": "System Load (15 min avg)",
       "type": "timeseries"
     },
     {
@@ -2080,7 +2081,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 113
+        "y": 108
       },
       "id": 13,
       "panels": [],
@@ -2095,23 +2096,49 @@
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "thresholds"
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
           },
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "red",
-                "value": 0
-              },
-              {
-                "color": "orange",
-                "value": 100000
-              },
-              {
                 "color": "green",
-                "value": 10000000
+                "value": 0
               }
             ]
           },
@@ -2123,32 +2150,23 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 114
+        "y": 109
       },
       "id": 29,
       "options": {
-        "displayMode": "basic",
         "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": false
-        },
-        "maxVizHeight": 300,
-        "minVizHeight": 16,
-        "minVizWidth": 8,
-        "namePlacement": "auto",
-        "orientation": "horizontal",
-        "reduceOptions": {
           "calcs": [
-            "lastNotNull"
+            "mean"
           ],
-          "fields": "",
-          "values": false
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true
         },
-        "showUnfilled": true,
-        "sizing": "auto",
-        "valueMode": "color"
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
       },
       "pluginVersion": "12.3.0",
       "targets": [
@@ -2159,16 +2177,16 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "warehousepg_observability_node_memory_SwapFree_bytes",
+          "expr": "sum by (instance) (warehousepg_observability_node_memory_SwapFree_bytes)",
           "format": "time_series",
-          "instant": true,
+          "instant": false,
           "legendFormat": "{{instance}}",
-          "range": false,
+          "range": true,
           "refId": "A"
         }
       ],
       "title": "Available Swap Memory",
-      "type": "bargauge"
+      "type": "timeseries"
     },
     {
       "datasource": {
@@ -2178,8 +2196,41 @@
       "fieldConfig": {
         "defaults": {
           "color": {
-            "fixedColor": "green",
-            "mode": "thresholds"
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
           },
           "mappings": [],
           "thresholds": {
@@ -2188,14 +2239,6 @@
               {
                 "color": "green",
                 "value": 0
-              },
-              {
-                "color": "orange",
-                "value": 100000
-              },
-              {
-                "color": "red",
-                "value": 10000000
               }
             ]
           },
@@ -2207,32 +2250,23 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 114
+        "y": 109
       },
       "id": 30,
       "options": {
-        "displayMode": "basic",
         "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": false
-        },
-        "maxVizHeight": 300,
-        "minVizHeight": 16,
-        "minVizWidth": 8,
-        "namePlacement": "auto",
-        "orientation": "horizontal",
-        "reduceOptions": {
           "calcs": [
-            "lastNotNull"
+            "mean"
           ],
-          "fields": "",
-          "values": false
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true
         },
-        "showUnfilled": true,
-        "sizing": "auto",
-        "valueMode": "color"
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
       },
       "pluginVersion": "12.3.0",
       "targets": [
@@ -2243,16 +2277,16 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "warehousepg_observability_node_memory_SwapTotal_bytes-warehousepg_observability_node_memory_SwapFree_bytes",
+          "expr": "sum by (instance) (warehousepg_observability_node_memory_SwapTotal_bytes-warehousepg_observability_node_memory_SwapFree_bytes)",
           "format": "time_series",
-          "instant": true,
+          "instant": false,
           "legendFormat": "{{instance}}",
-          "range": false,
+          "range": true,
           "refId": "A"
         }
       ],
       "title": "Used Swap Memory",
-      "type": "bargauge"
+      "type": "timeseries"
     }
   ],
   "preload": false,
@@ -2367,5 +2401,5 @@
   "timezone": "Europe/London",
   "title": "WarehousePG-Detailed-Dashboard",
   "uid": "warehousepg_detailed_view_edb",
-  "version": 28
+  "version": 36
 }
