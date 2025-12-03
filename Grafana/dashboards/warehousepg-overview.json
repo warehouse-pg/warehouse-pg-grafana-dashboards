@@ -24,60 +24,188 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 2,
-  "id": 9,
-  "links": [],
+  "id": 3,
+  "links": [
+    {
+      "asDropdown": true,
+      "icon": "external link",
+      "includeVars": true,
+      "keepTime": true,
+      "tags": [],
+      "targetBlank": false,
+      "title": "Dashboard  List",
+      "tooltip": "",
+      "type": "dashboards",
+      "url": ""
+    }
+  ],
   "panels": [
     {
-      "collapsed": false,
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
       "gridPos": {
-        "h": 1,
-        "w": 24,
+        "h": 2,
+        "w": 3,
         "x": 0,
         "y": 0
       },
-      "id": 26,
-      "panels": [],
-      "title": "Cluster Status",
-      "type": "row"
+      "id": 35,
+      "links": [
+        {
+          "targetBlank": true,
+          "title": "WarehousePG",
+          "url": "http://www.whpg.io"
+        }
+      ],
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "<img src=\"https://warehouse-pg.io/fulllogo_transparent_small_buffer.png\">",
+        "mode": "html"
+      },
+      "pluginVersion": "12.3.0",
+      "title": "",
+      "transparent": true,
+      "type": "text"
     },
     {
       "datasource": {
-        "uid": "${Cluster}"
+        "type": "prometheus",
+        "uid": "${DataSourcePrometheus}"
+      },
+      "description": "DB Connection Status",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "noValue": "DB DISCONNECTED",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "orange",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "max(warehousepg_observability_coordinator_total_count)"
+            },
+            "properties": [
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "0": {
+                        "color": "red",
+                        "index": 0,
+                        "text": "DB DISCONNECTED"
+                      }
+                    },
+                    "type": "value"
+                  },
+                  {
+                    "options": {
+                      "from": 1,
+                      "result": {
+                        "color": "green",
+                        "index": 1,
+                        "text": "DB CONNECTED"
+                      },
+                      "to": 100
+                    },
+                    "type": "range"
+                  }
+                ]
+              },
+              {
+                "id": "color",
+                "value": {
+                  "mode": "thresholds"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 3,
+        "x": 3,
+        "y": 0
+      },
+      "id": 45,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "value",
+        "wideLayout": true
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DataSourcePrometheus}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "max(warehousepg_observability_coordinator_total_count)",
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "A"
+        }
+      ],
+      "title": "",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DataSourcePrometheus}"
       },
       "fieldConfig": {
         "defaults": {
           "color": {
             "fixedColor": "text",
-            "mode": "fixed"
+            "mode": "palette-classic"
           },
           "custom": {
-            "align": "auto",
+            "align": "center",
             "cellOptions": {
-              "type": "color-text",
-              "wrapText": true
+              "type": "color-text"
             },
             "filterable": false,
+            "footer": {
+              "reducers": []
+            },
             "inspect": false
           },
-          "mappings": [
-            {
-              "options": {
-                "db_uptime": {
-                  "index": 0,
-                  "text": "Database Up Time"
-                },
-                "observability": {
-                  "index": 2,
-                  "text": "Observability Version"
-                },
-                "version": {
-                  "index": 1,
-                  "text": "Database Version"
-                }
-              },
-              "type": "value"
-            }
-          ],
+          "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -92,36 +220,41 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "label"
+              "options": "DB Uptime"
             },
             "properties": [
               {
-                "id": "custom.width",
-                "value": 150
+                "id": "unit",
+                "value": "dateTimeFromNow"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "DB Version"
+            },
+            "properties": [
+              {
+                "id": "custom.align",
+                "value": "left"
               }
             ]
           }
         ]
       },
       "gridPos": {
-        "h": 8,
-        "w": 13,
-        "x": 0,
-        "y": 1
+        "h": 4,
+        "w": 18,
+        "x": 6,
+        "y": 0
       },
-      "id": 21,
+      "id": 65,
       "options": {
         "cellHeight": "sm",
-        "footer": {
-          "countRows": false,
-          "enablePagination": false,
-          "fields": "",
-          "reducer": [
-            "sum"
-          ],
-          "show": false
-        },
-        "showHeader": false,
+        "enablePagination": false,
+        "frameIndex": 1,
+        "showHeader": true,
         "sortBy": [
           {
             "desc": false,
@@ -129,18 +262,19 @@
           }
         ]
       },
-      "pluginVersion": "12.1.1",
+      "pluginVersion": "12.3.0",
       "targets": [
         {
           "datasource": {
-            "uid": "${Cluster}"
+            "type": "prometheus",
+            "uid": "${DataSourcePrometheus}"
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "warehousepg_observability_connected",
-          "format": "time_series",
+          "expr": "warehousepg_observability_connected{observability!=\"N/A\"}",
+          "format": "table",
           "instant": true,
-          "legendFormat": "__auto",
+          "legendFormat": "  ",
           "range": false,
           "refId": "A"
         }
@@ -148,65 +282,368 @@
       "title": "",
       "transformations": [
         {
-          "id": "labelsToFields",
-          "options": {
-            "keepLabels": [
-              "version",
-              "connected",
-              "db_uptime",
-              "observability"
-            ],
-            "mode": "rows"
-          }
-        },
-        {
           "id": "organize",
           "options": {
-            "excludeByName": {},
+            "excludeByName": {
+              "Time": true,
+              "Value": true,
+              "__name__": true,
+              "connected": true
+            },
             "includeByName": {},
-            "indexByName": {},
-            "orderByMode": "auto",
+            "indexByName": {
+              "Time": 0,
+              "Value": 6,
+              "__name__": 2,
+              "connected": 3,
+              "db_uptime": 4,
+              "observability": 5,
+              "version": 1
+            },
             "renameByName": {
-              "db_uptime": "Database Uptime",
-              "label": "",
-              "version": "Database Version"
+              "Value": "",
+              "__name__": "",
+              "connected": "Connection Status",
+              "db_uptime": "DB Uptime",
+              "observability": "Observability Version",
+              "version": "DB Version"
             }
           }
         }
       ],
+      "transparent": true,
       "type": "table"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 4
+      },
+      "id": 26,
+      "panels": [],
+      "title": "Cluster Details",
+      "type": "row"
     },
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${Cluster}"
+        "uid": "${DataSourcePrometheus}"
       },
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "fixed"
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Primary Status"
+            },
+            "properties": [
+              {
+                "id": "color"
+              },
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "0": {
+                        "color": "red",
+                        "index": 1,
+                        "text": " DOWN"
+                      },
+                      "1": {
+                        "color": "green",
+                        "index": 0,
+                        "text": "UP"
+                      }
+                    },
+                    "type": "value"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Standby Status"
+            },
+            "properties": [
+              {
+                "id": "color"
+              },
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "0": {
+                        "color": "red",
+                        "index": 1,
+                        "text": "DOWN"
+                      },
+                      "1": {
+                        "color": "green",
+                        "index": 0,
+                        "text": "UP"
+                      }
+                    },
+                    "type": "value"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Working In Failed Over State"
+            },
+            "properties": [
+              {
+                "id": "color"
+              },
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "0": {
+                        "color": "green",
+                        "index": 0,
+                        "text": "NO"
+                      },
+                      "1": {
+                        "color": "red",
+                        "index": 1,
+                        "text": "YES"
+                      }
+                    },
+                    "type": "value"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 10,
+        "x": 0,
+        "y": 5
+      },
+      "id": 39,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "value_and_name",
+        "wideLayout": true
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DataSourcePrometheus}"
+          },
+          "disableTextWrap": false,
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "warehousepg_observability_coordinator_curr_active_up_count",
+          "fullMetaSearch": false,
+          "includeNullMetadata": true,
+          "instant": true,
+          "legendFormat": "Primary Status",
+          "range": false,
+          "refId": "Primary Status",
+          "useBackend": false
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DataSourcePrometheus}"
+          },
+          "editorMode": "builder",
+          "exemplar": false,
+          "expr": "warehousepg_observability_coordinator_curr_standby_up_count",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "Standby Status",
+          "range": false,
+          "refId": "Standby Status"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DataSourcePrometheus}"
+          },
+          "editorMode": "builder",
+          "exemplar": false,
+          "expr": "warehousepg_observability_coordinator_failed_over_count",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "Working In Failed Over State",
+          "range": false,
+          "refId": "Working In Failed Over State"
+        }
+      ],
+      "title": "Coordinator Status",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DataSourcePrometheus}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-GrYlRd"
           },
           "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisGridShow": true,
-            "axisLabel": "",
             "axisPlacement": "auto",
-            "fillOpacity": 48,
-            "gradientMode": "none",
+            "fillOpacity": 72,
             "hideFrom": {
               "legend": false,
               "tooltip": false,
               "viz": false
             },
-            "lineWidth": 1,
-            "scaleDistribution": {
-              "type": "linear"
+            "insertNulls": false,
+            "lineWidth": 0,
+            "spanNulls": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "warehousepg_observability_seg_status"
             },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
+            "properties": [
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "0": {
+                        "color": "red",
+                        "index": 0,
+                        "text": "DOWN"
+                      },
+                      "1": {
+                        "color": "green",
+                        "index": 1,
+                        "text": "UP"
+                      }
+                    },
+                    "type": "value"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 14,
+        "w": 14,
+        "x": 10,
+        "y": 5
+      },
+      "id": 34,
+      "options": {
+        "alignValue": "center",
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "mergeValues": true,
+        "rowHeight": 0.85,
+        "showValue": "auto",
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DataSourcePrometheus}"
+          },
+          "disableTextWrap": false,
+          "editorMode": "builder",
+          "exemplar": false,
+          "expr": "warehousepg_observability_seg_status",
+          "fullMetaSearch": false,
+          "includeNullMetadata": true,
+          "instant": false,
+          "legendFormat": "{{gp_segment_desc}} ({{role}})",
+          "range": true,
+          "refId": "A",
+          "useBackend": false
+        }
+      ],
+      "title": "Segment Status Timeline",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {}
+        }
+      ],
+      "type": "state-timeline"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DataSourcePrometheus}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "fixed"
           },
           "decimals": 0,
           "mappings": [],
@@ -216,10 +653,6 @@
               {
                 "color": "green",
                 "value": 0
-              },
-              {
-                "color": "red",
-                "value": 80
               }
             ]
           },
@@ -235,24 +668,67 @@
               {
                 "id": "color",
                 "value": {
-                  "fixedColor": "semi-dark-green",
-                  "mode": "fixed"
+                  "fixedColor": "green",
+                  "mode": "thresholds"
                 }
+              },
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "0": {
+                        "color": "red",
+                        "index": 0
+                      }
+                    },
+                    "type": "value"
+                  },
+                  {
+                    "options": {
+                      "from": 1,
+                      "result": {
+                        "color": "green",
+                        "index": 1
+                      },
+                      "to": 250
+                    },
+                    "type": "range"
+                  }
+                ]
               }
             ]
           },
           {
             "matcher": {
               "id": "byName",
-              "options": "Primary Segment Down"
+              "options": "Primary Segments Down"
             },
             "properties": [
               {
-                "id": "color",
-                "value": {
-                  "fixedColor": "semi-dark-red",
-                  "mode": "fixed"
-                }
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "0": {
+                        "color": "green",
+                        "index": 0
+                      }
+                    },
+                    "type": "value"
+                  },
+                  {
+                    "options": {
+                      "from": 1,
+                      "result": {
+                        "color": "red",
+                        "index": 1
+                      },
+                      "to": 200
+                    },
+                    "type": "range"
+                  }
+                ]
               }
             ]
           },
@@ -265,9 +741,34 @@
               {
                 "id": "color",
                 "value": {
-                  "fixedColor": "semi-dark-green",
-                  "mode": "fixed"
+                  "fixedColor": "green",
+                  "mode": "thresholds"
                 }
+              },
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "0": {
+                        "color": "red",
+                        "index": 0
+                      }
+                    },
+                    "type": "value"
+                  },
+                  {
+                    "options": {
+                      "from": 1,
+                      "result": {
+                        "color": "green",
+                        "index": 1
+                      },
+                      "to": 250
+                    },
+                    "type": "range"
+                  }
+                ]
               }
             ]
           },
@@ -278,9 +779,217 @@
             },
             "properties": [
               {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "0": {
+                        "color": "green",
+                        "index": 0
+                      }
+                    },
+                    "type": "value"
+                  },
+                  {
+                    "options": {
+                      "from": 1,
+                      "result": {
+                        "color": "red",
+                        "index": 1
+                      },
+                      "to": 200
+                    },
+                    "type": "range"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Preferred Primary UP"
+            },
+            "properties": [
+              {
                 "id": "color",
                 "value": {
-                  "fixedColor": "semi-dark-red",
+                  "fixedColor": "green",
+                  "mode": "thresholds"
+                }
+              },
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "0": {
+                        "color": "red",
+                        "index": 0
+                      }
+                    },
+                    "type": "value"
+                  },
+                  {
+                    "options": {
+                      "from": 1,
+                      "result": {
+                        "color": "green",
+                        "index": 1
+                      },
+                      "to": 250
+                    },
+                    "type": "range"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Promoted Mirror"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "green",
+                  "mode": "thresholds"
+                }
+              },
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "0": {
+                        "color": "green",
+                        "index": 0
+                      }
+                    },
+                    "type": "value"
+                  },
+                  {
+                    "options": {
+                      "from": 1,
+                      "result": {
+                        "color": "red",
+                        "index": 1
+                      },
+                      "to": 250
+                    },
+                    "type": "range"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Mirror Not In Sync"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "green",
+                  "mode": "thresholds"
+                }
+              },
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "0": {
+                        "color": "green",
+                        "index": 0
+                      }
+                    },
+                    "type": "value"
+                  },
+                  {
+                    "options": {
+                      "from": 1,
+                      "result": {
+                        "color": "red",
+                        "index": 1
+                      },
+                      "to": 250
+                    },
+                    "type": "range"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Primary Not In Sync"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "green",
+                  "mode": "thresholds"
+                }
+              },
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "0": {
+                        "color": "green",
+                        "index": 0
+                      }
+                    },
+                    "type": "value"
+                  },
+                  {
+                    "options": {
+                      "from": 1,
+                      "result": {
+                        "color": "red",
+                        "index": 1
+                      },
+                      "to": 250
+                    },
+                    "type": "range"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Total Primary Segments"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "green",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Total Mirror Segments"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "green",
                   "mode": "fixed"
                 }
               }
@@ -289,49 +998,54 @@
         ]
       },
       "gridPos": {
-        "h": 8,
-        "w": 6,
-        "x": 13,
-        "y": 1
+        "h": 9,
+        "w": 10,
+        "x": 0,
+        "y": 10
       },
       "id": 22,
       "options": {
-        "barRadius": 0.1,
-        "barWidth": 0.37,
-        "fullHighlight": false,
-        "groupWidth": 1,
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
-        },
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "center",
         "orientation": "auto",
-        "showValue": "always",
-        "stacking": "none",
-        "text": {
-          "valueSize": 1
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
         },
-        "tooltip": {
-          "hideZeros": false,
-          "maxWidth": -3,
-          "mode": "single",
-          "sort": "none"
-        },
-        "xTickLabelRotation": 0,
-        "xTickLabelSpacing": 100
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
       },
-      "pluginVersion": "12.1.1",
+      "pluginVersion": "12.3.0",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${Cluster}"
+            "uid": "${DataSourcePrometheus}"
+          },
+          "editorMode": "builder",
+          "exemplar": false,
+          "expr": "warehousepg_observability_clinfo_total_primary_count",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "Total Primary Segments",
+          "range": false,
+          "refId": "Total Primary Segments"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DataSourcePrometheus}"
           },
           "disableTextWrap": false,
           "editorMode": "code",
           "exemplar": false,
-          "expr": "warehousepg_observability_clinfo_primary_count - warehousepg_observability_clinfo_primary_down_count",
+          "expr": "warehousepg_observability_clinfo_total_primary_count - warehousepg_observability_clinfo_curr_primary_down_count",
           "format": "time_series",
           "fullMetaSearch": false,
           "hide": false,
@@ -345,17 +1059,17 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${Cluster}"
+            "uid": "${DataSourcePrometheus}"
           },
           "disableTextWrap": false,
           "editorMode": "code",
           "exemplar": false,
-          "expr": "warehousepg_observability_clinfo_primary_down_count",
+          "expr": "warehousepg_observability_clinfo_curr_primary_down_count",
           "format": "time_series",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": true,
-          "legendFormat": "Primary Segment Down",
+          "legendFormat": "Primary Segments Down",
           "range": false,
           "refId": "Primary Segments Down",
           "useBackend": false
@@ -363,12 +1077,54 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${Cluster}"
+            "uid": "${DataSourcePrometheus}"
+          },
+          "editorMode": "builder",
+          "exemplar": false,
+          "expr": "warehousepg_observability_clinfo_preff_primary_up_count",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "Preferred Primary UP",
+          "range": false,
+          "refId": "Preferred Primary UP"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DataSourcePrometheus}"
+          },
+          "editorMode": "builder",
+          "exemplar": false,
+          "expr": "warehousepg_observability_clinfo_primary_not_in_sync_count",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "Primary Not In Sync",
+          "range": false,
+          "refId": "Primary Not In Sync"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DataSourcePrometheus}"
+          },
+          "editorMode": "builder",
+          "exemplar": false,
+          "expr": "warehousepg_observability_clinfo_total_mirror_count",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "Total Mirror Segments",
+          "range": false,
+          "refId": "Total Mirror Segments"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DataSourcePrometheus}"
           },
           "disableTextWrap": false,
           "editorMode": "code",
           "exemplar": false,
-          "expr": "warehousepg_observability_clinfo_mirror_count - warehousepg_observability_clinfo_mirror_down_count",
+          "expr": "warehousepg_observability_clinfo_curr_mirror_up_count",
           "format": "time_series",
           "fullMetaSearch": false,
           "hide": false,
@@ -382,12 +1138,12 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${Cluster}"
+            "uid": "${DataSourcePrometheus}"
           },
           "disableTextWrap": false,
           "editorMode": "code",
           "exemplar": false,
-          "expr": "warehousepg_observability_clinfo_mirror_down_count",
+          "expr": "warehousepg_observability_clinfo_curr_mirror_down_count",
           "fullMetaSearch": false,
           "hide": false,
           "includeNullMetadata": true,
@@ -396,368 +1152,165 @@
           "range": false,
           "refId": "Mirror Segments Down",
           "useBackend": false
-        }
-      ],
-      "title": "",
-      "type": "barchart"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${Cluster}"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            }
-          },
-          "mappings": [],
-          "unit": "decbytes"
         },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 5,
-        "x": 19,
-        "y": 1
-      },
-      "id": 25,
-      "options": {
-        "legend": {
-          "displayMode": "table",
-          "placement": "right",
-          "showLegend": true,
-          "values": [
-            "percent"
-          ]
-        },
-        "pieType": "donut",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "12.1.1",
-      "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${Cluster}"
+            "uid": "${DataSourcePrometheus}"
           },
-          "editorMode": "code",
+          "editorMode": "builder",
           "exemplar": false,
-          "expr": "warehousepg_observability_db_size",
+          "expr": "warehousepg_observability_clinfo_promoted_mirror_count",
+          "hide": false,
           "instant": true,
-          "legendFormat": "{{datname}}",
+          "legendFormat": "Promoted Mirror",
           "range": false,
-          "refId": "A"
-        }
-      ],
-      "title": "Database Size",
-      "type": "piechart"
-    },
-    {
-      "collapsed": false,
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 9
-      },
-      "id": 30,
-      "panels": [],
-      "title": "Disk Usage by Mount Points",
-      "type": "row"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${Cluster}"
-      },
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            }
-          },
-          "fieldMinMax": true,
-          "mappings": [],
-          "unit": "percent"
+          "refId": "Promoted Mirror"
         },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Available"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "semi-dark-green",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "/etc/ssh"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "semi-dark-yellow",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "/"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "semi-dark-purple",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          }
-        ]
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 5,
-        "x": 0,
-        "y": 10
-      },
-      "id": 31,
-      "options": {
-        "displayLabels": [
-          "percent"
-        ],
-        "legend": {
-          "displayMode": "table",
-          "placement": "right",
-          "showLegend": true,
-          "values": []
-        },
-        "pieType": "donut",
-        "reduceOptions": {
-          "calcs": [],
-          "fields": "",
-          "values": false
-        },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "pluginVersion": "12.1.1",
-      "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${Cluster}"
+            "uid": "${DataSourcePrometheus}"
           },
-          "disableTextWrap": false,
-          "editorMode": "code",
+          "editorMode": "builder",
           "exemplar": false,
-          "expr": "avg by(hostname, mountpoint)(warehousepg_observability_du_used_pct_coordinator)",
-          "format": "time_series",
-          "fullMetaSearch": false,
+          "expr": "warehousepg_observability_clinfo_mirror_not_in_sync_count",
           "hide": false,
-          "includeNullMetadata": true,
           "instant": true,
-          "legendFormat": "{{mountpoint}}",
+          "legendFormat": "Mirror Not In Sync",
           "range": false,
-          "refId": "A",
-          "useBackend": false
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${Cluster}"
-          },
-          "editorMode": "code",
-          "expr": "100 - sum(avg by(hostname, mountpoint)(warehousepg_observability_du_used_pct_coordinator))",
-          "hide": false,
-          "instant": false,
-          "legendFormat": "Available",
-          "range": true,
-          "refId": "B"
+          "refId": "Mirror Not In Sync"
         }
       ],
-      "title": "Cordinator Disk Usage",
-      "type": "piechart"
+      "title": "Segment Status",
+      "type": "stat"
     },
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${Cluster}"
+        "uid": "${DataSourcePrometheus}"
       },
-      "description": "",
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "thresholds"
           },
-          "fieldMinMax": true,
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "fillOpacity": 86,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineWidth": 1,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
           "mappings": [],
           "thresholds": {
-            "mode": "percentage",
+            "mode": "absolute",
             "steps": [
               {
                 "color": "green",
                 "value": 0
-              },
-              {
-                "color": "semi-dark-yellow",
-                "value": 70
-              },
-              {
-                "color": "red",
-                "value": 85
-              },
-              {
-                "color": "dark-red",
-                "value": 95
               }
             ]
-          },
-          "unit": "percent"
+          }
         },
         "overrides": []
       },
       "gridPos": {
-        "h": 5,
-        "w": 24,
+        "h": 9,
+        "w": 11,
         "x": 0,
-        "y": 15
+        "y": 19
       },
-      "id": 32,
-      "links": [
-        {
-          "title": "Detailed Analysis Dashboard",
-          "url": "/d/warehousepg_detailed_view_edb/BQoYawrHg?orgId=1&${__all_variables}"
-        }
-      ],
-      "maxPerRow": 4,
+      "id": 47,
       "options": {
-        "minVizHeight": 75,
-        "minVizWidth": 89,
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [],
-          "fields": "",
-          "values": false
+        "barRadius": 0,
+        "barWidth": 0.2,
+        "fullHighlight": false,
+        "groupWidth": 0.7,
+        "legend": {
+          "calcs": [
+            "mean",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true
         },
-        "showThresholdLabels": false,
-        "showThresholdMarkers": true,
-        "sizing": "auto",
-        "text": {
-          "percentSize": 100,
-          "titleSize": 10
-        }
+        "orientation": "auto",
+        "showValue": "auto",
+        "stacking": "none",
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        },
+        "xTickLabelRotation": 0,
+        "xTickLabelSpacing": 0
       },
-      "pluginVersion": "12.1.1",
-      "repeat": "mountpoint",
-      "repeatDirection": "h",
+      "pluginVersion": "12.3.0",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${Cluster}"
+            "uid": "${DataSourcePrometheus}"
           },
-          "disableTextWrap": false,
-          "editorMode": "builder",
+          "editorMode": "code",
           "exemplar": false,
-          "expr": "avg by(mountpoint) (warehousepg_observability_du_used_pct_segments{mountpoint=\"$mountpoint\"})",
+          "expr": "warehousepg_observability_qu",
           "format": "time_series",
-          "fullMetaSearch": false,
-          "hide": false,
-          "includeNullMetadata": true,
-          "instant": false,
-          "legendFormat": "Avg ",
-          "range": true,
-          "refId": "A",
-          "useBackend": false
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${Cluster}"
-          },
-          "disableTextWrap": false,
-          "editorMode": "builder",
-          "expr": "max by(mountpoint) (warehousepg_observability_du_used_pct_segments{mountpoint=\"$mountpoint\"})",
-          "fullMetaSearch": false,
-          "hide": false,
-          "includeNullMetadata": true,
-          "instant": false,
-          "legendFormat": "Max",
-          "range": true,
-          "refId": "B",
-          "useBackend": false
+          "instant": true,
+          "legendFormat": "{{username}}",
+          "range": false,
+          "refId": "A"
         }
       ],
-      "title": "$mountpoint",
-      "type": "gauge"
-    },
-    {
-      "collapsed": false,
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 20
-      },
-      "id": 23,
-      "panels": [],
-      "title": "Load Average",
-      "type": "row"
+      "title": "Connections Per User",
+      "type": "barchart"
     },
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${Cluster}"
+        "uid": "${DataSourcePrometheus}"
       },
-      "description": "",
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "continuous-GrYlRd"
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "fillOpacity": 80,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineWidth": 1,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
           },
           "mappings": [],
           "thresholds": {
@@ -773,123 +1326,57 @@
               }
             ]
           },
-          "unit": "percent"
+          "unit": "decbytes"
         },
         "overrides": []
       },
       "gridPos": {
-        "h": 4,
-        "w": 24,
-        "x": 0,
-        "y": 21
+        "h": 9,
+        "w": 13,
+        "x": 11,
+        "y": 19
       },
-      "id": 19,
-      "links": [
-        {
-          "title": "Detailed Analysis Dashboard",
-          "url": "/d/warehousepg_detailed_view_edb/BQoYawrHg?orgId=1&${__all_variables}"
-        }
-      ],
-      "maxPerRow": 6,
+      "id": 25,
       "options": {
-        "displayMode": "lcd",
+        "barRadius": 0,
+        "barWidth": 0.97,
+        "fullHighlight": false,
+        "groupWidth": 0.7,
         "legend": {
           "calcs": [],
           "displayMode": "list",
           "placement": "bottom",
-          "showLegend": false
+          "showLegend": true
         },
-        "maxVizHeight": 20,
-        "minVizHeight": 20,
-        "minVizWidth": 8,
-        "namePlacement": "left",
-        "orientation": "horizontal",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "/.*/",
-          "limit": 1,
-          "values": false
+        "orientation": "auto",
+        "showValue": "auto",
+        "stacking": "none",
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
         },
-        "showUnfilled": true,
-        "sizing": "manual",
-        "text": {
-          "titleSize": 12,
-          "valueSize": 12
-        },
-        "valueMode": "color"
+        "xTickLabelRotation": 0,
+        "xTickLabelSpacing": 0
       },
-      "pluginVersion": "12.1.1",
+      "pluginVersion": "12.3.0",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${Cluster}"
+            "uid": "${DataSourcePrometheus}"
           },
-          "disableTextWrap": false,
           "editorMode": "code",
-          "expr": "avg (warehousepg_observability_loadavg_1min)",
-          "format": "time_series",
-          "fullMetaSearch": false,
-          "includeNullMetadata": true,
-          "legendFormat": "1 Min % Load",
-          "range": true,
-          "refId": "A",
-          "useBackend": false
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${Cluster}"
-          },
-          "disableTextWrap": false,
-          "editorMode": "code",
-          "expr": "avg (warehousepg_observability_loadavg_5min)",
-          "format": "time_series",
-          "fullMetaSearch": false,
-          "hide": false,
-          "includeNullMetadata": true,
-          "instant": false,
-          "legendFormat": "5 Min % Load",
-          "range": true,
-          "refId": "B",
-          "useBackend": false
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${Cluster}"
-          },
-          "disableTextWrap": false,
-          "editorMode": "code",
-          "expr": "avg (warehousepg_observability_loadavg_15min)",
-          "fullMetaSearch": false,
-          "hide": false,
-          "includeNullMetadata": true,
-          "instant": false,
-          "legendFormat": "15 Min % Load",
-          "range": true,
-          "refId": "C",
-          "useBackend": false
+          "exemplar": false,
+          "expr": "warehousepg_observability_db_size",
+          "instant": true,
+          "legendFormat": "{{datname}}",
+          "range": false,
+          "refId": "A"
         }
       ],
-      "title": "Host Load average ",
-      "transformations": [
-        {
-          "id": "filterFieldsByName",
-          "options": {
-            "include": {
-              "names": [
-                "1 Min % Load",
-                "5 Min % Load",
-                "15 Min % Load"
-              ]
-            }
-          }
-        }
-      ],
-      "type": "bargauge"
+      "title": "Database Size",
+      "type": "barchart"
     },
     {
       "collapsed": false,
@@ -897,296 +1384,215 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 25
+        "y": 28
       },
-      "id": 29,
+      "id": 30,
       "panels": [],
-      "title": "Host Memory Info",
+      "title": "Disk Usage",
       "type": "row"
     },
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${Cluster}"
+        "uid": "${DataSourcePrometheus}"
       },
+      "description": "Shows the amount of free disk space available on the specified mount points for each host instance. This metric helps monitor storage capacity and detect low-disk conditions that may impact database performance or availability.",
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "fixed"
+            "mode": "thresholds"
           },
           "custom": {
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            }
+            "align": "left",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "footer": {
+              "reducers": []
+            },
+            "inspect": false
           },
           "fieldMinMax": false,
           "mappings": [],
-          "unit": "decbytes"
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Used"
-            },
-            "properties": [
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
               {
-                "id": "color",
-                "value": {
-                  "fixedColor": "semi-dark-yellow",
-                  "mode": "fixed"
-                }
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
               }
             ]
           },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Free"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "semi-dark-green",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          }
-        ]
+          "unit": "decbytes"
+        },
+        "overrides": []
       },
       "gridPos": {
-        "h": 4,
-        "w": 12,
+        "h": 8,
+        "w": 13,
         "x": 0,
-        "y": 26
+        "y": 29
       },
-      "id": 12,
-      "links": [
-        {
-          "title": "Detailed Analysis Dashboard",
-          "url": "/d/warehousepg_detailed_view_edb/BQoYawrHg?orgId=1&${__all_variables}"
-        }
-      ],
-      "maxPerRow": 12,
+      "id": 53,
       "options": {
-        "displayLabels": [
-          "percent"
-        ],
-        "legend": {
-          "calcs": [],
-          "displayMode": "table",
-          "placement": "right",
-          "showLegend": true,
-          "values": [
-            "percent"
-          ]
-        },
-        "pieType": "donut",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "single",
-          "sort": "none"
-        }
+        "cellHeight": "sm",
+        "showHeader": true
       },
-      "pluginVersion": "12.1.1",
+      "pluginVersion": "12.3.0",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${Cluster}"
+            "uid": "${DataSourcePrometheus}"
           },
-          "disableTextWrap": false,
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum(warehousepg_observability_mu_memtotal) - sum(warehousepg_observability_mu_memfree)",
-          "format": "time_series",
-          "fullMetaSearch": false,
-          "includeNullMetadata": true,
-          "instant": false,
-          "interval": "",
-          "legendFormat": "Used",
-          "range": true,
-          "refId": "A",
-          "useBackend": false
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${Cluster}"
-          },
-          "disableTextWrap": false,
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": " sum(warehousepg_observability_mu_memfree)",
-          "fullMetaSearch": false,
-          "hide": false,
-          "includeNullMetadata": true,
-          "instant": false,
-          "legendFormat": "Free",
-          "range": true,
-          "refId": "C",
-          "useBackend": false
+          "expr": "warehousepg_observability_node_filesystem_free_bytes{instance=~\".+\", mountpoint=~\"$HostMountPoints\"}",
+          "format": "table",
+          "instant": true,
+          "legendFormat": "{{instance}}",
+          "range": false,
+          "refId": "A"
         }
       ],
-      "title": "Memory Usage",
-      "type": "piechart"
+      "title": "Free Disk Space(Host View) For Mount Point  - $HostMountPoints ",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Time": true,
+              "__name__": true,
+              "job": true
+            },
+            "includeByName": {},
+            "indexByName": {
+              "Time": 0,
+              "Value": 7,
+              "__name__": 1,
+              "device": 3,
+              "fstype": 4,
+              "instance": 2,
+              "job": 5,
+              "mountpoint": 6
+            },
+            "renameByName": {
+              "Value": "Size",
+              "device": "Device",
+              "fstype": "File System Type",
+              "instance": "Host",
+              "mountpoint": "Mount Point"
+            }
+          }
+        }
+      ],
+      "type": "table"
     },
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${Cluster}"
+        "uid": "${DataSourcePrometheus}"
       },
+      "description": "Shows the amount of free disk space available on all filesystem devices for the selected host instance. This metric helps track storage usage and identify when a host is running low on available disk space, which can affect database performance, logging, and overall system stability.",
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "palette-classic"
+            "mode": "thresholds"
           },
           "custom": {
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            }
+            "align": "left",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "footer": {
+              "reducers": []
+            },
+            "inspect": false
           },
+          "fieldMinMax": false,
           "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "#F2495C",
+                "value": 0
+              },
+              {
+                "color": "#EAB839",
+                "value": 1000000000
+              },
+              {
+                "color": "green",
+                "value": 50000000000
+              }
+            ]
+          },
           "unit": "decbytes"
         },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Used"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "semi-dark-yellow",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Free"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "semi-dark-green",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Total"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "dark-red",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "gridPos": {
-        "h": 4,
-        "w": 12,
-        "x": 12,
-        "y": 26
+        "h": 8,
+        "w": 11,
+        "x": 13,
+        "y": 29
       },
-      "id": 3,
-      "links": [
-        {
-          "title": "Detailed Analysis Dashboard",
-          "url": "/d/warehousepg_detailed_view_edb/BQoYawrHg?orgId=1&cluster=${Cluster:queryparam}&hostname=${hostname:queryparam}"
-        }
-      ],
-      "maxPerRow": 12,
+      "id": 54,
       "options": {
-        "displayLabels": [],
-        "legend": {
-          "displayMode": "table",
-          "placement": "right",
-          "showLegend": true,
-          "values": [
-            "percent"
-          ]
-        },
-        "pieType": "donut",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "single",
-          "sort": "none"
-        }
+        "cellHeight": "sm",
+        "showHeader": true
       },
-      "pluginVersion": "12.1.1",
+      "pluginVersion": "12.3.0",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${Cluster}"
+            "uid": "${DataSourcePrometheus}"
           },
           "disableTextWrap": false,
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum(warehousepg_observability_mu_swaptotal)- sum(warehousepg_observability_mu_swapfree)",
+          "expr": "warehousepg_observability_node_filesystem_free_bytes{instance=~\"$HostList\", device=~\".+\"}",
+          "format": "table",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": true,
-          "legendFormat": "Used",
+          "legendFormat": "{{device}}",
           "range": false,
           "refId": "A",
           "useBackend": false
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${Cluster}"
-          },
-          "disableTextWrap": false,
-          "editorMode": "code",
-          "expr": "sum(warehousepg_observability_mu_swapfree)",
-          "fullMetaSearch": false,
-          "hide": false,
-          "includeNullMetadata": true,
-          "instant": false,
-          "legendFormat": "Free",
-          "range": true,
-          "refId": "C",
-          "useBackend": false
         }
       ],
-      "title": "Swap Usage",
-      "type": "piechart"
+      "title": "Free Disk Space (Device View) for Host - $HostList",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Time": true,
+              "__name__": true,
+              "job": true,
+              "mountpoint": true
+            },
+            "includeByName": {},
+            "indexByName": {},
+            "renameByName": {
+              "Value": "Size",
+              "device": "Device",
+              "fstype": "File System Type",
+              "instance": "Host",
+              "job": "",
+              "mountpoint": "Mount Point"
+            }
+          }
+        }
+      ],
+      "type": "table"
     },
     {
       "collapsed": false,
@@ -1194,7 +1600,221 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 30
+        "y": 37
+      },
+      "id": 23,
+      "panels": [],
+      "title": "Load Average",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DataSourcePrometheus}"
+      },
+      "description": "The average number of processes that are in the run queue over a specific time period using 1 min rolling average across cluster",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 8,
+        "x": 0,
+        "y": 38
+      },
+      "id": 60,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DataSourcePrometheus}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "avg(warehousepg_observability_node_load1)",
+          "instant": false,
+          "legendFormat": "Cluster Load (1m)",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "System Load (1 min avg)",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DataSourcePrometheus}"
+      },
+      "description": "The average number of processes that are in the run queue over a specific time period using 5 min rolling average across cluster",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 8,
+        "x": 8,
+        "y": 38
+      },
+      "id": 61,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DataSourcePrometheus}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "avg(warehousepg_observability_node_load5)",
+          "instant": false,
+          "legendFormat": "Cluster Load (5m)",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "System Load (5 min avg)",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DataSourcePrometheus}"
+      },
+      "description": "The average number of processes that are in the run queue over a specific time period using 15 min rolling average across cluster",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 8,
+        "x": 16,
+        "y": 38
+      },
+      "id": 62,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DataSourcePrometheus}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "avg(warehousepg_observability_node_load15)",
+          "instant": false,
+          "legendFormat": "Cluster Load (15m)",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "System Load (15 min avg)",
+      "type": "stat"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 42
       },
       "id": 27,
       "panels": [],
@@ -1204,7 +1824,303 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${Cluster}"
+        "uid": "${DataSourcePrometheus}"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "fieldMinMax": false,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Long Running Queries(>120s)"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "thresholds"
+                }
+              },
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "from": 0,
+                      "result": {
+                        "color": "green",
+                        "index": 1
+                      },
+                      "to": 20
+                    },
+                    "type": "range"
+                  },
+                  {
+                    "options": {
+                      "from": 21,
+                      "result": {
+                        "color": "orange",
+                        "index": 2
+                      },
+                      "to": 50
+                    },
+                    "type": "range"
+                  },
+                  {
+                    "options": {
+                      "from": 51,
+                      "result": {
+                        "color": "red",
+                        "index": 3
+                      },
+                      "to": 1000000
+                    },
+                    "type": "range"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Queries in Wait"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "thresholds"
+                }
+              },
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "from": 0,
+                      "result": {
+                        "color": "green",
+                        "index": 0
+                      },
+                      "to": 20
+                    },
+                    "type": "range"
+                  },
+                  {
+                    "options": {
+                      "from": 21,
+                      "result": {
+                        "color": "orange",
+                        "index": 1
+                      },
+                      "to": 50
+                    },
+                    "type": "range"
+                  },
+                  {
+                    "options": {
+                      "from": 51,
+                      "result": {
+                        "color": "red",
+                        "index": 2
+                      },
+                      "to": 1000000
+                    },
+                    "type": "range"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Blocked Queries"
+            },
+            "properties": [
+              {
+                "id": "color"
+              },
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "0": {
+                        "color": "green",
+                        "index": 0
+                      }
+                    },
+                    "type": "value"
+                  },
+                  {
+                    "options": {
+                      "from": 1,
+                      "result": {
+                        "color": "orange",
+                        "index": 1
+                      },
+                      "to": 50
+                    },
+                    "type": "range"
+                  },
+                  {
+                    "options": {
+                      "from": 51,
+                      "result": {
+                        "color": "red",
+                        "index": 2
+                      },
+                      "to": 1000000
+                    },
+                    "type": "range"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 24,
+        "x": 0,
+        "y": 43
+      },
+      "id": 40,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "vertical",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "value_and_name",
+        "wideLayout": true
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DataSourcePrometheus}"
+          },
+          "editorMode": "builder",
+          "exemplar": false,
+          "expr": "warehousepg_observability_q_total",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "Total Queries",
+          "range": false,
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DataSourcePrometheus}"
+          },
+          "disableTextWrap": false,
+          "editorMode": "builder",
+          "exemplar": false,
+          "expr": "warehousepg_observability_q_active",
+          "format": "time_series",
+          "fullMetaSearch": false,
+          "includeNullMetadata": true,
+          "instant": true,
+          "legendFormat": "Active Queries",
+          "range": false,
+          "refId": "A",
+          "useBackend": false
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DataSourcePrometheus}"
+          },
+          "disableTextWrap": false,
+          "editorMode": "builder",
+          "exemplar": false,
+          "expr": "warehousepg_observability_q_idle",
+          "fullMetaSearch": false,
+          "hide": false,
+          "includeNullMetadata": true,
+          "instant": true,
+          "legendFormat": "Idle Queries",
+          "range": false,
+          "refId": "B",
+          "useBackend": false
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DataSourcePrometheus}"
+          },
+          "editorMode": "builder",
+          "exemplar": false,
+          "expr": "warehousepg_observability_q_long_running_120s",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "Long Running Queries(>120s)",
+          "range": false,
+          "refId": "D"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DataSourcePrometheus}"
+          },
+          "editorMode": "builder",
+          "exemplar": false,
+          "expr": "warehousepg_observability_q_in_wait",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "Queries in Wait",
+          "range": false,
+          "refId": "E"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DataSourcePrometheus}"
+          },
+          "editorMode": "builder",
+          "exemplar": false,
+          "expr": "warehousepg_observability_q_blocked",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "Blocked Queries",
+          "range": false,
+          "refId": "F"
+        }
+      ],
+      "title": "",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DataSourcePrometheus}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1235,6 +2151,7 @@
               "type": "linear"
             },
             "showPoints": "never",
+            "showValues": false,
             "spanNulls": true,
             "stacking": {
               "group": "A",
@@ -1290,10 +2207,10 @@
         ]
       },
       "gridPos": {
-        "h": 4,
+        "h": 7,
         "w": 12,
         "x": 0,
-        "y": 31
+        "y": 47
       },
       "id": 6,
       "options": {
@@ -1309,12 +2226,12 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.1.1",
+      "pluginVersion": "12.3.0",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${Cluster}"
+            "uid": "${DataSourcePrometheus}"
           },
           "disableTextWrap": false,
           "editorMode": "builder",
@@ -1332,7 +2249,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${Cluster}"
+            "uid": "${DataSourcePrometheus}"
           },
           "disableTextWrap": false,
           "editorMode": "builder",
@@ -1347,13 +2264,13 @@
           "useBackend": false
         }
       ],
-      "title": "",
+      "title": "Queries Overview",
       "type": "timeseries"
     },
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${Cluster}"
+        "uid": "${DataSourcePrometheus}"
       },
       "fieldConfig": {
         "defaults": {
@@ -1384,6 +2301,7 @@
               "type": "linear"
             },
             "showPoints": "auto",
+            "showValues": false,
             "spanNulls": true,
             "stacking": {
               "group": "A",
@@ -1412,10 +2330,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 4,
+        "h": 7,
         "w": 12,
         "x": 12,
-        "y": 31
+        "y": 47
       },
       "id": 33,
       "options": {
@@ -1431,12 +2349,12 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "12.1.1",
+      "pluginVersion": "12.3.0",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${Cluster}"
+            "uid": "${DataSourcePrometheus}"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -1451,30 +2369,18 @@
       "type": "timeseries"
     },
     {
-      "collapsed": false,
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 35
-      },
-      "id": 28,
-      "panels": [],
-      "title": "Log Info (Last 10 Mins) ",
-      "type": "row"
-    },
-    {
       "datasource": {
         "type": "prometheus",
-        "uid": "${Cluster}"
+        "uid": "${DataSourcePrometheus}"
       },
+      "description": "Measures the average number of queries executed per second over the last 5 minutes.\nThis metric is calculated using a monotonically increasing counter on total transactions(commit+rollback). A higher value indicates increased workload on the cluster. ",
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "palette-classic"
+            "mode": "thresholds"
           },
           "custom": {
-            "axisBorderShow": true,
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -1482,31 +2388,180 @@
             "barAlignment": 0,
             "barWidthFactor": 0.6,
             "drawStyle": "line",
-            "fillOpacity": 13,
-            "gradientMode": "opacity",
+            "fillOpacity": 20,
+            "gradientMode": "scheme",
             "hideFrom": {
               "legend": false,
               "tooltip": false,
               "viz": false
             },
-            "insertNulls": 3600000,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
+            "insertNulls": false,
+            "lineInterpolation": "smooth",
+            "lineWidth": 2,
             "pointSize": 5,
             "scaleDistribution": {
               "type": "linear"
             },
-            "showPoints": "never",
+            "showPoints": "auto",
+            "showValues": false,
             "spanNulls": false,
             "stacking": {
               "group": "A",
               "mode": "none"
             },
             "thresholdsStyle": {
-              "mode": "off"
+              "mode": "line+area"
             }
           },
           "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "#EAB839",
+                "value": 100
+              },
+              {
+                "color": "red",
+                "value": 200
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 9,
+        "x": 0,
+        "y": 54
+      },
+      "id": 41,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "hidden",
+          "placement": "right",
+          "showLegend": false
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DataSourcePrometheus}"
+          },
+          "editorMode": "code",
+          "expr": "rate(warehousepg_observability_txn_total_queries_executed[5m])",
+          "legendFormat": "QPS (5m rate)",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Query Per Second (5 min rate)",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DataSourcePrometheus}"
+      },
+      "description": "Shows the current number of queries executed per second, calculated as the 1-minute rate of total transactions (commits + rollbacks). ",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 3,
+        "x": 9,
+        "y": 54
+      },
+      "id": 64,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "inverted",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": true,
+        "textMode": "value_and_name",
+        "wideLayout": true
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DataSourcePrometheus}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "rate(warehousepg_observability_txn_total_queries_executed[1m])",
+          "instant": true,
+          "legendFormat": "QPS (1 min rate)",
+          "range": false,
+          "refId": "A"
+        }
+      ],
+      "title": "",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "${DataSourceInfinity}"
+      },
+      "description": "This table shows list of queries running more than 120 seconds.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "left",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "filterable": true,
+            "footer": {
+              "reducers": []
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "noValue": "No Slow Queries Found!",
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -1523,169 +2578,439 @@
         },
         "overrides": [
           {
-            "__systemRef": "hideSeriesFrom",
             "matcher": {
-              "id": "byNames",
-              "options": {
-                "mode": "exclude",
-                "names": [
-                  "Panic"
-                ],
-                "prefix": "All except:",
-                "readOnly": true
-              }
+              "id": "byName",
+              "options": "Duration"
             },
             "properties": [
               {
-                "id": "custom.hideFrom",
+                "id": "thresholds",
                 "value": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": 0
+                    },
+                    {
+                      "color": "orange",
+                      "value": 1800
+                    },
+                    {
+                      "color": "red",
+                      "value": 3600
+                    }
+                  ]
                 }
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-text"
+                }
+              },
+              {
+                "id": "unit",
+                "value": "dtdhms"
               }
             ]
           },
           {
             "matcher": {
               "id": "byName",
-              "options": "Panic"
+              "options": "Query"
             },
             "properties": [
               {
-                "id": "color",
-                "value": {
-                  "fixedColor": "dark-red",
-                  "mode": "fixed"
-                }
+                "id": "custom.width",
+                "value": 288
               }
             ]
           },
           {
             "matcher": {
               "id": "byName",
-              "options": "Fatal"
+              "options": "duration_seconds"
             },
             "properties": [
               {
-                "id": "color",
-                "value": {
-                  "fixedColor": "dark-orange",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Error"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "dark-yellow",
-                  "mode": "fixed"
-                }
+                "id": "custom.footer.reducers",
+                "value": [
+                  "max"
+                ]
               }
             ]
           }
         ]
       },
       "gridPos": {
-        "h": 4,
+        "h": 7,
+        "w": 12,
+        "x": 12,
+        "y": 54
+      },
+      "id": 59,
+      "options": {
+        "cellHeight": "sm",
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "columns": [],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "${DataSourceInfinity}"
+          },
+          "filters": [],
+          "format": "table",
+          "global_query_id": "",
+          "parser": "backend",
+          "refId": "A",
+          "root_selector": "",
+          "source": "url",
+          "type": "json",
+          "url": "/pg_stat_activity",
+          "url_options": {
+            "data": "",
+            "method": "GET"
+          }
+        }
+      ],
+      "title": "Longest Running Query",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "duration_string": true,
+              "query_start": true
+            },
+            "includeByName": {},
+            "indexByName": {
+              "database": 0,
+              "duration_seconds": 1,
+              "duration_string": 2,
+              "pid": 9,
+              "query": 3,
+              "query_start": 4,
+              "state": 5,
+              "user": 6,
+              "wait_event": 7,
+              "wait_event_type": 8
+            },
+            "renameByName": {
+              "database": "Database",
+              "duration_seconds": "Duration",
+              "pid": "Process ID",
+              "query": "Query",
+              "query_start": "Query Start Time",
+              "state": "Query State",
+              "user": "User",
+              "wait_event": "Query Wait Event",
+              "wait_event_type": "Query Wait Event Type"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
         "w": 24,
         "x": 0,
-        "y": 36
+        "y": 61
       },
-      "id": 10,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
+      "id": 28,
+      "panels": [],
+      "title": "Log Info",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "${DataSourceLoki}"
+      },
+      "description": "Displays the total number of LOG-level messages generated across the cluster during the selected dashboard time range.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          }
         },
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "single",
-          "sort": "none"
-        }
+        "overrides": []
       },
-      "pluginVersion": "12.1.1",
+      "gridPos": {
+        "h": 6,
+        "w": 4,
+        "x": 0,
+        "y": 62
+      },
+      "id": 42,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "inverted",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": true,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "12.3.0",
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${Cluster}"
+            "type": "loki",
+            "uid": "${DataSourceLoki}"
           },
-          "disableTextWrap": false,
-          "editorMode": "builder",
-          "exemplar": false,
-          "expr": "warehousepg_observability_log_10m_panic",
-          "fullMetaSearch": false,
-          "includeNullMetadata": true,
-          "interval": "",
-          "legendFormat": "Panic",
-          "range": true,
-          "refId": "A",
-          "useBackend": false
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${Cluster}"
-          },
-          "disableTextWrap": false,
-          "editorMode": "builder",
-          "expr": "warehousepg_observability_log_10m_fatal",
-          "fullMetaSearch": false,
-          "hide": false,
-          "includeNullMetadata": true,
-          "instant": false,
-          "legendFormat": "Fatal",
-          "range": true,
-          "refId": "B",
-          "useBackend": false
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${Cluster}"
-          },
-          "disableTextWrap": false,
-          "editorMode": "builder",
-          "expr": "warehousepg_observability_log_10m_error",
-          "fullMetaSearch": false,
-          "hide": false,
-          "includeNullMetadata": true,
-          "instant": false,
-          "legendFormat": "Error",
-          "range": true,
-          "refId": "C",
-          "useBackend": false
+          "direction": "backward",
+          "editorMode": "code",
+          "expr": "sum(count_over_time({severity=\"LOG\"}[${__range}]))",
+          "queryType": "range",
+          "refId": "A"
         }
       ],
-      "title": "",
-      "type": "timeseries"
+      "title": "LOG Severity Count",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "${DataSourceLoki}"
+      },
+      "description": "Displays the total number of ERROR-level messages generated across the cluster during the selected dashboard time range.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "noValue": "No log with ERROR severity found!",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 4,
+        "x": 4,
+        "y": 62
+      },
+      "id": 48,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "inverted",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": true,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "${DataSourceLoki}"
+          },
+          "direction": "backward",
+          "editorMode": "code",
+          "expr": "sum(count_over_time({severity=\"ERROR\"}[${__range}]))",
+          "queryType": "range",
+          "refId": "A"
+        }
+      ],
+      "title": "ERROR Severity Count",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "${DataSourceLoki}"
+      },
+      "description": "Displays the total number of FATAL-level messages generated across the cluster during the selected dashboard time range",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "noValue": "No log with FATAL severity found!",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 4,
+        "x": 8,
+        "y": 62
+      },
+      "id": 51,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "inverted",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": true,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "${DataSourceLoki}"
+          },
+          "direction": "backward",
+          "editorMode": "code",
+          "expr": "sum(count_over_time({severity=\"FATAL\"}[${__range}]))",
+          "queryType": "range",
+          "refId": "A"
+        }
+      ],
+      "title": "FATAL Severity Count",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "${DataSourceLoki}"
+      },
+      "description": "Displays the total number of PANIC-level messages generated across the cluster during the selected dashboard time range",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "noValue": "No log with PANIC severity found!",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 4,
+        "x": 12,
+        "y": 62
+      },
+      "id": 52,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "inverted",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": true,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "${DataSourceLoki}"
+          },
+          "direction": "backward",
+          "editorMode": "code",
+          "expr": "sum(count_over_time({severity=\"PANIC\"}[${__range}]))",
+          "queryType": "range",
+          "refId": "A"
+        }
+      ],
+      "title": "PANIC Severity Count",
+      "type": "stat"
     }
   ],
   "preload": false,
   "refresh": "5s",
-  "schemaVersion": 41,
-  "tags": [],
+  "schemaVersion": 42,
+  "tags": [
+    "whpg"
+  ],
   "templating": {
     "list": [
       {
         "allowCustomValue": false,
         "current": {
-          "text": "DS_PROMETHEUS",
+          "text": "WHPG Prometheus",
           "value": "DS_PROMETHEUS"
         },
+        "description": "Shows a list of available Prometheus data sources.",
         "includeAll": false,
-        "label": "Cluster",
-        "name": "Cluster",
+        "label": "DataSourcePrometheus",
+        "name": "DataSourcePrometheus",
         "options": [],
         "query": "prometheus",
         "refresh": 1,
@@ -1693,72 +3018,92 @@
         "type": "datasource"
       },
       {
-        "allValue": ".*",
-        "allowCustomValue": true,
+        "allowCustomValue": false,
         "current": {
-          "text": [
-            "seg1",
-            "seg2"
-          ],
-          "value": [
-            "seg1",
-            "seg2"
-          ]
+          "text": "directDbMetrics",
+          "value": "P252102CBA0A337FB"
+        },
+        "label": "DataSourceInfinity",
+        "name": "DataSourceInfinity",
+        "options": [],
+        "query": "yesoreyeram-infinity-datasource",
+        "refresh": 1,
+        "regex": "",
+        "type": "datasource"
+      },
+      {
+        "allowCustomValue": false,
+        "current": {
+          "text": "loki-test",
+          "value": "cf5bcaocw2zggb"
+        },
+        "label": "DataSourceLoki",
+        "name": "DataSourceLoki",
+        "options": [],
+        "query": "loki",
+        "refresh": 1,
+        "regex": "",
+        "type": "datasource"
+      },
+      {
+        "allowCustomValue": false,
+        "current": {
+          "text": "",
+          "value": ""
         },
         "datasource": {
           "type": "prometheus",
-          "uid": "${Cluster}"
+          "uid": "${DataSourcePrometheus}"
         },
-        "definition": "label_values(warehousepg_observability_loadavg_15min, hostname)",
-        "includeAll": true,
-        "label": "Hostname",
-        "multi": true,
-        "name": "hostname",
+        "definition": "label_values(warehousepg_observability_node_filesystem_free_bytes,mountpoint)",
+        "description": "",
+        "label": "HostMountPoints",
+        "name": "HostMountPoints",
         "options": [],
         "query": {
-          "qryType": 5,
-          "query": "label_values(warehousepg_observability_loadavg_15min, hostname)",
+          "qryType": 1,
+          "query": "label_values(warehousepg_observability_node_filesystem_free_bytes,mountpoint)",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 1,
         "regex": "",
+        "sort": 1,
         "type": "query"
       },
       {
-        "allowCustomValue": true,
+        "allowCustomValue": false,
         "current": {
-          "text": "All",
-          "value": "$__all"
+          "text": "",
+          "value": ""
         },
         "datasource": {
           "type": "prometheus",
-          "uid": "${Cluster}"
+          "uid": "${DataSourcePrometheus}"
         },
-        "definition": "label_values(warehousepg_observability_du_used_pct_segments, mountpoint)",
-        "hide": 2,
-        "includeAll": true,
-        "label": "Mountpoint",
-        "multi": true,
-        "name": "mountpoint",
+        "definition": "label_values(warehousepg_observability_node_filesystem_free_bytes,instance)",
+        "description": "",
+        "label": "HostList",
+        "name": "HostList",
         "options": [],
         "query": {
-          "qryType": 5,
-          "query": "label_values(warehousepg_observability_du_used_pct_segments, mountpoint)",
+          "qryType": 1,
+          "query": "label_values(warehousepg_observability_node_filesystem_free_bytes,instance)",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 1,
         "regex": "",
+        "sort": 1,
         "type": "query"
       }
     ]
   },
   "time": {
-    "from": "now-30m",
+    "from": "now-7d",
     "to": "now"
   },
   "timepicker": {},
-  "timezone": "browser",
-  "title": "WarehousePG-Overview",
+  "timezone": "Europe/London",
+  "title": "WarehousePG-Overview-Dashboard",
   "uid": "warehousepg_dashboard_demo_edb",
-  "version": 23
+  "version": 66
 }
