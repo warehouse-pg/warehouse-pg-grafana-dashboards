@@ -598,6 +598,7 @@
           "showLegend": true
         },
         "mergeValues": true,
+        "perPage": 10,
         "rowHeight": 0.85,
         "showValue": "auto",
         "tooltip": {
@@ -2671,7 +2672,7 @@
           "root_selector": "",
           "source": "url",
           "type": "json",
-          "url": "/pg_stat_activity",
+          "url": "/long_running_queries",
           "url_options": {
             "data": "",
             "method": "GET"
@@ -2994,7 +2995,7 @@
     }
   ],
   "preload": false,
-  "refresh": "5s",
+  "refresh": "15m",
   "schemaVersion": 42,
   "tags": [
     "whpg"
@@ -3098,12 +3099,12 @@
     ]
   },
   "time": {
-    "from": "now-7d",
+    "from": "now-12h",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "Europe/London",
   "title": "WarehousePG-Overview-Dashboard",
   "uid": "warehousepg_dashboard_demo_edb",
-  "version": 66
+  "version": 72
 }

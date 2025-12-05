@@ -61,10 +61,13 @@
       "description": "Shows the current status and configuration of all segments in the cluster, including segment roles, preferred roles, synchronization mode, status, and network details",
       "fieldConfig": {
         "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
           "custom": {
             "align": "left",
             "cellOptions": {
-              "type": "auto"
+              "type": "pill"
             },
             "filterable": true,
             "footer": {
@@ -79,10 +82,6 @@
               {
                 "color": "green",
                 "value": 0
-              },
-              {
-                "color": "red",
-                "value": 80
               }
             ]
           }
@@ -91,12 +90,84 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "Hostname"
+              "options": "Segment ID"
             },
             "properties": [
               {
                 "id": "custom.width",
-                "value": 318
+                "value": 120
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "dbid"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 120
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Mode"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 120
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Role"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 120
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Preferred Role"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 140
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Status"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 120
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Port"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 120
               }
             ]
           }
@@ -188,25 +259,21 @@
             "mode": "palette-classic"
           },
           "custom": {
-            "axisBorderShow": true,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "fillOpacity": 80,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
+            "align": "auto",
+            "cellOptions": {
+              "type": "pill"
             },
-            "lineWidth": 1,
-            "scaleDistribution": {
-              "type": "linear"
+            "filterable": true,
+            "footer": {
+              "reducers": []
             },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
+            "inspect": false,
+            "tooltip": {
+              "field": "Database Name",
+              "placement": "auto"
+            },
+            "wrapHeaderText": false,
+            "wrapText": false
           },
           "mappings": [],
           "thresholds": {
@@ -215,14 +282,9 @@
               {
                 "color": "green",
                 "value": 0
-              },
-              {
-                "color": "red",
-                "value": 80
               }
             ]
-          },
-          "unit": "short"
+          }
         },
         "overrides": []
       },
@@ -234,26 +296,9 @@
       },
       "id": 43,
       "options": {
-        "barRadius": 0,
-        "barWidth": 0.97,
-        "fullHighlight": false,
-        "groupWidth": 0.7,
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "right",
-          "showLegend": true
-        },
-        "orientation": "auto",
-        "showValue": "auto",
-        "stacking": "none",
-        "tooltip": {
-          "hideZeros": false,
-          "mode": "single",
-          "sort": "none"
-        },
-        "xTickLabelRotation": 0,
-        "xTickLabelSpacing": 0
+        "cellHeight": "sm",
+        "enablePagination": false,
+        "showHeader": true
       },
       "pluginVersion": "12.3.0",
       "targets": [
@@ -279,7 +324,30 @@
         }
       ],
       "title": "Object Details",
-      "type": "barchart"
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {},
+            "includeByName": {},
+            "indexByName": {
+              "database": 0,
+              "schema_name": 1,
+              "table_count": 2,
+              "total_objects": 4,
+              "view_count": 3
+            },
+            "renameByName": {
+              "database": "Database Name",
+              "schema_name": "Schema Name",
+              "table_count": "Table Count",
+              "total_objects": "Total ",
+              "view_count": "View Count"
+            }
+          }
+        }
+      ],
+      "type": "table"
     },
     {
       "datasource": {
@@ -290,17 +358,21 @@
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "thresholds"
+            "mode": "palette-classic-by-name"
           },
           "custom": {
             "align": "auto",
             "cellOptions": {
-              "type": "auto"
+              "type": "pill"
             },
+            "filterable": true,
             "footer": {
               "reducers": []
             },
-            "inspect": false
+            "inspect": false,
+            "tooltip": {
+              "field": "Table Name"
+            }
           },
           "mappings": [],
           "thresholds": {
@@ -309,10 +381,6 @@
               {
                 "color": "green",
                 "value": 0
-              },
-              {
-                "color": "red",
-                "value": 80
               }
             ]
           }
@@ -362,13 +430,15 @@
             "excludeByName": {},
             "includeByName": {},
             "indexByName": {
-              "dead_row_percentage": 4,
-              "dead_rows": 3,
-              "live_rows": 2,
-              "schemaname": 0,
-              "table_name": 1
+              "database": 0,
+              "dead_row_percentage": 5,
+              "dead_rows": 4,
+              "live_rows": 3,
+              "schemaname": 1,
+              "table_name": 2
             },
             "renameByName": {
+              "database": "DataBase Name",
               "dead_row_percentage": "Dead Rows (%)",
               "dead_rows": "Dead Rows Count",
               "live_rows": "Live Rows Count",
@@ -389,12 +459,12 @@
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "thresholds"
+            "mode": "palette-classic"
           },
           "custom": {
             "align": "left",
             "cellOptions": {
-              "type": "auto"
+              "type": "pill"
             },
             "filterable": true,
             "footer": {
@@ -474,9 +544,11 @@
             "includeByName": {},
             "indexByName": {},
             "renameByName": {
+              "database": "Database Name",
               "schema_name": "Schema Name",
               "table_name": "Table Name",
-              "total_bytes": "Table Size"
+              "total_bytes": "Table Size",
+              "total_size_readable": ""
             }
           }
         }
@@ -492,13 +564,14 @@
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "thresholds"
+            "mode": "palette-classic"
           },
           "custom": {
             "align": "left",
             "cellOptions": {
-              "type": "auto"
+              "type": "pill"
             },
+            "filterable": true,
             "footer": {
               "reducers": []
             },
@@ -563,11 +636,13 @@
             "excludeByName": {},
             "includeByName": {},
             "indexByName": {
-              "dead_rows": 2,
-              "schemaname": 0,
-              "table_name": 1
+              "database": 0,
+              "dead_rows": 3,
+              "schemaname": 1,
+              "table_name": 2
             },
             "renameByName": {
+              "database": "Database Name",
               "dead_rows": "Count(Dead Tuples)",
               "schemaname": "Schema Name",
               "table_name": "Table Name"
@@ -586,13 +661,14 @@
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "thresholds"
+            "mode": "palette-classic"
           },
           "custom": {
             "align": "left",
             "cellOptions": {
-              "type": "auto"
+              "type": "pill"
             },
+            "filterable": true,
             "footer": {
               "reducers": []
             },
@@ -657,12 +733,14 @@
             "excludeByName": {},
             "includeByName": {},
             "indexByName": {
-              "dead_rows": 2,
-              "live_rows": 3,
-              "schemaname": 0,
-              "table_name": 1
+              "database": 0,
+              "dead_rows": 3,
+              "live_rows": 4,
+              "schemaname": 1,
+              "table_name": 2
             },
             "renameByName": {
+              "database": "Database",
               "dead_rows": "Dead Rows Count",
               "live_rows": "Live Rows Count",
               "schemaname": "Schema Name",
@@ -682,13 +760,14 @@
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "thresholds"
+            "mode": "palette-classic"
           },
           "custom": {
             "align": "auto",
             "cellOptions": {
-              "type": "auto"
+              "type": "pill"
             },
+            "filterable": true,
             "footer": {
               "reducers": []
             },
@@ -701,50 +780,11 @@
               {
                 "color": "green",
                 "value": 0
-              },
-              {
-                "color": "red",
-                "value": 80
               }
             ]
           }
         },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Seq to Index Scan Ratio"
-            },
-            "properties": [
-              {
-                "id": "custom.cellOptions",
-                "value": {
-                  "type": "color-background"
-                }
-              },
-              {
-                "id": "thresholds",
-                "value": {
-                  "mode": "absolute",
-                  "steps": [
-                    {
-                      "color": "green",
-                      "value": 0
-                    },
-                    {
-                      "color": "orange",
-                      "value": 5
-                    },
-                    {
-                      "color": "red",
-                      "value": 20
-                    }
-                  ]
-                }
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "gridPos": {
         "h": 8,
@@ -788,16 +828,18 @@
             "excludeByName": {},
             "includeByName": {},
             "indexByName": {
-              "count_idx_scan": 3,
-              "count_seq_scan": 4,
-              "row_count": 5,
-              "schema_name": 0,
-              "seq_to_idx_ratio": 2,
-              "table_name": 1
+              "count_idx_scan": 4,
+              "count_seq_scan": 5,
+              "database": 0,
+              "row_count": 6,
+              "schema_name": 1,
+              "seq_to_idx_ratio": 3,
+              "table_name": 2
             },
             "renameByName": {
               "count_idx_scan": "No of Index Scan",
               "count_seq_scan": "No of Seq Scan",
+              "database": "Database",
               "row_count": "Row Count",
               "schema_name": "Schema Name",
               "seq_to_idx_ratio": "Seq to Index Scan Ratio",
@@ -817,18 +859,19 @@
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "thresholds"
+            "mode": "palette-classic"
           },
           "custom": {
             "align": "left",
             "cellOptions": {
-              "type": "auto"
+              "type": "pill"
             },
             "filterable": true,
             "footer": {
               "reducers": []
             },
-            "inspect": false
+            "inspect": false,
+            "wrapHeaderText": false
           },
           "mappings": [],
           "thresholds": {
@@ -837,10 +880,6 @@
               {
                 "color": "green",
                 "value": 0
-              },
-              {
-                "color": "red",
-                "value": 80
               }
             ]
           }
@@ -890,13 +929,15 @@
             "excludeByName": {},
             "includeByName": {},
             "indexByName": {
-              "columns_with_stats": 3,
-              "schema_name": 0,
-              "table_name": 1,
-              "total_columns": 2
+              "columns_with_stats": 4,
+              "database": 0,
+              "schema_name": 1,
+              "table_name": 2,
+              "total_columns": 3
             },
             "renameByName": {
               "columns_with_stats": "Columns With Stats",
+              "database": "Database Name",
               "schema_name": "Schema Name",
               "table_name": "Table Name",
               "total_columns": "Total Columms"
@@ -927,10 +968,13 @@
       "description": "Shows the top 20 queries generating workfile spills in the cluster.  If no active spill queries exist, a placeholder row is shown to indicate zero spill activity.",
       "fieldConfig": {
         "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
           "custom": {
             "align": "left",
             "cellOptions": {
-              "type": "auto"
+              "type": "pill"
             },
             "filterable": true,
             "footer": {
@@ -2401,5 +2445,5 @@
   "timezone": "Europe/London",
   "title": "WarehousePG-Detailed-Dashboard",
   "uid": "warehousepg_detailed_view_edb",
-  "version": 36
+  "version": 46
 }
