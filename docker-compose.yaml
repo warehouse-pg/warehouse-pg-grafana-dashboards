@@ -1,50 +1,61 @@
 
 services:
-  # ---------------------------
-  # Prometheus service
-  # ---------------------------
-  prometheus-whpg:
+  # ----------------------------------------------------------------
+  # PROMETHEUS - Time Series Monitoring and Alerting
+  # ----------------------------------------------------------------
+  prometheus:
     image: prom/prometheus:v3.5.0
-    container_name: prometheus-whpg
-    ports:
-      - "9092:9090"  # Host port 9092 maps to Prometheus container port 9090
+    container_name: prometheus
     volumes:
-      - ./prometheus/:/etc/prometheus/  # Local config directory mounted into container
-      - prometheus:/prometheus          # Named volume to persist metrics/TSDB
+      - ./prometheus/prometheus.yaml:/etc/prometheus/prometheus.yaml
+      - prometheus_data:/prometheus
     command:
-      - '--config.file=/etc/prometheus/prometheus.yaml'  # Config file path
-      - '--storage.tsdb.path=/prometheus'                # TSDB data storage path
-      - '--storage.tsdb.retention.time=30d'             # Keep 30 days of metrics
-    restart: unless-stopped
-    # # --- Use this on Linux to scrape other local containers---
-    # extra_hosts:
-    #   - "host.docker.internal:host-gateway"
-    # # ------------------------
-
-  # ---------------------------
-  # Grafana service
-  # ---------------------------
-  grafana-whpg:
-    image: grafana/grafana:12.1.1
-    container_name: grafana-whpg
-    depends_on:
-      - prometheus-whpg  # Ensure Prometheus starts before Grafana
+      - '--config.file=/etc/prometheus/prometheus.yaml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--storage.tsdb.retention.time=30d'
+      - '--web.enable-remote-write-receiver'
     ports:
-      - "3001:3000"  # Host port 3001 maps to Grafana container port 3000
-    environment:
-      GF_SECURITY_ADMIN_USER: admin         # Grafana admin username
-      GF_SECURITY_ADMIN_PASSWORD: secret    # Grafana admin password
-      GF_USERS_ALLOW_SIGN_UP: false         # Disable public signup
-    volumes:
-      - grafana:/var/lib/grafana            # Persistent Grafana DB
-      - ./grafana/dashboards.yaml:/etc/grafana/provisioning/dashboards/dashboards.yaml
-      - ./grafana/datasources:/etc/grafana/provisioning/datasources
-      - ./grafana/dashboards:/var/lib/grafana/dashboards
+      - "9090:9090"
     restart: unless-stopped
 
-# ---------------------------
-# Named volumes for persistence
-# ---------------------------
+  # ----------------------------------------------------------------
+  # GRAFANA - Visualization and Dashboarding
+  # ----------------------------------------------------------------
+  grafana:
+    image: grafana/grafana:12.3
+    container_name: grafana
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_INSTALL_PLUGINS=yesoreyeram-infinity-datasource
+    ports:
+      - "3000:3000"
+    depends_on:
+      - prometheus
+    restart: unless-stopped
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./grafana/provisioning:/etc/grafana/provisioning
+
+  # ----------------------------------------------------------------
+  # LOKI - Log Aggregation System
+  # ----------------------------------------------------------------
+  loki:
+    image: grafana/loki:3.5
+    container_name: loki
+    restart: unless-stopped
+    ports:
+      - "3100:3100"
+    command:
+      - '-config.file=/etc/loki/config.yaml'
+    volumes:
+      - ./loki/loki-config.yaml:/etc/loki/config.yaml
+      - loki_data:/loki
+
+# ----------------------------------------------------------------
+# VOLUMES - Persistent Storage
+# ----------------------------------------------------------------
 volumes:
-  prometheus:  # Prometheus TSDB
-  grafana:    # Grafana DB and dashboards
+  loki_data:
+  prometheus_data:
+  grafana_data:

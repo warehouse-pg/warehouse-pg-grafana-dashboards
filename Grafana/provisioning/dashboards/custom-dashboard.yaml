@@ -1,0 +1,14 @@
+# Specify the configuration file schema version
+apiVersion: 1
+
+# Define a list of dashboard providers
+providers:
+  - name: 'custom-dashboards'
+    orgId: 1
+    folder: ''
+    type: file
+    disableDeletion: false
+    updateIntervalSeconds: 30
+    options:
+      # The absolute file path within the Grafana container where the JSON dashboard files are located.
+      path: /etc/grafana/provisioning/dashboards

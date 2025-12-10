@@ -1,16 +1,16 @@
 global:
   scrape_interval: 15s
-  evaluation_interval: 15s
 
 scrape_configs:
 
-  # -------------------------------------------------
-  # Job: whpg_exporter running locally on host machine
-  # -------------------------------------------------
-  - job_name: 'whpg_exporter'  # A unique name for this scrape job
+  - job_name: 'prometheus' # A unique name for this job
     static_configs:
-      - targets: ['host.docker.internal:9187']
-        # List of endpoints to scrape metrics from
+      - targets: ['localhost:9090']
+
+  # - job_name: 'whpg_exporter'  # A unique name for this scrape job
+  #   static_configs:
+  #     - targets: ['host.docker.internal:9187']
+  #     # List of endpoints to scrape metrics from
         # 'host.docker.internal' allows the containerized Prometheus
         # to reach services running on the host (macOS/Windows)
         # Port 9187 must be the host-mapped port of your exporter

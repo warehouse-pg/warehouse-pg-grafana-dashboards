@@ -1,15 +1,9 @@
-# WHPG Grafana & Prometheus Monitoring Setup
+# WHPG Monitoring Setup
 
-> [!CAUTION]
-> This feature is in Technical Preview and not yet recommended for production deployments. We recommend that you try this feature in test or development environments.
+This repository provides a **ready-to-run monitoring stack** for WarehousePG using **Prometheus**, **Loki** and **Grafana**. It includes pre-configured dashboards, data sources, and support for custom exporters. This setup runs an independent Prometheus, Loki and Grafana stack using Docker Compose.
 
-This repository provides a **ready-to-run monitoring stack** for WarehousePG using **Prometheus** and **Grafana**. It includes pre-configured dashboards, data sources, and support for custom exporters. This setup runs an independent Prometheus and Grafana stack using Docker Compose.
-
-It is designed to be a central monitoring point, capable of scraping metrics from:
-
-* Other Docker containers running on the same host (e.g., exporters from another compose stack).
-* Remote servers (e.g., EC2 instances on AWS).
-
+`NOTE` 
+ -This monitoring stack only visualizes data; it does not collect it. To see operational data on the dashboards, user must first install and configure the separate WarehousePG Observability Suite (including the Extension, Collector, and Exporter components) to ensure metrics and logs are correctly shipped to the Prometheus and Loki services within this environment.
 
 ---
 
@@ -18,9 +12,8 @@ It is designed to be a central monitoring point, capable of scraping metrics fro
 1. [Overview](#overview)
 2. [Prerequisites](#prerequisites)
 3. [Setup Instructions](#setup-instructions)
-4. [Configuring a New Exporter](#configuring-a-new-exporter)
-5. [The Checklist](#the-checklist)
-6. [Common Docker Commands](#common-docker-commands)
+4. [The Checklist](#the-checklist)
+5. [Common Docker Commands](#common-docker-commands)
 
 ---
 
@@ -30,17 +23,18 @@ This stack consists of:
 
 | Service           | Image / Version        | Purpose                                     |
 | ----------------- | ---------------------- | --------------------------------------------|
-| `prometheus-whpg` | prom/prometheus:v3.5.0 | Collects metrics from WarehousePG exporters. Accessible at http://localhost:9092 |
-| `grafana-whpg`    | grafana/grafana:12.1.1 | Visualization and dashboards. Accessible at http://localhost:3001 (User: admin, Pass: secret)                |
+| `prometheus` | prom/prometheus:v3.5.0 | Receives data from WarehousePG Exporter, Collector and Loki. Accessible at http://localhost:9090 |
+| `loki` | grafana/loki:3.5 | Receives metrics from WarehousePG Collector.|
+| `grafana`    | grafana/grafana:12.3 | Visualization and dashboards. Accessible at http://localhost:3000 (User: admin, Pass: admin)                |
 
-Prometheus scrapes metrics from one or more `whpg_exporter` instances. Grafana reads data from Prometheus and displays it on  pre-configured dashboards.
+
 
 ---
 
 ## Prerequisites
 
 * Docker Desktop (Mac/Windows) or Docker Engine (Linux)
-* Network connectivity between Docker containers and exporter targets.
+* Network connectivity
 
 ---
 
@@ -61,73 +55,34 @@ Prometheus scrapes metrics from one or more `whpg_exporter` instances. Grafana r
 
 3. **Access Grafana**
 
-   * URL: `http://localhost:3001`
+   * URL: `http://localhost:3000`
    * Default credentials:
 
      * User: `admin`
-     * Password: `secret`
+     * Password: `admin`
 
-4. **Prometheus** is accessible at `http://localhost:9092`.
+4. **Prometheus** is accessible at `http://localhost:9090`.
 
 ---
 
-## Configuring a new Exporter
-
-
-
-**Update Prometheus configuration** (`prometheus/prometheus.yaml`) to configure a new exporter. After any change to prometheus.yaml, you must restart Prometheus:
- ```
- docker-compose up -d --force-recreate prometheus-whpg
-```
-
-***Case 1: Scraping Local Docker Exporters (Same Host, Different Compose)***
-   ```yaml
-   scrape_configs:
-     - job_name: 'whpg_exporter'
-       static_configs:
-       # Use host.docker.internal and the HOST port (9187)
-         - targets: ['host.docker.internal:9187']
-   ```
-* Use host.docker.internal to allow the Prometheus container to access the host's ports.
-* Port 9187 must match the container port the exporter exposes.
-* On Linux, Docker containers cannot automatically resolve host.docker.internal. To scrape exporters running on the same Linux host, add this to docker-compose.yml under the Prometheus service:
-
-   ```
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
-  ```
-***Case 2: Scraping a Remote Exporter (e.g., on AWS)***
-
-Use the server's public IP address and the exposed port. Ensure the firewall or Security Group allows inbound traffic from the Prometheus host/container.Then, **restart Prometheus** to pick up the changes:
-
-   ```
-     scrape_configs:
-     - job_name: 'remote-aws-node'
-       static_configs:
-        # Use the PUBLIC IP of the AWS server and its exporter port
-        - targets: ['54.12.34.56:9187']
-   ```
----
 
 ## The Checklist
 
-For the entire system to work, these four connections must be correct.
+For the entire system to work, following connections must be correct.
 
-1. **Prometheus <-> Exporter (Network)** 
+1. **Grafana <-> Prometheus (Datasource URL)** 
 
-Prometheus must be able to reach the exporter IP/host and port. On AWS, ensure Security Groups allow access; on Linux, extra_hosts may be required for host services
+The url in grafana/datasources/datasource.yaml must match the service: name in docker-compose.yaml (prometheus) and its internal port (9090). This is how Grafana finds the Prometheus server.
 
-2. **Prometheus <-> Config (Scraping)** 
+2. **Grafana <-> Loki (Datasource URL)** 
 
-The targets list in prometheus.yaml must match the exact container/service names, hostnames, or IPs and ports of exporters. This is how Prometheus finds the metrics endpoints.
+The url for Loki in grafana/datasources/datasource.yaml must match the Loki service: name in docker-compose.yaml (Loki) and its internal port (3100). This is how Grafana finds the Loki server.
 
-3. **Grafana <-> Prometheus (Datasource URL)** 
+3. **Grafana <-> Exporter (Datasource URL)** 
 
-The url in grafana/datasources/datasource.yaml must match the service: name in docker-compose.yaml (prometheus-whpg) and its internal port (9090). This is how Grafana finds the Prometheus server.
+The Exporter extends an endpoint to Grafana, using which the user can get predefined live metrics from the database. This url is defined in the grafana/datasources/datasource.yaml , and  is of the form  `http://<exporter-ip>:9187/api/v1/query`.
 
-4. **Grafana <-> Dashboard (Datasource UID)** 
-
-The UID in grafana/datasources/datasource.yaml must match the datasource UID referenced in dashboards. This ensures dashboards load with the correct datasource automatically.
+4. Remote write should be enabled on the Prometheus, it is done by including `--web.enable-remote-write-receiver` while defining Prometheus service in the docker compose. 
 
 ## Common Docker Commands
 
@@ -146,7 +101,7 @@ The UID in grafana/datasources/datasource.yaml must match the datasource UID ref
 3. Restart a single service: (e.g., to apply changes to prometheus.yaml)
 
    ```
-   docker-compose restart prometheus-whpg
+   docker-compose restart prometheus
    ```
 
 4. View all running containers:
@@ -164,6 +119,8 @@ The UID in grafana/datasources/datasource.yaml must match the datasource UID ref
 5. View live logs for one service: (Press Ctrl+C to exit)
 
    ```
-   docker-compose logs -f grafana-whpg
+   docker-compose logs -f grafana
+   docker-compose logs -f prometheus
+   docker-compose logs -f loki
    ```
 
