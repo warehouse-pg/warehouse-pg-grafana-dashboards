@@ -1,0 +1,34 @@
+# Specify the configuration file schema version
+apiVersion: 1
+
+datasources:
+  # ----------------------------------------------------------------
+  # PROMETHEUS Data Source (Metrics)
+  # ----------------------------------------------------------------
+  - name: prometheus
+    type: prometheus
+    access: proxy
+    url: http://prometheus:9090 # http://<prometheus-ip>:9090
+    basicAuth: false
+    isDefault: false
+    editable: true
+
+  # ----------------------------------------------------------------
+  # LOKI Data Source (Logs)
+  # ----------------------------------------------------------------
+  - name: Loki
+    type: loki
+    access: proxy
+    url: http://loki:3100 # http://<loki-ip>:3100 
+    basicAuth: false 
+    isDefault: false
+    editable: true
+
+  # - name: LiveMetrics
+  #   type: yesoreyeram-infinity-datasource
+  #   access: proxy
+  #   url: http://<exporter-ip>:9187/api/v1/query
+  #   editable: true
+  #   jsonData:
+  #     allowedHosts:
+  #       - http://<exporter-ip>:9187/api/v1/query
