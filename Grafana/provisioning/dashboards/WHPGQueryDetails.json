@@ -1695,7 +1695,6 @@
             "inspect": false
           },
           "mappings": [],
-          "noValue": "No Long Running Queries",
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -1820,7 +1819,6 @@
             "inspect": false
           },
           "mappings": [],
-          "noValue": "No Blocked Queries",
           "thresholds": {
             "mode": "absolute",
             "steps": [
